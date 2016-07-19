@@ -1,0 +1,631 @@
+Archive member included because of file (symbol)
+
+../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+                              bin/test_main.o (am_bsp_low_power_init)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+                              bin/test_main.o (am_hal_clkgen_sysclk_select)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_global.o)
+                              ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o) (g_ui32HALflags)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+                              ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o) (am_hal_itm_not_busy)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+                              ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o) (am_hal_mcuctrl_bandgap_disable)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+                              ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o) (am_hal_rtc_osc_select)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+                              bin/test_main.o (am_hal_sysctrl_sleep)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+                              ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o) (am_hal_tpiu_enable)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                              bin/test_main.o (am_hal_uart_config)
+../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+                              ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o) (am_hal_vcomp_disable)
+c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/armv7e-m/softfp/libgcc.a(_arm_truncdfsf2.o)
+                              bin/am_util_stdio.o (__aeabi_d2f)
+
+Allocating common symbols
+Common symbol       size              file
+
+g_pfnCharPrint      0x4               bin/am_util_stdio.o
+g_sTxBuffer         0x14              ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+rxBuffer            0x80              bin/test_main.o
+g_sRxBuffer         0x14              ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+
+Discarded input sections
+
+ .text          0x00000000        0x0 bin/test_main.o
+ .data          0x00000000        0x0 bin/test_main.o
+ .bss           0x00000000        0x0 bin/test_main.o
+ .text.uart_disable
+                0x00000000       0x78 bin/test_main.o
+ .text          0x00000000        0x0 bin/am_util_delay.o
+ .data          0x00000000        0x0 bin/am_util_delay.o
+ .bss           0x00000000        0x0 bin/am_util_delay.o
+ .text.am_util_delay_cycles
+                0x00000000        0x8 bin/am_util_delay.o
+ .text.am_util_delay_ms
+                0x00000000       0x30 bin/am_util_delay.o
+ .text.am_util_delay_us
+                0x00000000       0x30 bin/am_util_delay.o
+ .debug_info    0x00000000      0x105 bin/am_util_delay.o
+ .debug_abbrev  0x00000000       0xa1 bin/am_util_delay.o
+ .debug_aranges
+                0x00000000       0x30 bin/am_util_delay.o
+ .debug_ranges  0x00000000       0x20 bin/am_util_delay.o
+ .debug_line    0x00000000      0x111 bin/am_util_delay.o
+ .debug_str     0x00000000      0x22c bin/am_util_delay.o
+ .comment       0x00000000       0x71 bin/am_util_delay.o
+ .ARM.attributes
+                0x00000000       0x37 bin/am_util_delay.o
+ .debug_frame   0x00000000       0x60 bin/am_util_delay.o
+ .text          0x00000000        0x0 bin/am_util_faultisr.o
+ .data          0x00000000        0x0 bin/am_util_faultisr.o
+ .bss           0x00000000        0x0 bin/am_util_faultisr.o
+ .text          0x00000000        0x0 bin/am_util_stdio.o
+ .data          0x00000000        0x0 bin/am_util_stdio.o
+ .bss           0x00000000        0x0 bin/am_util_stdio.o
+ .text.am_util_stdio_strtoul
+                0x00000000      0x108 bin/am_util_stdio.o
+ .text.am_util_stdio_textmode_set
+                0x00000000       0x28 bin/am_util_stdio.o
+ .text.am_util_stdio_sprintf
+                0x00000000       0x2c bin/am_util_stdio.o
+ .text          0x00000000        0x0 bin/startup_gcc.o
+ .data          0x00000000        0x0 bin/startup_gcc.o
+ .bss           0x00000000        0x0 bin/startup_gcc.o
+ .text.am_fault_isr
+                0x00000000        0x8 bin/startup_gcc.o
+ .text          0x00000000        0x0 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .data          0x00000000        0x0 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .bss           0x00000000        0x0 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .text.am_bsp_iom_spi_pins_enable
+                0x00000000       0x6c ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .text.am_bsp_iom_spi_pins_disable
+                0x00000000       0x6c ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .text.am_bsp_iom_i2c_pins_enable
+                0x00000000       0x58 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .text.am_bsp_iom_i2c_pins_disable
+                0x00000000       0x50 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .text.am_bsp_debug_printf_enable
+                0x00000000       0x44 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .text.am_bsp_debug_printf_disable
+                0x00000000       0x50 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .data.am_bsp_psButtons
+                0x00000000       0x30 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .data.am_bsp_psLEDs
+                0x00000000       0x20 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_int_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_int_enable_get
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_int_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_int_set
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_int_status_get
+                0x00000000       0x1c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_int_clear
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_osc_start
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_clkout_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_clkout_disable
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_hfrc_adjust_enable
+                0x00000000       0x14 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text.am_hal_clkgen_hfrc_adjust_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_global.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_global.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_global.o)
+ .bss.g_ui32HALflags
+                0x00000000        0x4 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_global.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_global.o)
+ .ARM.attributes
+                0x00000000       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_global.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_itm_delay_cycles
+                0x00000000        0x8 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_delay_us
+                0x00000000       0x20 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_enable
+                0x00000000       0x58 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_disable
+                0x00000000       0x5c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_not_busy
+                0x00000000       0x2c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_trace_port_enable
+                0x00000000       0x14 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_trace_port_disable
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_stimulus_not_busy
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_stimulus_reg_word_write
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_stimulus_reg_short_write
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_stimulus_reg_byte_write
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_sync_send
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_print_not_busy
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text.am_hal_itm_print
+                0x00000000       0x58 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .data.g_pui32StimReg
+                0x00000000        0x4 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .bss.g_am_hal_itm_print_registers
+                0x00000000        0x4 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .ARM.attributes
+                0x00000000       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_itm.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_device_info_get
+                0x00000000       0x54 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_fault_capture_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_fault_capture_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_fault_status
+                0x00000000       0x48 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_flash_power_set
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_sram_power_set
+                0x00000000       0x14 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_bandgap_enable
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text.am_hal_mcuctrl_bucks_disable
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .rodata.am_hal_mcuctrl_flash_size
+                0x00000000       0x1c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .rodata.am_hal_mcuctrl_sram_size
+                0x00000000       0x1c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_osc_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_time_12hour
+                0x00000000       0x14 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_int_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_int_enable_get
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_int_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_int_set
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_int_clear
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_int_status_get
+                0x00000000       0x24 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_time_set
+                0x00000000      0x134 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_time_get
+                0x00000000       0xe8 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_alarm_interval_set
+                0x00000000       0x58 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_alarm_set
+                0x00000000      0x110 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text.am_hal_rtc_alarm_get
+                0x00000000       0xb4 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .text.am_hal_sysctrl_fpu_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .text.am_hal_sysctrl_fpu_disable
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .text.am_hal_sysctrl_fpu_stacking_enable
+                0x00000000       0x1c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .text.am_hal_sysctrl_fpu_stacking_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .text.am_hal_sysctrl_reset
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_clock_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_clock_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_port_width_set
+                0x00000000       0x14 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_supported_port_width_get
+                0x00000000       0x24 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_port_width_get
+                0x00000000       0x24 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_configure
+                0x00000000       0x3c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_enable
+                0x00000000       0x50 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text.am_hal_tpiu_disable
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .ARM.attributes
+                0x00000000       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_tpiu.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.config_baudrate
+                0x00000000       0x30 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_status_get
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_int_status_get
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_int_clear
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_int_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_int_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_int_enable_get
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_clock_disable
+                0x00000000       0x20 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_char_transmit_polled
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_char_receive_polled
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.ring_buffer_init
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.ring_buffer_write
+                0x00000000       0x40 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.ring_buffer_read
+                0x00000000       0x3c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_init_buffered
+                0x00000000       0x38 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_service_buffered
+                0x00000000       0xa4 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_char_transmit_buffered
+                0x00000000       0x48 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_string_transmit_buffered
+                0x00000000       0x68 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text.am_hal_uart_char_receive_buffered
+                0x00000000       0x50 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ COMMON         0x00000000       0x28 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .text          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .data          0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .bss           0x00000000        0x0 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_config
+                0x00000000       0x1c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_dac_level_set
+                0x00000000       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_read
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_enable
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_int_status_get
+                0x00000000       0x1c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_int_set
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_int_clear
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_int_enable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_int_enable_get
+                0x00000000        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .text.am_hal_vcomp_int_disable
+                0x00000000       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .data          0x00000000        0x0 c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/armv7e-m/softfp/libgcc.a(_arm_truncdfsf2.o)
+ .bss           0x00000000        0x0 c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/armv7e-m/softfp/libgcc.a(_arm_truncdfsf2.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x00000000         0x00080000         xr
+SRAM             0x10000000         0x00010000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000     0x13d8
+ *(.isr_vector)
+ .isr_vector    0x00000000       0x80 bin/startup_gcc.o
+                0x00000000                g_am_pfnVectors
+ *(.text*)
+ .text.uart_init
+                0x00000080       0x84 bin/test_main.o
+                0x00000080                uart_init
+ .text.uart_transmit_delay
+                0x00000104       0x18 bin/test_main.o
+                0x00000104                uart_transmit_delay
+ .text.print_test_menu
+                0x0000011c       0xa8 bin/test_main.o
+                0x0000011c                print_test_menu
+ .text.readCmd  0x000001c4       0x2c bin/test_main.o
+                0x000001c4                readCmd
+ .text.processCmd
+                0x000001f0       0x48 bin/test_main.o
+                0x000001f0                processCmd
+ .text.main     0x00000238       0x40 bin/test_main.o
+                0x00000238                main
+ .text.am_fault_isr
+                0x00000278       0x10 bin/am_util_faultisr.o
+                0x00000278                am_fault_isr
+ .text.getStackedReg
+                0x00000288        0xc bin/am_util_faultisr.o
+                0x00000288                getStackedReg
+ .text.am_util_faultisr_collect_data
+                0x00000294       0xc4 bin/am_util_faultisr.o
+                0x00000294                am_util_faultisr_collect_data
+ .text.am_util_stdio_printf_init
+                0x00000358       0x1c bin/am_util_stdio.o
+                0x00000358                am_util_stdio_printf_init
+ .text.divu64_10
+                0x00000374      0x1a8 bin/am_util_stdio.o
+ .text.ndigits_in_u64
+                0x0000051c       0x44 bin/am_util_stdio.o
+ .text.ndigits_in_i64
+                0x00000560       0x3c bin/am_util_stdio.o
+ .text.ndigits_in_hex
+                0x0000059c       0x4c bin/am_util_stdio.o
+ .text.decstr_to_u
+                0x000005e8       0x64 bin/am_util_stdio.o
+ .text.uint64_to_str
+                0x0000064c       0x94 bin/am_util_stdio.o
+ .text.uint64_to_hexstr
+                0x000006e0       0xc8 bin/am_util_stdio.o
+ .text.ftoa     0x000007a8      0x1d8 bin/am_util_stdio.o
+ .text.am_util_stdio_vsprintf
+                0x00000980      0x548 bin/am_util_stdio.o
+                0x00000980                am_util_stdio_vsprintf
+ .text.am_util_stdio_printf
+                0x00000ec8       0x3c bin/am_util_stdio.o
+                0x00000ec8                am_util_stdio_printf
+ .text.am_util_stdio_terminal_clear
+                0x00000f04       0x1c bin/am_util_stdio.o
+                0x00000f04                am_util_stdio_terminal_clear
+ .text.am_reset_isr
+                0x00000f20       0x64 bin/startup_gcc.o
+                0x00000f20                am_reset_isr
+ .text.am_nmi_isr
+                0x00000f84        0x8 bin/startup_gcc.o
+                0x00000f84                am_nmi_isr
+ .text.am_default_isr
+                0x00000f8c        0x8 bin/startup_gcc.o
+                0x00000f8c                am_adc_isr
+                0x00000f8c                am_software14_isr
+                0x00000f8c                am_clkgen_isr
+                0x00000f8c                am_uart_isr
+                0x00000f8c                am_ctimer_isr
+                0x00000f8c                am_svcall_isr
+                0x00000f8c                am_ioslave_acc_isr
+                0x00000f8c                am_software15_isr
+                0x00000f8c                am_iomaster1_isr
+                0x00000f8c                am_brownout_isr
+                0x00000f8c                am_vcomp_isr
+                0x00000f8c                am_usagefault_isr
+                0x00000f8c                am_gpio_isr
+                0x00000f8c                am_debugmon_isr
+                0x00000f8c                am_software12_isr
+                0x00000f8c                am_software13_isr
+                0x00000f8c                am_ioslave_ios_isr
+                0x00000f8c                am_systick_isr
+                0x00000f8c                am_watchdog_isr
+                0x00000f8c                am_iomaster0_isr
+                0x00000f8c                am_default_isr
+                0x00000f8c                am_pendsv_isr
+ .text.am_bsp_low_power_init
+                0x00000f94       0x28 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+                0x00000f94                am_bsp_low_power_init
+ .text.am_hal_clkgen_sysclk_select
+                0x00000fbc       0x20 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+                0x00000fbc                am_hal_clkgen_sysclk_select
+ .text.am_hal_clkgen_sysclk_get
+                0x00000fdc       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+                0x00000fdc                am_hal_clkgen_sysclk_get
+ .text.am_hal_clkgen_osc_stop
+                0x00000ff4       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+                0x00000ff4                am_hal_clkgen_osc_stop
+ .text.am_hal_mcuctrl_bandgap_disable
+                0x00001004       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+                0x00001004                am_hal_mcuctrl_bandgap_disable
+ .text.am_hal_mcuctrl_bucks_enable
+                0x00001014       0x2c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+                0x00001014                am_hal_mcuctrl_bucks_enable
+ .text.am_hal_rtc_osc_select
+                0x00001040       0x1c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+                0x00001040                am_hal_rtc_osc_select
+ .text.am_hal_rtc_osc_disable
+                0x0000105c       0x10 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+                0x0000105c                am_hal_rtc_osc_disable
+ .text.am_hal_sysctrl_sleep
+                0x0000106c       0x34 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+                0x0000106c                am_hal_sysctrl_sleep
+ .text.am_hal_uart_config
+                0x000010a0       0x6c ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x000010a0                am_hal_uart_config
+ .text.am_hal_uart_enable
+                0x0000110c       0x14 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x0000110c                am_hal_uart_enable
+ .text.am_hal_uart_disable
+                0x00001120       0x14 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x00001120                am_hal_uart_disable
+ .text.am_hal_uart_clock_enable
+                0x00001134       0x28 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x00001134                am_hal_uart_clock_enable
+ .text.am_hal_uart_fifo_config
+                0x0000115c       0x18 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x0000115c                am_hal_uart_fifo_config
+ .text.am_hal_uart_flags_get
+                0x00001174        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x00001174                am_hal_uart_flags_get
+ .text.am_hal_uart_string_transmit_polled
+                0x00001180       0x28 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x00001180                am_hal_uart_string_transmit_polled
+ .text.am_hal_uart_line_receive_polled
+                0x000011a8       0x40 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+                0x000011a8                am_hal_uart_line_receive_polled
+ .text.am_hal_vcomp_disable
+                0x000011e8        0xc ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+                0x000011e8                am_hal_vcomp_disable
+ .text          0x000011f4       0xa0 c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/armv7e-m/softfp/libgcc.a(_arm_truncdfsf2.o)
+                0x000011f4                __truncdfsf2
+                0x000011f4                __aeabi_d2f
+ *(.rodata*)
+ .rodata        0x00001294       0xfc bin/test_main.o
+ .rodata        0x00001390       0x28 bin/am_util_stdio.o
+ .rodata.CSWTCH.2
+                0x000013b8       0x20 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+                0x000013d8                _etext = .
+
+.glue_7         0x000013d8        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x000013d8        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x000013d8        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x000013d8        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x000013d8        0x0
+ .iplt          0x00000000        0x0 bin/test_main.o
+
+.rel.dyn        0x000013d8        0x0
+ .rel.iplt      0x00000000        0x0 bin/test_main.o
+
+.stack          0x10000000      0x200
+ *(.stack*)
+ .stack         0x10000000      0x200 bin/startup_gcc.o
+
+.data           0x10000200       0x14 load address 0x000013d8
+                0x10000200                _data = .
+ *(vtable)
+ *(.data*)
+ .data.g_sUartConfig
+                0x10000200       0x14 bin/test_main.o
+                0x10000200                g_sUartConfig
+                0x10000214                _edata = .
+                0x10000214                . = ALIGN (0x4)
+
+.igot.plt       0x10000214        0x0 load address 0x000013ec
+ .igot.plt      0x00000000        0x0 bin/test_main.o
+
+.bss            0x10000214      0x188 load address 0x000013ec
+                0x10000214                _bss = .
+ *(.bss*)
+ .bss.g_prfbuf  0x10000214      0x100 bin/am_util_stdio.o
+ .bss.g_bTxtXlate
+                0x10000314        0x1 bin/am_util_stdio.o
+ *(COMMON)
+ *fill*         0x10000315        0x3 
+ COMMON         0x10000318       0x80 bin/test_main.o
+                0x10000318                rxBuffer
+ COMMON         0x10000398        0x4 bin/am_util_stdio.o
+                0x10000398                g_pfnCharPrint
+                0x1000039c                _ebss = .
+LOAD bin/test_main.o
+LOAD bin/am_util_delay.o
+LOAD bin/am_util_faultisr.o
+LOAD bin/am_util_stdio.o
+LOAD bin/startup_gcc.o
+LOAD ../../../bsp/eclipse_gcc/bin/libam_bsp.a
+LOAD ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a
+LOAD c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libm.a
+LOAD c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a
+LOAD c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/armv7e-m/softfp/libgcc.a
+OUTPUT(bin/AmbiqHWTest.axf elf32-littlearm)
+
+.debug_info     0x00000000      0xda5
+ .debug_info    0x00000000      0x293 bin/test_main.o
+ .debug_info    0x00000293      0x208 bin/am_util_faultisr.o
+ .debug_info    0x0000049b      0x7ee bin/am_util_stdio.o
+ .debug_info    0x00000c89      0x11c bin/startup_gcc.o
+
+.debug_abbrev   0x00000000      0x4c5
+ .debug_abbrev  0x00000000      0x126 bin/test_main.o
+ .debug_abbrev  0x00000126       0xc8 bin/am_util_faultisr.o
+ .debug_abbrev  0x000001ee      0x20f bin/am_util_stdio.o
+ .debug_abbrev  0x000003fd       0xc8 bin/startup_gcc.o
+
+.debug_aranges  0x00000000      0x148
+ .debug_aranges
+                0x00000000       0x50 bin/test_main.o
+ .debug_aranges
+                0x00000050       0x30 bin/am_util_faultisr.o
+ .debug_aranges
+                0x00000080       0x90 bin/am_util_stdio.o
+ .debug_aranges
+                0x00000110       0x38 bin/startup_gcc.o
+
+.debug_ranges   0x00000000      0x108
+ .debug_ranges  0x00000000       0x40 bin/test_main.o
+ .debug_ranges  0x00000040       0x20 bin/am_util_faultisr.o
+ .debug_ranges  0x00000060       0x80 bin/am_util_stdio.o
+ .debug_ranges  0x000000e0       0x28 bin/startup_gcc.o
+
+.debug_line     0x00000000      0x938
+ .debug_line    0x00000000      0x1fa bin/test_main.o
+ .debug_line    0x000001fa      0x166 bin/am_util_faultisr.o
+ .debug_line    0x00000360      0x4b9 bin/am_util_stdio.o
+ .debug_line    0x00000819      0x11f bin/startup_gcc.o
+
+.debug_str      0x00000000      0x73e
+ .debug_str     0x00000000      0x2f2 bin/test_main.o
+                                0x344 (size before relaxing)
+ .debug_str     0x000002f2      0x105 bin/am_util_faultisr.o
+                                0x2c3 (size before relaxing)
+ .debug_str     0x000003f7      0x2f5 bin/am_util_stdio.o
+                                0x52a (size before relaxing)
+ .debug_str     0x000006ec       0x52 bin/startup_gcc.o
+                                0x20b (size before relaxing)
+
+.comment        0x00000000       0x70
+ .comment       0x00000000       0x70 bin/test_main.o
+                                 0x71 (size before relaxing)
+ .comment       0x00000000       0x71 bin/am_util_faultisr.o
+ .comment       0x00000000       0x71 bin/am_util_stdio.o
+ .comment       0x00000000       0x71 bin/startup_gcc.o
+ .comment       0x00000000       0x71 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .comment       0x00000000       0x71 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+
+.ARM.attributes
+                0x00000000       0x37
+ .ARM.attributes
+                0x00000000       0x37 bin/test_main.o
+ .ARM.attributes
+                0x00000037       0x37 bin/am_util_faultisr.o
+ .ARM.attributes
+                0x0000006e       0x37 bin/am_util_stdio.o
+ .ARM.attributes
+                0x000000a5       0x37 bin/startup_gcc.o
+ .ARM.attributes
+                0x000000dc       0x37 ../../../bsp/eclipse_gcc/bin/libam_bsp.a(am_bsp.o)
+ .ARM.attributes
+                0x00000113       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_clkgen.o)
+ .ARM.attributes
+                0x0000014a       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_mcuctrl.o)
+ .ARM.attributes
+                0x00000181       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_rtc.o)
+ .ARM.attributes
+                0x000001b8       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_sysctrl.o)
+ .ARM.attributes
+                0x000001ef       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_uart.o)
+ .ARM.attributes
+                0x00000226       0x37 ../../../../../mcu/apollo/hal/eclipse_gcc/bin/libam_hal.a(am_hal_vcomp.o)
+ .ARM.attributes
+                0x0000025d       0x22 c:/ambiqmicro/gcc/launchpadgcc/bin/../lib/gcc/arm-none-eabi/4.8.3/armv7e-m/softfp/libgcc.a(_arm_truncdfsf2.o)
+
+.debug_frame    0x00000000      0x384
+ .debug_frame   0x00000000       0xdc bin/test_main.o
+ .debug_frame   0x000000dc       0x50 bin/am_util_faultisr.o
+ .debug_frame   0x0000012c      0x1f0 bin/am_util_stdio.o
+ .debug_frame   0x0000031c       0x68 bin/startup_gcc.o

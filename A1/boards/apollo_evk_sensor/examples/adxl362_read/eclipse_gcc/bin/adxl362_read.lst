@@ -1,0 +1,3277 @@
+
+bin/adxl362_read.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <g_am_pfnVectors>:
+       0:	00 02 00 10 dd 05 00 00 d5 05 00 00 25 03 00 00     ............%...
+	...
+      18:	d9 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+      28:	00 00 00 00 d9 05 00 00 d9 05 00 00 00 00 00 00     ................
+      38:	d9 05 00 00 d9 05 00 00 d9 05 00 00 d9 05 00 00     ................
+      48:	d9 05 00 00 d9 05 00 00 d9 05 00 00 d9 05 00 00     ................
+      58:	ed 00 00 00 0d 01 00 00 d9 05 00 00 2d 01 00 00     ............-...
+      68:	d9 05 00 00 d9 05 00 00 d9 05 00 00 d9 05 00 00     ................
+      78:	d9 05 00 00 d9 05 00 00                             ........
+
+00000080 <data_handler>:
+// Function to handle incoming data from the ADXL.
+//
+//*****************************************************************************
+void
+data_handler(void)
+{
+      80:	b538      	push	{r3, r4, r5, lr}
+    uint32_t i = 0;
+
+    //
+    // Now we have the accel data, so we can disable the IOM.
+    //
+    am_hal_iom_disable(AM_BSP_L3GD20H_IOM);
+      82:	2001      	movs	r0, #1
+      84:	f000 fc54 	bl	930 <am_hal_iom_disable>
+    g_bIOMIdle = false;
+      88:	4b16      	ldr	r3, [pc, #88]	; (e4 <data_handler+0x64>)
+      8a:	4c17      	ldr	r4, [pc, #92]	; (e8 <data_handler+0x68>)
+      8c:	2200      	movs	r2, #0
+      8e:	701a      	strb	r2, [r3, #0]
+
+    //
+    // Enable the ITM and plot the data
+    //
+    am_bsp_debug_printf_enable();
+      90:	f000 fb20 	bl	6d4 <am_bsp_debug_printf_enable>
+      94:	f104 0518 	add.w	r5, r4, #24
+
+    for (i = 0; i < ADXL362_SAMPLE_SIZE; i++)
+    {
+        am_util_plot_int(AM_UTIL_PLOT_0,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 0]));
+      98:	8821      	ldrh	r1, [r4, #0]
+    //
+    am_bsp_debug_printf_enable();
+
+    for (i = 0; i < ADXL362_SAMPLE_SIZE; i++)
+    {
+        am_util_plot_int(AM_UTIL_PLOT_0,
+      9a:	b129      	cbz	r1, a8 <data_handler+0x28>
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 0]));
+      9c:	f341 010d 	sbfx	r1, r1, #0, #14
+    //
+    am_bsp_debug_printf_enable();
+
+    for (i = 0; i < ADXL362_SAMPLE_SIZE; i++)
+    {
+        am_util_plot_int(AM_UTIL_PLOT_0,
+      a0:	0089      	lsls	r1, r1, #2
+      a2:	bf48      	it	mi
+      a4:	3103      	addmi	r1, #3
+      a6:	1089      	asrs	r1, r1, #2
+      a8:	2018      	movs	r0, #24
+      aa:	f000 f9a9 	bl	400 <am_util_plot_int>
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 0]));
+        am_util_plot_int(AM_UTIL_PLOT_1,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 1]));
+      ae:	8861      	ldrh	r1, [r4, #2]
+
+    for (i = 0; i < ADXL362_SAMPLE_SIZE; i++)
+    {
+        am_util_plot_int(AM_UTIL_PLOT_0,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 0]));
+        am_util_plot_int(AM_UTIL_PLOT_1,
+      b0:	b129      	cbz	r1, be <data_handler+0x3e>
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 1]));
+      b2:	f341 010d 	sbfx	r1, r1, #0, #14
+
+    for (i = 0; i < ADXL362_SAMPLE_SIZE; i++)
+    {
+        am_util_plot_int(AM_UTIL_PLOT_0,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 0]));
+        am_util_plot_int(AM_UTIL_PLOT_1,
+      b6:	0089      	lsls	r1, r1, #2
+      b8:	bf48      	it	mi
+      ba:	3103      	addmi	r1, #3
+      bc:	1089      	asrs	r1, r1, #2
+      be:	2019      	movs	r0, #25
+      c0:	f000 f99e 	bl	400 <am_util_plot_int>
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 1]));
+        am_util_plot_int(AM_UTIL_PLOT_2,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 2]));
+      c4:	88a1      	ldrh	r1, [r4, #4]
+    {
+        am_util_plot_int(AM_UTIL_PLOT_0,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 0]));
+        am_util_plot_int(AM_UTIL_PLOT_1,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 1]));
+        am_util_plot_int(AM_UTIL_PLOT_2,
+      c6:	b129      	cbz	r1, d4 <data_handler+0x54>
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 2]));
+      c8:	f341 010d 	sbfx	r1, r1, #0, #14
+    {
+        am_util_plot_int(AM_UTIL_PLOT_0,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 0]));
+        am_util_plot_int(AM_UTIL_PLOT_1,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 1]));
+        am_util_plot_int(AM_UTIL_PLOT_2,
+      cc:	0089      	lsls	r1, r1, #2
+      ce:	bf48      	it	mi
+      d0:	3103      	addmi	r1, #3
+      d2:	1089      	asrs	r1, r1, #2
+      d4:	3406      	adds	r4, #6
+      d6:	201a      	movs	r0, #26
+      d8:	f000 f992 	bl	400 <am_util_plot_int>
+    //
+    // Enable the ITM and plot the data
+    //
+    am_bsp_debug_printf_enable();
+
+    for (i = 0; i < ADXL362_SAMPLE_SIZE; i++)
+      dc:	42ac      	cmp	r4, r5
+      de:	d1db      	bne.n	98 <data_handler+0x18>
+        am_util_plot_int(AM_UTIL_PLOT_1,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 1]));
+        am_util_plot_int(AM_UTIL_PLOT_2,
+                         AM_DEVICES_ADXL362_VALUE(g_psSampleBuffer.samples[3 * i + 2]));
+    }
+}
+      e0:	bd38      	pop	{r3, r4, r5, pc}
+      e2:	bf00      	nop
+      e4:	10000200 	.word	0x10000200
+      e8:	10000208 	.word	0x10000208
+
+000000ec <am_iomaster0_isr>:
+    uint32_t ui32IntStatus;
+
+    //
+    // Read and clear the interrupt status.
+    //
+    ui32IntStatus = am_hal_iom_int_status_get(0, false);
+      ec:	2000      	movs	r0, #0
+// Interrupt handler for IOM0
+//
+//*****************************************************************************
+void
+am_iomaster0_isr(void)
+{
+      ee:	b510      	push	{r4, lr}
+    uint32_t ui32IntStatus;
+
+    //
+    // Read and clear the interrupt status.
+    //
+    ui32IntStatus = am_hal_iom_int_status_get(0, false);
+      f0:	4601      	mov	r1, r0
+      f2:	f000 fedb 	bl	eac <am_hal_iom_int_status_get>
+      f6:	4604      	mov	r4, r0
+    am_hal_iom_int_clear(0, ui32IntStatus);
+      f8:	4601      	mov	r1, r0
+      fa:	2000      	movs	r0, #0
+      fc:	f000 fece 	bl	e9c <am_hal_iom_int_clear>
+
+    //
+    // Service FIFO interrupts as necessary, and call IOM callbacks as
+    // transfers are completed.
+    //
+    am_hal_iom_int_service(0, ui32IntStatus);
+     100:	4621      	mov	r1, r4
+     102:	2000      	movs	r0, #0
+}
+     104:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+
+    //
+    // Service FIFO interrupts as necessary, and call IOM callbacks as
+    // transfers are completed.
+    //
+    am_hal_iom_int_service(0, ui32IntStatus);
+     108:	f000 bde6 	b.w	cd8 <am_hal_iom_int_service>
+
+0000010c <am_iomaster1_isr>:
+// Interrupt handler for IOM1
+//
+//*****************************************************************************
+void
+am_iomaster1_isr(void)
+{
+     10c:	b510      	push	{r4, lr}
+    uint32_t ui32IntStatus;
+
+    //
+    // Read and clear the interrupt status.
+    //
+    ui32IntStatus = am_hal_iom_int_status_get(1, false);
+     10e:	2100      	movs	r1, #0
+     110:	2001      	movs	r0, #1
+     112:	f000 fecb 	bl	eac <am_hal_iom_int_status_get>
+     116:	4604      	mov	r4, r0
+    am_hal_iom_int_clear(1, ui32IntStatus);
+     118:	4601      	mov	r1, r0
+     11a:	2001      	movs	r0, #1
+     11c:	f000 febe 	bl	e9c <am_hal_iom_int_clear>
+
+    //
+    // Service FIFO interrupts as necessary, and call IOM callbacks as
+    // transfers are completed.
+    //
+    am_hal_iom_int_service(1, ui32IntStatus);
+     120:	4621      	mov	r1, r4
+     122:	2001      	movs	r0, #1
+}
+     124:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+
+    //
+    // Service FIFO interrupts as necessary, and call IOM callbacks as
+    // transfers are completed.
+    //
+    am_hal_iom_int_service(1, ui32IntStatus);
+     128:	f000 bdd6 	b.w	cd8 <am_hal_iom_int_service>
+
+0000012c <am_gpio_isr>:
+// Interrupt handler for the GPIO pins.
+//
+//*****************************************************************************
+void
+am_gpio_isr(void)
+{
+     12c:	b570      	push	{r4, r5, r6, lr}
+    uint64_t ui64Status;
+
+    //
+    // Read and clear the GPIO interrupt status.
+    //
+    ui64Status = am_hal_gpio_int_status_get(false);
+     12e:	2000      	movs	r0, #0
+     130:	f000 fb5c 	bl	7ec <am_hal_gpio_int_status_get>
+     134:	4604      	mov	r4, r0
+     136:	460d      	mov	r5, r1
+    am_hal_gpio_int_clear(ui64Status);
+     138:	f000 fb4a 	bl	7d0 <am_hal_gpio_int_clear>
+
+    //
+    // Check to make sure that this is the correct interrupt, and then start
+    // the data transfer.
+    //
+    if (ui64Status & AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1))
+     13c:	2300      	movs	r3, #0
+     13e:	f04f 4200 	mov.w	r2, #2147483648	; 0x80000000
+     142:	4014      	ands	r4, r2
+     144:	401d      	ands	r5, r3
+     146:	ea54 0305 	orrs.w	r3, r4, r5
+     14a:	d100      	bne.n	14e <am_gpio_isr+0x22>
+     14c:	bd70      	pop	{r4, r5, r6, pc}
+    {
+        //
+        // Alert the base level that the IOM is active.
+        //
+        g_bIOMIdle = true;
+     14e:	4b0b      	ldr	r3, [pc, #44]	; (17c <am_gpio_isr+0x50>)
+     150:	2401      	movs	r4, #1
+
+        //
+        // Start a SPI read command to retrieve the samples from the ADXL
+        //
+        am_hal_iom_enable(AM_BSP_ADXL362_IOM);
+     152:	4620      	mov	r0, r4
+    if (ui64Status & AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1))
+    {
+        //
+        // Alert the base level that the IOM is active.
+        //
+        g_bIOMIdle = true;
+     154:	701c      	strb	r4, [r3, #0]
+
+        //
+        // Start a SPI read command to retrieve the samples from the ADXL
+        //
+        am_hal_iom_enable(AM_BSP_ADXL362_IOM);
+     156:	f000 fb9f 	bl	898 <am_hal_iom_enable>
+        am_hal_iom_int_clear(AM_BSP_ADXL362_IOM,
+     15a:	4620      	mov	r0, r4
+     15c:	2103      	movs	r1, #3
+     15e:	f000 fe9d 	bl	e9c <am_hal_iom_int_clear>
+                             AM_HAL_IOM_INT_CMDCMP | AM_HAL_IOM_INT_THR);
+        am_hal_iom_int_enable(AM_BSP_ADXL362_IOM,
+     162:	4620      	mov	r0, r4
+     164:	2103      	movs	r1, #3
+     166:	f000 fe8f 	bl	e88 <am_hal_iom_int_enable>
+
+        //
+        // Start a SPI read command to retrieve the samples from the
+        // accel.
+        //
+        am_devices_adxl362_sample_get(&g_sADXL, ADXL362_SAMPLE_SIZE,
+     16a:	4805      	ldr	r0, [pc, #20]	; (180 <am_gpio_isr+0x54>)
+     16c:	4a05      	ldr	r2, [pc, #20]	; (184 <am_gpio_isr+0x58>)
+     16e:	4b06      	ldr	r3, [pc, #24]	; (188 <am_gpio_isr+0x5c>)
+     170:	2104      	movs	r1, #4
+                                      g_psSampleBuffer.words,
+                                      data_handler);
+    }
+}
+     172:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+
+        //
+        // Start a SPI read command to retrieve the samples from the
+        // accel.
+        //
+        am_devices_adxl362_sample_get(&g_sADXL, ADXL362_SAMPLE_SIZE,
+     176:	f000 ba0f 	b.w	598 <am_devices_adxl362_sample_get>
+     17a:	bf00      	nop
+     17c:	10000200 	.word	0x10000200
+     180:	00001108 	.word	0x00001108
+     184:	10000208 	.word	0x10000208
+     188:	00000081 	.word	0x00000081
+
+0000018c <start_adxl362>:
+// measurement mode.
+//
+//*****************************************************************************
+void
+start_adxl362(void)
+{
+     18c:	b510      	push	{r4, lr}
+    //
+    // Set ADXL registers to the default settings from the driver (asynchronous
+    // mode) and set "measurement mode" to get the ADXL to start taking
+    // samples.
+    //
+    am_devices_adxl362_config(&g_sADXL);
+     18e:	4c09      	ldr	r4, [pc, #36]	; (1b4 <start_adxl362+0x28>)
+start_adxl362(void)
+{
+    //
+    // Enable the IOM so we can talk to the ADXL.
+    //
+    am_hal_iom_enable(AM_BSP_ADXL362_IOM);
+     190:	2001      	movs	r0, #1
+     192:	f000 fb81 	bl	898 <am_hal_iom_enable>
+    //
+    // Set ADXL registers to the default settings from the driver (asynchronous
+    // mode) and set "measurement mode" to get the ADXL to start taking
+    // samples.
+    //
+    am_devices_adxl362_config(&g_sADXL);
+     196:	4620      	mov	r0, r4
+     198:	f000 f954 	bl	444 <am_devices_adxl362_config>
+    am_devices_adxl362_measurement_mode_set(&g_sADXL);
+     19c:	4620      	mov	r0, r4
+     19e:	f000 f9e5 	bl	56c <am_devices_adxl362_measurement_mode_set>
+
+    //
+    // Wait until the data has actually gone out over the SPI lines.
+    //
+    am_hal_iom_poll_complete(AM_BSP_ADXL362_IOM);
+     1a2:	2001      	movs	r0, #1
+     1a4:	f000 fd8e 	bl	cc4 <am_hal_iom_poll_complete>
+
+    //
+    // Disable the IOM to save power. We won't need it again until the ADXL
+    // actually has data.
+    //
+    am_hal_iom_disable(AM_BSP_ADXL362_IOM);
+     1a8:	2001      	movs	r0, #1
+}
+     1aa:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+
+    //
+    // Disable the IOM to save power. We won't need it again until the ADXL
+    // actually has data.
+    //
+    am_hal_iom_disable(AM_BSP_ADXL362_IOM);
+     1ae:	f000 bbbf 	b.w	930 <am_hal_iom_disable>
+     1b2:	bf00      	nop
+     1b4:	00001108 	.word	0x00001108
+
+000001b8 <configure_adxl_pins>:
+// Configure GPIOs for communicating with the ADXL
+//
+//*****************************************************************************
+void
+configure_adxl_pins(void)
+{
+     1b8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    //
+    // Set up the IOM pins needed for the ADXL362.
+    //
+    am_bsp_iom_spi_pins_enable(AM_BSP_ADXL362_IOM);
+     1ba:	2001      	movs	r0, #1
+     1bc:	f000 fa40 	bl	640 <am_bsp_iom_spi_pins_enable>
+
+    //
+    // Set up ADXL interrupt and chip select.
+    //
+    am_bsp_pin_enable(ADXL362_CS);
+     1c0:	4b1e      	ldr	r3, [pc, #120]	; (23c <configure_adxl_pins+0x84>)
+     1c2:	4a1f      	ldr	r2, [pc, #124]	; (240 <configure_adxl_pins+0x88>)
+     1c4:	4f1f      	ldr	r7, [pc, #124]	; (244 <configure_adxl_pins+0x8c>)
+    am_bsp_pin_enable(ADXL362_INT1);
+     1c6:	4e20      	ldr	r6, [pc, #128]	; (248 <configure_adxl_pins+0x90>)
+     1c8:	4d20      	ldr	r5, [pc, #128]	; (24c <configure_adxl_pins+0x94>)
+
+    //
+    // Setup ITM pin for plotting
+    //
+    am_bsp_pin_enable(ITM_SWO);
+     1ca:	4c21      	ldr	r4, [pc, #132]	; (250 <configure_adxl_pins+0x98>)
+     1cc:	4821      	ldr	r0, [pc, #132]	; (254 <configure_adxl_pins+0x9c>)
+    am_bsp_iom_spi_pins_enable(AM_BSP_ADXL362_IOM);
+
+    //
+    // Set up ADXL interrupt and chip select.
+    //
+    am_bsp_pin_enable(ADXL362_CS);
+     1ce:	2173      	movs	r1, #115	; 0x73
+     1d0:	6019      	str	r1, [r3, #0]
+     1d2:	f8d2 e000 	ldr.w	lr, [r2]
+     1d6:	f42e 2ee0 	bic.w	lr, lr, #458752	; 0x70000
+     1da:	f8c2 e000 	str.w	lr, [r2]
+     1de:	683a      	ldr	r2, [r7, #0]
+     1e0:	f022 0eff 	bic.w	lr, r2, #255	; 0xff
+     1e4:	f04e 0e08 	orr.w	lr, lr, #8
+     1e8:	2200      	movs	r2, #0
+     1ea:	f8c7 e000 	str.w	lr, [r7]
+     1ee:	601a      	str	r2, [r3, #0]
+    am_bsp_pin_enable(ADXL362_INT1);
+     1f0:	6019      	str	r1, [r3, #0]
+     1f2:	6837      	ldr	r7, [r6, #0]
+     1f4:	f027 47e0 	bic.w	r7, r7, #1879048192	; 0x70000000
+     1f8:	6037      	str	r7, [r6, #0]
+     1fa:	682e      	ldr	r6, [r5, #0]
+     1fc:	f026 467f 	bic.w	r6, r6, #4278190080	; 0xff000000
+     200:	f046 56d0 	orr.w	r6, r6, #436207616	; 0x1a000000
+     204:	602e      	str	r6, [r5, #0]
+     206:	601a      	str	r2, [r3, #0]
+
+    //
+    // Setup ITM pin for plotting
+    //
+    am_bsp_pin_enable(ITM_SWO);
+     208:	6019      	str	r1, [r3, #0]
+     20a:	6821      	ldr	r1, [r4, #0]
+     20c:	f021 0170 	bic.w	r1, r1, #112	; 0x70
+     210:	6021      	str	r1, [r4, #0]
+     212:	6801      	ldr	r1, [r0, #0]
+     214:	f421 417f 	bic.w	r1, r1, #65280	; 0xff00
+
+    //
+    // Enable a GPIO interrupt for positive edges on ADXL's INT1 pin.
+    //
+    am_hal_gpio_int_clear(AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1));
+     218:	f04f 4400 	mov.w	r4, #2147483648	; 0x80000000
+     21c:	2500      	movs	r5, #0
+    am_bsp_pin_enable(ADXL362_INT1);
+
+    //
+    // Setup ITM pin for plotting
+    //
+    am_bsp_pin_enable(ITM_SWO);
+     21e:	f441 5180 	orr.w	r1, r1, #4096	; 0x1000
+     222:	6001      	str	r1, [r0, #0]
+
+    //
+    // Enable a GPIO interrupt for positive edges on ADXL's INT1 pin.
+    //
+    am_hal_gpio_int_clear(AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1));
+     224:	4620      	mov	r0, r4
+     226:	4629      	mov	r1, r5
+    am_bsp_pin_enable(ADXL362_INT1);
+
+    //
+    // Setup ITM pin for plotting
+    //
+    am_bsp_pin_enable(ITM_SWO);
+     228:	601a      	str	r2, [r3, #0]
+
+    //
+    // Enable a GPIO interrupt for positive edges on ADXL's INT1 pin.
+    //
+    am_hal_gpio_int_clear(AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1));
+     22a:	f000 fad1 	bl	7d0 <am_hal_gpio_int_clear>
+    am_hal_gpio_int_enable(AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1));
+     22e:	4620      	mov	r0, r4
+     230:	4629      	mov	r1, r5
+}
+     232:	e8bd 40f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, lr}
+
+    //
+    // Enable a GPIO interrupt for positive edges on ADXL's INT1 pin.
+    //
+    am_hal_gpio_int_clear(AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1));
+    am_hal_gpio_int_enable(AM_HAL_GPIO_BIT(AM_BSP_GPIO_ADXL362_INT1));
+     236:	f000 babb 	b.w	7b0 <am_hal_gpio_int_enable>
+     23a:	bf00      	nop
+     23c:	40010060 	.word	0x40010060
+     240:	40010044 	.word	0x40010044
+     244:	4001000c 	.word	0x4001000c
+     248:	4001004c 	.word	0x4001004c
+     24c:	4001001c 	.word	0x4001001c
+     250:	40010054 	.word	0x40010054
+     254:	40010028 	.word	0x40010028
+
+00000258 <main>:
+// Main.
+//
+//*****************************************************************************
+int
+main(void)
+{
+     258:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    //
+    // Set the system clock to maximum frequency.
+    //
+    am_hal_clkgen_sysclk_select(AM_HAL_CLKGEN_SYSCLK_MAX);
+     25a:	2000      	movs	r0, #0
+     25c:	f000 fa84 	bl	768 <am_hal_clkgen_sysclk_select>
+
+    //
+    // Set up the board using the default configurations in the BSP.
+    //
+    am_bsp_low_power_init();
+     260:	f000 fa24 	bl	6ac <am_bsp_low_power_init>
+
+    //
+    // Configure the IOM for talking with the ADXL.
+    //
+    am_hal_iom_config(AM_BSP_ADXL362_IOM, &g_sIOMConfig);
+     264:	2001      	movs	r0, #1
+     266:	491e      	ldr	r1, [pc, #120]	; (2e0 <main+0x88>)
+
+    //
+    // Enable an LED so we can see whether we're awake or asleep
+    //
+    am_hal_gpio_pin_config(AM_BSP_GPIO_LED0, AM_HAL_PIN_OUTPUT);
+    am_hal_gpio_out_bit_clear(AM_BSP_GPIO_LED0);
+     268:	4d1e      	ldr	r5, [pc, #120]	; (2e4 <main+0x8c>)
+     26a:	4f1f      	ldr	r7, [pc, #124]	; (2e8 <main+0x90>)
+            am_bsp_debug_printf_disable();
+
+            //
+            // Go to deep sleep
+            //
+            am_hal_gpio_out_bit_set(AM_BSP_GPIO_LED0);
+     26c:	4e1f      	ldr	r6, [pc, #124]	; (2ec <main+0x94>)
+    am_bsp_low_power_init();
+
+    //
+    // Configure the IOM for talking with the ADXL.
+    //
+    am_hal_iom_config(AM_BSP_ADXL362_IOM, &g_sIOMConfig);
+     26e:	f000 fbb1 	bl	9d4 <am_hal_iom_config>
+
+    //
+    // Configure the GPIOs to work with the ADXL.
+    //
+    configure_adxl_pins();
+     272:	f7ff ffa1 	bl	1b8 <configure_adxl_pins>
+
+    //
+    // Enable an LED so we can see whether we're awake or asleep
+    //
+    am_hal_gpio_pin_config(AM_BSP_GPIO_LED0, AM_HAL_PIN_OUTPUT);
+     276:	4b1e      	ldr	r3, [pc, #120]	; (2f0 <main+0x98>)
+     278:	491e      	ldr	r1, [pc, #120]	; (2f4 <main+0x9c>)
+     27a:	4a1f      	ldr	r2, [pc, #124]	; (2f8 <main+0xa0>)
+     27c:	2073      	movs	r0, #115	; 0x73
+     27e:	6018      	str	r0, [r3, #0]
+     280:	6808      	ldr	r0, [r1, #0]
+     282:	f420 40e0 	bic.w	r0, r0, #28672	; 0x7000
+     286:	f440 5000 	orr.w	r0, r0, #8192	; 0x2000
+     28a:	6008      	str	r0, [r1, #0]
+     28c:	6810      	ldr	r0, [r2, #0]
+     28e:	f020 407f 	bic.w	r0, r0, #4278190080	; 0xff000000
+     292:	f040 50c0 	orr.w	r0, r0, #402653184	; 0x18000000
+     296:	2100      	movs	r1, #0
+    am_hal_gpio_out_bit_clear(AM_BSP_GPIO_LED0);
+     298:	f44f 6400 	mov.w	r4, #2048	; 0x800
+    configure_adxl_pins();
+
+    //
+    // Enable an LED so we can see whether we're awake or asleep
+    //
+    am_hal_gpio_pin_config(AM_BSP_GPIO_LED0, AM_HAL_PIN_OUTPUT);
+     29c:	6010      	str	r0, [r2, #0]
+     29e:	6019      	str	r1, [r3, #0]
+    am_hal_gpio_out_bit_clear(AM_BSP_GPIO_LED0);
+     2a0:	602c      	str	r4, [r5, #0]
+
+    //
+    // Configure the ADXL, and start the data-taking process.
+    //
+    start_adxl362();
+     2a2:	f7ff ff73 	bl	18c <start_adxl362>
+
+    //
+    // Initialize the plotting interface.
+    //
+    am_util_plot_init();
+     2a6:	f000 f8a1 	bl	3ec <am_util_plot_init>
+
+    //
+    // Enable interrupts before entering application loop
+    //
+    am_hal_interrupt_enable(AM_HAL_INTERRUPT_IOMASTER1);
+     2aa:	2017      	movs	r0, #23
+     2ac:	f000 fac4 	bl	838 <am_hal_interrupt_enable>
+    am_hal_interrupt_enable(AM_HAL_INTERRUPT_GPIO);
+     2b0:	2019      	movs	r0, #25
+     2b2:	f000 fac1 	bl	838 <am_hal_interrupt_enable>
+    am_hal_interrupt_master_enable();
+     2b6:	f000 fae7 	bl	888 <am_hal_interrupt_master_enable>
+    {
+        //
+        // Disable interrupts temporarily. We need to make sure that the global
+        // flags aren't changing while we are checking them.
+        //
+        am_hal_interrupt_master_disable();
+     2ba:	f000 fae9 	bl	890 <am_hal_interrupt_master_disable>
+        //
+        // Pick a sleep mode. If the IOM is active, we will need to wake up
+        // again very soon, so we will use normal sleep mode. Otherwise, we
+        // should use deep sleep.
+        //
+        if (g_bIOMIdle)
+     2be:	783b      	ldrb	r3, [r7, #0]
+        {
+            am_hal_gpio_out_bit_set(AM_BSP_GPIO_LED0);
+            am_hal_sysctrl_sleep(AM_HAL_SYSCTRL_SLEEP_NORMAL);
+     2c0:	2000      	movs	r0, #0
+        //
+        // Pick a sleep mode. If the IOM is active, we will need to wake up
+        // again very soon, so we will use normal sleep mode. Otherwise, we
+        // should use deep sleep.
+        //
+        if (g_bIOMIdle)
+     2c2:	b123      	cbz	r3, 2ce <main+0x76>
+        {
+            am_hal_gpio_out_bit_set(AM_BSP_GPIO_LED0);
+     2c4:	6034      	str	r4, [r6, #0]
+            am_hal_sysctrl_sleep(AM_HAL_SYSCTRL_SLEEP_NORMAL);
+     2c6:	f000 fec9 	bl	105c <am_hal_sysctrl_sleep>
+            am_hal_gpio_out_bit_clear(AM_BSP_GPIO_LED0);
+     2ca:	602c      	str	r4, [r5, #0]
+     2cc:	e7f3      	b.n	2b6 <main+0x5e>
+        else
+        {
+            //
+            // Disable ITM before going to deep sleep
+            //
+            am_bsp_debug_printf_disable();
+     2ce:	f000 fa23 	bl	718 <am_bsp_debug_printf_disable>
+
+            //
+            // Go to deep sleep
+            //
+            am_hal_gpio_out_bit_set(AM_BSP_GPIO_LED0);
+     2d2:	6034      	str	r4, [r6, #0]
+            am_hal_sysctrl_sleep(AM_HAL_SYSCTRL_SLEEP_DEEP);
+     2d4:	2001      	movs	r0, #1
+     2d6:	f000 fec1 	bl	105c <am_hal_sysctrl_sleep>
+            am_hal_gpio_out_bit_clear(AM_BSP_GPIO_LED0);
+     2da:	602c      	str	r4, [r5, #0]
+     2dc:	e7eb      	b.n	2b6 <main+0x5e>
+     2de:	bf00      	nop
+     2e0:	000010fc 	.word	0x000010fc
+     2e4:	4001009c 	.word	0x4001009c
+     2e8:	10000200 	.word	0x10000200
+     2ec:	40010094 	.word	0x40010094
+     2f0:	40010060 	.word	0x40010060
+     2f4:	40010054 	.word	0x40010054
+     2f8:	40010028 	.word	0x40010028
+
+000002fc <am_util_delay_cycles>:
+//*****************************************************************************
+#ifdef gcc
+void __attribute__((naked))
+am_util_delay_cycles(uint32_t ui32Cycles)
+{
+    __asm("    subs    r0, #1\n"
+     2fc:	3801      	subs	r0, #1
+     2fe:	f47f affd 	bne.w	2fc <am_util_delay_cycles>
+     302:	4770      	bx	lr
+
+00000304 <am_util_delay_ms>:
+//! @returns None
+//
+//*****************************************************************************
+void
+am_util_delay_ms(uint32_t ui32MilliSeconds)
+{
+     304:	b510      	push	{r4, lr}
+     306:	4604      	mov	r4, r0
+    uint32_t ui32Cycles = ui32MilliSeconds * (am_hal_clkgen_sysclk_get() / 3000);
+     308:	f000 fa3e 	bl	788 <am_hal_clkgen_sysclk_get>
+     30c:	4b04      	ldr	r3, [pc, #16]	; (320 <am_util_delay_ms+0x1c>)
+     30e:	fba3 2000 	umull	r2, r0, r3, r0
+     312:	0980      	lsrs	r0, r0, #6
+
+    //
+    // Call the cycle delay
+    //
+    am_util_delay_cycles(ui32Cycles);
+     314:	fb04 f000 	mul.w	r0, r4, r0
+}
+     318:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+    uint32_t ui32Cycles = ui32MilliSeconds * (am_hal_clkgen_sysclk_get() / 3000);
+
+    //
+    // Call the cycle delay
+    //
+    am_util_delay_cycles(ui32Cycles);
+     31c:	f7ff bfee 	b.w	2fc <am_util_delay_cycles>
+     320:	057619f1 	.word	0x057619f1
+
+00000324 <am_fault_isr>:
+//*****************************************************************************
+#if defined(gcc)
+uint32_t __attribute__((naked))
+am_fault_isr(void)
+{
+    __asm("    push    {r7,lr}");
+     324:	b580      	push	{r7, lr}
+    __asm("    mov     r0, sp");
+     326:	4668      	mov	r0, sp
+    __asm("    adds    r0, #(2*4)");
+     328:	3008      	adds	r0, #8
+    __asm("    bl      am_util_faultisr_collect_data");
+     32a:	f000 f805 	bl	338 <am_util_faultisr_collect_data>
+    __asm("    pop     {r0,pc}");
+     32e:	bd01      	pop	{r0, pc}
+
+00000330 <getStackedReg>:
+}
+
+uint32_t __attribute__((naked))
+getStackedReg(uint32_t regnum, uint32_t u32SP)
+{
+    __asm("    lsls    r0, r0, #2");
+     330:	0080      	lsls	r0, r0, #2
+    __asm("    adds    r0, r1");
+     332:	1840      	adds	r0, r0, r1
+    __asm("    ldr     r0, [r0]");
+     334:	6800      	ldr	r0, [r0, #0]
+    __asm("    bx      lr");
+     336:	4770      	bx	lr
+
+00000338 <am_util_faultisr_collect_data>:
+// am_fault_isr() was called.
+//
+//*****************************************************************************
+void
+am_util_faultisr_collect_data(uint32_t u32IsrSP)
+{
+     338:	b510      	push	{r4, lr}
+     33a:	b08c      	sub	sp, #48	; 0x30
+    // u32Mask is used for 2 things: 1) in the print loop, 2) as a spot to set
+    // a breakpoint at the end of the routine.  If the printing is not used,
+    // we'll get a compiler warning; so to avoid that warning, we'll use it
+    // in a dummy assignment here.
+    //
+    sFaultData.u32CFSR = u32Mask;       // Avoid compiler warning
+     33c:	2200      	movs	r2, #0
+    sFaultData.u32CFSR = AM_REGVAL(AM_REG_SYSCTRL_CFSR_O);
+     33e:	4b29      	ldr	r3, [pc, #164]	; (3e4 <am_util_faultisr_collect_data+0xac>)
+    // u32Mask is used for 2 things: 1) in the print loop, 2) as a spot to set
+    // a breakpoint at the end of the routine.  If the printing is not used,
+    // we'll get a compiler warning; so to avoid that warning, we'll use it
+    // in a dummy assignment here.
+    //
+    sFaultData.u32CFSR = u32Mask;       // Avoid compiler warning
+     340:	920a      	str	r2, [sp, #40]	; 0x28
+    sFaultData.u32CFSR = AM_REGVAL(AM_REG_SYSCTRL_CFSR_O);
+     342:	681b      	ldr	r3, [r3, #0]
+     344:	930a      	str	r3, [sp, #40]	; 0x28
+    sFaultData.u8MMSR  = (sFaultData.u32CFSR >> 0)  & 0xff;
+     346:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+
+    //
+    // The address of the location that caused the fault.  e.g. if accessing an
+    // invalid data location caused the fault, that address will appear here.
+    //
+    sFaultData.u32BFAR = AM_REGVAL(AM_REG_SYSCTRL_BFAR_O);
+     348:	4b27      	ldr	r3, [pc, #156]	; (3e8 <am_util_faultisr_collect_data+0xb0>)
+    // we'll get a compiler warning; so to avoid that warning, we'll use it
+    // in a dummy assignment here.
+    //
+    sFaultData.u32CFSR = u32Mask;       // Avoid compiler warning
+    sFaultData.u32CFSR = AM_REGVAL(AM_REG_SYSCTRL_CFSR_O);
+    sFaultData.u8MMSR  = (sFaultData.u32CFSR >> 0)  & 0xff;
+     34a:	b2d2      	uxtb	r2, r2
+     34c:	f88d 202c 	strb.w	r2, [sp, #44]	; 0x2c
+    sFaultData.u8BFSR  = (sFaultData.u32CFSR >> 8)  & 0xff;
+     350:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+     352:	f3c2 2207 	ubfx	r2, r2, #8, #8
+     356:	f88d 202d 	strb.w	r2, [sp, #45]	; 0x2d
+    sFaultData.u16UFSR = (sFaultData.u32CFSR >> 16) & 0xffff;
+     35a:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+     35c:	0c12      	lsrs	r2, r2, #16
+     35e:	f8ad 202e 	strh.w	r2, [sp, #46]	; 0x2e
+
+    //
+    // The address of the location that caused the fault.  e.g. if accessing an
+    // invalid data location caused the fault, that address will appear here.
+    //
+    sFaultData.u32BFAR = AM_REGVAL(AM_REG_SYSCTRL_BFAR_O);
+     362:	681b      	ldr	r3, [r3, #0]
+     364:	9309      	str	r3, [sp, #36]	; 0x24
+
+    //
+    // The address of the instruction that caused the fault is the stacked PC
+    // if BFSR bit1 is set.
+    //
+    sFaultData.u32FaultAddr = (sFaultData.u8BFSR & 0x02) ? getStackedReg(6, u32IsrSP) : 0xffffffff;
+     366:	f89d 302d 	ldrb.w	r3, [sp, #45]	; 0x2d
+     36a:	079b      	lsls	r3, r3, #30
+// am_fault_isr() was called.
+//
+//*****************************************************************************
+void
+am_util_faultisr_collect_data(uint32_t u32IsrSP)
+{
+     36c:	4604      	mov	r4, r0
+
+    //
+    // The address of the instruction that caused the fault is the stacked PC
+    // if BFSR bit1 is set.
+    //
+    sFaultData.u32FaultAddr = (sFaultData.u8BFSR & 0x02) ? getStackedReg(6, u32IsrSP) : 0xffffffff;
+     36e:	d432      	bmi.n	3d6 <am_util_faultisr_collect_data+0x9e>
+     370:	f04f 33ff 	mov.w	r3, #4294967295
+
+    //
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+     374:	4621      	mov	r1, r4
+     376:	2000      	movs	r0, #0
+
+    //
+    // The address of the instruction that caused the fault is the stacked PC
+    // if BFSR bit1 is set.
+    //
+    sFaultData.u32FaultAddr = (sFaultData.u8BFSR & 0x02) ? getStackedReg(6, u32IsrSP) : 0xffffffff;
+     378:	9308      	str	r3, [sp, #32]
+
+    //
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+     37a:	f7ff ffd9 	bl	330 <getStackedReg>
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+     37e:	4621      	mov	r1, r4
+
+    //
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+     380:	4603      	mov	r3, r0
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+     382:	2001      	movs	r0, #1
+
+    //
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+     384:	9300      	str	r3, [sp, #0]
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+     386:	f7ff ffd3 	bl	330 <getStackedReg>
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+     38a:	4621      	mov	r1, r4
+    //
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+     38c:	4603      	mov	r3, r0
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+     38e:	2002      	movs	r0, #2
+    //
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+     390:	9301      	str	r3, [sp, #4]
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+     392:	f7ff ffcd 	bl	330 <getStackedReg>
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+     396:	4621      	mov	r1, r4
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+     398:	4603      	mov	r3, r0
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+     39a:	2003      	movs	r0, #3
+    // Get the stacked registers.
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+     39c:	9302      	str	r3, [sp, #8]
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+     39e:	f7ff ffc7 	bl	330 <getStackedReg>
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+     3a2:	4621      	mov	r1, r4
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+     3a4:	4603      	mov	r3, r0
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+     3a6:	2004      	movs	r0, #4
+    // Note - the address of the instruction that caused the fault is u32PC.
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+     3a8:	9303      	str	r3, [sp, #12]
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+     3aa:	f7ff ffc1 	bl	330 <getStackedReg>
+    sFaultData.u32LR  = getStackedReg(5, u32IsrSP);
+     3ae:	4621      	mov	r1, r4
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+     3b0:	4603      	mov	r3, r0
+    sFaultData.u32LR  = getStackedReg(5, u32IsrSP);
+     3b2:	2005      	movs	r0, #5
+    //
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+     3b4:	9304      	str	r3, [sp, #16]
+    sFaultData.u32LR  = getStackedReg(5, u32IsrSP);
+     3b6:	f7ff ffbb 	bl	330 <getStackedReg>
+    sFaultData.u32PC  = getStackedReg(6, u32IsrSP);
+     3ba:	4621      	mov	r1, r4
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+    sFaultData.u32LR  = getStackedReg(5, u32IsrSP);
+     3bc:	4603      	mov	r3, r0
+    sFaultData.u32PC  = getStackedReg(6, u32IsrSP);
+     3be:	2006      	movs	r0, #6
+    sFaultData.u32R0  = getStackedReg(0, u32IsrSP);
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+    sFaultData.u32LR  = getStackedReg(5, u32IsrSP);
+     3c0:	9305      	str	r3, [sp, #20]
+    sFaultData.u32PC  = getStackedReg(6, u32IsrSP);
+     3c2:	f7ff ffb5 	bl	330 <getStackedReg>
+    sFaultData.u32PSR = getStackedReg(7, u32IsrSP);
+     3c6:	4621      	mov	r1, r4
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+    sFaultData.u32LR  = getStackedReg(5, u32IsrSP);
+    sFaultData.u32PC  = getStackedReg(6, u32IsrSP);
+     3c8:	4603      	mov	r3, r0
+    sFaultData.u32PSR = getStackedReg(7, u32IsrSP);
+     3ca:	2007      	movs	r0, #7
+    sFaultData.u32R1  = getStackedReg(1, u32IsrSP);
+    sFaultData.u32R2  = getStackedReg(2, u32IsrSP);
+    sFaultData.u32R3  = getStackedReg(3, u32IsrSP);
+    sFaultData.u32R12 = getStackedReg(4, u32IsrSP);
+    sFaultData.u32LR  = getStackedReg(5, u32IsrSP);
+    sFaultData.u32PC  = getStackedReg(6, u32IsrSP);
+     3cc:	9306      	str	r3, [sp, #24]
+    sFaultData.u32PSR = getStackedReg(7, u32IsrSP);
+     3ce:	f7ff ffaf 	bl	330 <getStackedReg>
+     3d2:	9007      	str	r0, [sp, #28]
+     3d4:	e7fe      	b.n	3d4 <am_util_faultisr_collect_data+0x9c>
+
+    //
+    // The address of the instruction that caused the fault is the stacked PC
+    // if BFSR bit1 is set.
+    //
+    sFaultData.u32FaultAddr = (sFaultData.u8BFSR & 0x02) ? getStackedReg(6, u32IsrSP) : 0xffffffff;
+     3d6:	2006      	movs	r0, #6
+     3d8:	4621      	mov	r1, r4
+     3da:	f7ff ffa9 	bl	330 <getStackedReg>
+     3de:	4603      	mov	r3, r0
+     3e0:	e7c8      	b.n	374 <am_util_faultisr_collect_data+0x3c>
+     3e2:	bf00      	nop
+     3e4:	e000ed28 	.word	0xe000ed28
+     3e8:	e000ed38 	.word	0xe000ed38
+
+000003ec <am_util_plot_init>:
+//! @returns None
+//
+//*****************************************************************************
+void
+am_util_plot_init(void)
+{
+     3ec:	b508      	push	{r3, lr}
+    //
+    // Enable the ITM.
+    //
+    am_hal_itm_enable();
+     3ee:	f000 fd7f 	bl	ef0 <am_hal_itm_enable>
+
+    //
+    // Initialize the printf interface for ITM/SWO output
+    //
+    am_util_stdio_printf_init((am_util_stdio_print_char_t) am_hal_itm_print);
+     3f2:	4802      	ldr	r0, [pc, #8]	; (3fc <am_util_plot_init+0x10>)
+}
+     3f4:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+    am_hal_itm_enable();
+
+    //
+    // Initialize the printf interface for ITM/SWO output
+    //
+    am_util_stdio_printf_init((am_util_stdio_print_char_t) am_hal_itm_print);
+     3f8:	f000 b81e 	b.w	438 <am_util_stdio_printf_init>
+     3fc:	00000f9d 	.word	0x00000f9d
+
+00000400 <am_util_plot_int>:
+//! @returns None
+//
+//*****************************************************************************
+void
+am_util_plot_int(uint32_t ui32Trace, int32_t i32Value)
+{
+     400:	b510      	push	{r4, lr}
+    if (g_ui32Sync == 0)
+     402:	4c0c      	ldr	r4, [pc, #48]	; (434 <am_util_plot_int+0x34>)
+     404:	6823      	ldr	r3, [r4, #0]
+//! @returns None
+//
+//*****************************************************************************
+void
+am_util_plot_int(uint32_t ui32Trace, int32_t i32Value)
+{
+     406:	b082      	sub	sp, #8
+    if (g_ui32Sync == 0)
+     408:	b133      	cbz	r3, 418 <am_util_plot_int+0x18>
+        //
+        g_ui32Sync = AM_UTIL_PLOT_SYNC_SEND;
+    }
+    else
+    {
+        g_ui32Sync--;
+     40a:	3b01      	subs	r3, #1
+     40c:	6023      	str	r3, [r4, #0]
+
+    //
+    // Write to the stimulus register.
+    //
+    am_hal_itm_stimulus_reg_word_write(ui32Trace, i32Value);
+}
+     40e:	b002      	add	sp, #8
+     410:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+    }
+
+    //
+    // Write to the stimulus register.
+    //
+    am_hal_itm_stimulus_reg_word_write(ui32Trace, i32Value);
+     414:	f000 bdae 	b.w	f74 <am_hal_itm_stimulus_reg_word_write>
+    if (g_ui32Sync == 0)
+    {
+        //
+        // Send Sync.
+        //
+        am_hal_itm_sync_send();
+     418:	9001      	str	r0, [sp, #4]
+     41a:	9100      	str	r1, [sp, #0]
+     41c:	f000 fdb2 	bl	f84 <am_hal_itm_sync_send>
+     420:	9801      	ldr	r0, [sp, #4]
+     422:	9900      	ldr	r1, [sp, #0]
+
+        //
+        // Reset sync count.
+        //
+        g_ui32Sync = AM_UTIL_PLOT_SYNC_SEND;
+     424:	2340      	movs	r3, #64	; 0x40
+     426:	6023      	str	r3, [r4, #0]
+
+    //
+    // Write to the stimulus register.
+    //
+    am_hal_itm_stimulus_reg_word_write(ui32Trace, i32Value);
+}
+     428:	b002      	add	sp, #8
+     42a:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+    }
+
+    //
+    // Write to the stimulus register.
+    //
+    am_hal_itm_stimulus_reg_word_write(ui32Trace, i32Value);
+     42e:	f000 bda1 	b.w	f74 <am_hal_itm_stimulus_reg_word_write>
+     432:	bf00      	nop
+     434:	10000220 	.word	0x10000220
+
+00000438 <am_util_stdio_printf_init>:
+                // Output for a negative number, for example, -5:
+                //   %d:-5
+                //  %5d:   -5
+                // %05d:-0005
+                //
+                i64Val = bLongLong ? va_arg(pArgs, int64_t) :
+     438:	4b01      	ldr	r3, [pc, #4]	; (440 <am_util_stdio_printf_init+0x8>)
+     43a:	6018      	str	r0, [r3, #0]
+     43c:	4770      	bx	lr
+     43e:	bf00      	nop
+                                     va_arg(pArgs, int32_t);
+     440:	10000234 	.word	0x10000234
+
+00000444 <am_devices_adxl362_config>:
+//! @return None
+//
+//*****************************************************************************
+void
+am_devices_adxl362_config(const am_devices_adxl362_t *psDevice)
+{
+     444:	b5f0      	push	{r4, r5, r6, r7, lr}
+     446:	b087      	sub	sp, #28
+    //
+    // Use polled IOM send routine to reset the ADXL362.
+    //
+    sCommand.bytes[2] = 0x52; // R for reset is a required parameter
+    sCommand.bytes[1] = 0x1F; // register SOFT_RESET
+    sCommand.bytes[0] = 0x0A; // SPI WRITE
+     448:	ad06      	add	r5, sp, #24
+     44a:	260a      	movs	r6, #10
+     44c:	f805 6d10 	strb.w	r6, [r5, #-16]!
+
+    //
+    // Write to the ADXL362 via the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     450:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
+    am_hal_iom_buffer(3) sCommand;
+
+    //
+    // Use polled IOM send routine to reset the ADXL362.
+    //
+    sCommand.bytes[2] = 0x52; // R for reset is a required parameter
+     454:	f04f 0e52 	mov.w	lr, #82	; 0x52
+    sCommand.bytes[0] = 0x0A; // SPI WRITE
+
+    //
+    // Write to the ADXL362 via the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     458:	462a      	mov	r2, r5
+//! @return None
+//
+//*****************************************************************************
+void
+am_devices_adxl362_config(const am_devices_adxl362_t *psDevice)
+{
+     45a:	4604      	mov	r4, r0
+
+    //
+    // Use polled IOM send routine to reset the ADXL362.
+    //
+    sCommand.bytes[2] = 0x52; // R for reset is a required parameter
+    sCommand.bytes[1] = 0x1F; // register SOFT_RESET
+     45c:	271f      	movs	r7, #31
+    sCommand.bytes[0] = 0x0A; // SPI WRITE
+
+    //
+    // Write to the ADXL362 via the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     45e:	c803      	ldmia	r0, {r0, r1}
+     460:	9300      	str	r3, [sp, #0]
+     462:	2303      	movs	r3, #3
+    am_hal_iom_buffer(3) sCommand;
+
+    //
+    // Use polled IOM send routine to reset the ADXL362.
+    //
+    sCommand.bytes[2] = 0x52; // R for reset is a required parameter
+     464:	f88d e00a 	strb.w	lr, [sp, #10]
+    sCommand.bytes[1] = 0x1F; // register SOFT_RESET
+     468:	f88d 7009 	strb.w	r7, [sp, #9]
+    sCommand.bytes[0] = 0x0A; // SPI WRITE
+
+    //
+    // Write to the ADXL362 via the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     46c:	f000 fada 	bl	a24 <am_hal_iom_spi_write>
+                         AM_HAL_IOM_RAW);
+
+    //
+    // Add some delay to wait for the ADXL362 to finish its reset.
+    //
+    am_util_delay_ms(50);
+     470:	2032      	movs	r0, #50	; 0x32
+     472:	f7ff ff47 	bl	304 <am_util_delay_ms>
+    sCommand.bytes[0]  = 0x0A;  // SPI WRITE command for the ADXL362
+
+    //
+    // Handle optional RANGE setting
+    //
+    switch (psDevice->ui32Range)
+     476:	7b67      	ldrb	r7, [r4, #13]
+    //
+    sCommand.bytes[14] = 0x13;  // reg #2C FILTER_CTL 100Hz sample rate
+    sCommand.bytes[13] = 0x02;  // reg #2B INTMAP2    Interrupt on FIFO ready
+    sCommand.bytes[12] = 0x04;  // reg #2A INTMAP1    Interrupt on water mark
+    sCommand.bytes[11] = 0x86;  // reg #29 FIFO_SAMPLES == 130x3 (0x186) NOTE: AH = 1
+    sCommand.bytes[10] = 0x0A;  // reg #28 FIFO_CTRL   AH=1  FIFO MODE = stream mode
+     478:	f88d 6012 	strb.w	r6, [sp, #18]
+    sCommand.bytes[9]  = 0x00;  // reg #27 ACT_INACT_CTL
+     47c:	2300      	movs	r3, #0
+
+    //
+    // Setup default register state command string to send to ADXL362.
+    //
+    sCommand.bytes[14] = 0x13;  // reg #2C FILTER_CTL 100Hz sample rate
+    sCommand.bytes[13] = 0x02;  // reg #2B INTMAP2    Interrupt on FIFO ready
+     47e:	2202      	movs	r2, #2
+    sCommand.bytes[9]  = 0x00;  // reg #27 ACT_INACT_CTL
+    sCommand.bytes[8]  = 0x02;  // reg #26 TIME_INACT_H
+    sCommand.bytes[7]  = 0x00;  // reg #25 TIME_INACT_L
+    sCommand.bytes[6]  = 0x00;  // reg #24 THRESHOLD_INACT_H
+    sCommand.bytes[5]  = 0x80;  // reg #23 THRESHOLD_INACT_L
+    sCommand.bytes[4]  = 0x20;  // reg #22 TIME_ACT
+     480:	2120      	movs	r1, #32
+    am_devices_adxl362_reset(psDevice);
+
+    //
+    // Setup default register state command string to send to ADXL362.
+    //
+    sCommand.bytes[14] = 0x13;  // reg #2C FILTER_CTL 100Hz sample rate
+     482:	f04f 0e13 	mov.w	lr, #19
+    sCommand.bytes[13] = 0x02;  // reg #2B INTMAP2    Interrupt on FIFO ready
+    sCommand.bytes[12] = 0x04;  // reg #2A INTMAP1    Interrupt on water mark
+     486:	f04f 0c04 	mov.w	ip, #4
+    sCommand.bytes[10] = 0x0A;  // reg #28 FIFO_CTRL   AH=1  FIFO MODE = stream mode
+    sCommand.bytes[9]  = 0x00;  // reg #27 ACT_INACT_CTL
+    sCommand.bytes[8]  = 0x02;  // reg #26 TIME_INACT_H
+    sCommand.bytes[7]  = 0x00;  // reg #25 TIME_INACT_L
+    sCommand.bytes[6]  = 0x00;  // reg #24 THRESHOLD_INACT_H
+    sCommand.bytes[5]  = 0x80;  // reg #23 THRESHOLD_INACT_L
+     48a:	2080      	movs	r0, #128	; 0x80
+    sCommand.bytes[0]  = 0x0A;  // SPI WRITE command for the ADXL362
+
+    //
+    // Handle optional RANGE setting
+    //
+    switch (psDevice->ui32Range)
+     48c:	2f01      	cmp	r7, #1
+    sCommand.bytes[5]  = 0x80;  // reg #23 THRESHOLD_INACT_L
+    sCommand.bytes[4]  = 0x20;  // reg #22 TIME_ACT
+    sCommand.bytes[3]  = 0x02;  // reg #21 THRESHOLD_ACT_H
+    sCommand.bytes[2]  = 0x00;  // reg #20 THRESHOLD_ACT_L
+    sCommand.bytes[1]  = 0x20;  // register address of THRESHOLD_ACT_L
+    sCommand.bytes[0]  = 0x0A;  // SPI WRITE command for the ADXL362
+     48e:	f88d 6008 	strb.w	r6, [sp, #8]
+    am_devices_adxl362_reset(psDevice);
+
+    //
+    // Setup default register state command string to send to ADXL362.
+    //
+    sCommand.bytes[14] = 0x13;  // reg #2C FILTER_CTL 100Hz sample rate
+     492:	f88d e016 	strb.w	lr, [sp, #22]
+    sCommand.bytes[13] = 0x02;  // reg #2B INTMAP2    Interrupt on FIFO ready
+     496:	f88d 2015 	strb.w	r2, [sp, #21]
+    sCommand.bytes[12] = 0x04;  // reg #2A INTMAP1    Interrupt on water mark
+    sCommand.bytes[11] = 0x86;  // reg #29 FIFO_SAMPLES == 130x3 (0x186) NOTE: AH = 1
+    sCommand.bytes[10] = 0x0A;  // reg #28 FIFO_CTRL   AH=1  FIFO MODE = stream mode
+    sCommand.bytes[9]  = 0x00;  // reg #27 ACT_INACT_CTL
+    sCommand.bytes[8]  = 0x02;  // reg #26 TIME_INACT_H
+     49a:	f88d 2010 	strb.w	r2, [sp, #16]
+    sCommand.bytes[7]  = 0x00;  // reg #25 TIME_INACT_L
+    sCommand.bytes[6]  = 0x00;  // reg #24 THRESHOLD_INACT_H
+    sCommand.bytes[5]  = 0x80;  // reg #23 THRESHOLD_INACT_L
+    sCommand.bytes[4]  = 0x20;  // reg #22 TIME_ACT
+    sCommand.bytes[3]  = 0x02;  // reg #21 THRESHOLD_ACT_H
+     49e:	f88d 200b 	strb.w	r2, [sp, #11]
+    //
+    // Setup default register state command string to send to ADXL362.
+    //
+    sCommand.bytes[14] = 0x13;  // reg #2C FILTER_CTL 100Hz sample rate
+    sCommand.bytes[13] = 0x02;  // reg #2B INTMAP2    Interrupt on FIFO ready
+    sCommand.bytes[12] = 0x04;  // reg #2A INTMAP1    Interrupt on water mark
+     4a2:	f88d c014 	strb.w	ip, [sp, #20]
+    sCommand.bytes[11] = 0x86;  // reg #29 FIFO_SAMPLES == 130x3 (0x186) NOTE: AH = 1
+    sCommand.bytes[10] = 0x0A;  // reg #28 FIFO_CTRL   AH=1  FIFO MODE = stream mode
+    sCommand.bytes[9]  = 0x00;  // reg #27 ACT_INACT_CTL
+     4a6:	f88d 3011 	strb.w	r3, [sp, #17]
+    sCommand.bytes[8]  = 0x02;  // reg #26 TIME_INACT_H
+    sCommand.bytes[7]  = 0x00;  // reg #25 TIME_INACT_L
+     4aa:	f88d 300f 	strb.w	r3, [sp, #15]
+    sCommand.bytes[6]  = 0x00;  // reg #24 THRESHOLD_INACT_H
+     4ae:	f88d 300e 	strb.w	r3, [sp, #14]
+    sCommand.bytes[5]  = 0x80;  // reg #23 THRESHOLD_INACT_L
+    sCommand.bytes[4]  = 0x20;  // reg #22 TIME_ACT
+    sCommand.bytes[3]  = 0x02;  // reg #21 THRESHOLD_ACT_H
+    sCommand.bytes[2]  = 0x00;  // reg #20 THRESHOLD_ACT_L
+     4b2:	f88d 300a 	strb.w	r3, [sp, #10]
+    sCommand.bytes[10] = 0x0A;  // reg #28 FIFO_CTRL   AH=1  FIFO MODE = stream mode
+    sCommand.bytes[9]  = 0x00;  // reg #27 ACT_INACT_CTL
+    sCommand.bytes[8]  = 0x02;  // reg #26 TIME_INACT_H
+    sCommand.bytes[7]  = 0x00;  // reg #25 TIME_INACT_L
+    sCommand.bytes[6]  = 0x00;  // reg #24 THRESHOLD_INACT_H
+    sCommand.bytes[5]  = 0x80;  // reg #23 THRESHOLD_INACT_L
+     4b6:	f88d 000d 	strb.w	r0, [sp, #13]
+    sCommand.bytes[4]  = 0x20;  // reg #22 TIME_ACT
+     4ba:	f88d 100c 	strb.w	r1, [sp, #12]
+    sCommand.bytes[3]  = 0x02;  // reg #21 THRESHOLD_ACT_H
+    sCommand.bytes[2]  = 0x00;  // reg #20 THRESHOLD_ACT_L
+    sCommand.bytes[1]  = 0x20;  // register address of THRESHOLD_ACT_L
+     4be:	f88d 1009 	strb.w	r1, [sp, #9]
+    sCommand.bytes[0]  = 0x0A;  // SPI WRITE command for the ADXL362
+
+    //
+    // Handle optional RANGE setting
+    //
+    switch (psDevice->ui32Range)
+     4c2:	d047      	beq.n	554 <am_devices_adxl362_config+0x110>
+     4c4:	d33e      	bcc.n	544 <am_devices_adxl362_config+0x100>
+     4c6:	4297      	cmp	r7, r2
+     4c8:	d027      	beq.n	51a <am_devices_adxl362_config+0xd6>
+     4ca:	2607      	movs	r6, #7
+     4cc:	2103      	movs	r1, #3
+     4ce:	2017      	movs	r0, #23
+     4d0:	46b4      	mov	ip, r6
+     4d2:	460b      	mov	r3, r1
+     4d4:	4607      	mov	r7, r0
+    }
+
+    //
+    // Handle optional sample rate selections
+    //
+    switch (psDevice->ui32SampleRate)
+     4d6:	7b22      	ldrb	r2, [r4, #12]
+     4d8:	2a01      	cmp	r2, #1
+     4da:	d02b      	beq.n	534 <am_devices_adxl362_config+0xf0>
+     4dc:	d32e      	bcc.n	53c <am_devices_adxl362_config+0xf8>
+     4de:	2a02      	cmp	r2, #2
+     4e0:	d102      	bne.n	4e8 <am_devices_adxl362_config+0xa4>
+        case AM_DEVICES_ADXL362_200HZ:
+            sCommand.bytes[14] |= 0x04; //  200Hz
+        break;
+
+        case AM_DEVICES_ADXL362_100HZ:
+            sCommand.bytes[14] |= 0x03; //  100Hz
+     4e2:	f88d e016 	strb.w	lr, [sp, #22]
+        break;
+     4e6:	460b      	mov	r3, r1
+    }
+
+    //
+    // Handle optional half bandwidth reduction mode
+    //
+    if (psDevice->bHalfBandwidth)
+     4e8:	7ba2      	ldrb	r2, [r4, #14]
+     4ea:	b10a      	cbz	r2, 4f0 <am_devices_adxl362_config+0xac>
+    {
+        sCommand.bytes[14] &= ~0x10;
+     4ec:	f88d 3016 	strb.w	r3, [sp, #22]
+    }
+
+    //
+    // Handle optional synchronous sampling mode.
+    //
+    if (psDevice->bSyncMode)
+     4f0:	7be3      	ldrb	r3, [r4, #15]
+     4f2:	b12b      	cbz	r3, 500 <am_devices_adxl362_config+0xbc>
+    {
+        sCommand.bytes[14] = 0x09;  // reg #2C FILTER_CTL   synchronous sample mode
+     4f4:	2209      	movs	r2, #9
+        sCommand.bytes[13] = 0x00;  // reg #2B INTMAP2    Not available in sync mode
+     4f6:	2300      	movs	r3, #0
+    //
+    // Handle optional synchronous sampling mode.
+    //
+    if (psDevice->bSyncMode)
+    {
+        sCommand.bytes[14] = 0x09;  // reg #2C FILTER_CTL   synchronous sample mode
+     4f8:	f88d 2016 	strb.w	r2, [sp, #22]
+        sCommand.bytes[13] = 0x00;  // reg #2B INTMAP2    Not available in sync mode
+     4fc:	f88d 3015 	strb.w	r3, [sp, #21]
+    }
+
+    //
+    // Over ride the high water mark with the one supplied.
+    //
+    sCommand.bytes[11]  =  psDevice->ui32Samples & 0x0000000ff;
+     500:	e894 000b 	ldmia.w	r4, {r0, r1, r3}
+     504:	f88d 3013 	strb.w	r3, [sp, #19]
+
+
+    //
+    // Use polled IOM send routine to load the command registers.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     508:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
+     50c:	9300      	str	r3, [sp, #0]
+     50e:	462a      	mov	r2, r5
+     510:	230f      	movs	r3, #15
+     512:	f000 fa87 	bl	a24 <am_hal_iom_spi_write>
+                         psDevice->ui32ChipSelect, sCommand.words, 15,
+                         AM_HAL_IOM_RAW);
+}
+     516:	b007      	add	sp, #28
+     518:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    }
+
+    //
+    // Handle optional sample rate selections
+    //
+    switch (psDevice->ui32SampleRate)
+     51a:	7b22      	ldrb	r2, [r4, #12]
+        case AM_DEVICES_ADXL362_4G:
+            sCommand.bytes[14] = 0x40;  // reg +/- 4g
+        break;
+
+        case AM_DEVICES_ADXL362_8G:
+            sCommand.bytes[14] = 0x80;  // reg +/- 8g
+     51c:	f88d 0016 	strb.w	r0, [sp, #22]
+        break;
+     520:	2685      	movs	r6, #133	; 0x85
+     522:	f04f 0c84 	mov.w	ip, #132	; 0x84
+     526:	2183      	movs	r1, #131	; 0x83
+    }
+
+    //
+    // Handle optional sample rate selections
+    //
+    switch (psDevice->ui32SampleRate)
+     528:	2a01      	cmp	r2, #1
+            sCommand.bytes[14] = 0x40;  // reg +/- 4g
+        break;
+
+        case AM_DEVICES_ADXL362_8G:
+            sCommand.bytes[14] = 0x80;  // reg +/- 8g
+        break;
+     52a:	4603      	mov	r3, r0
+     52c:	4637      	mov	r7, r6
+     52e:	4660      	mov	r0, ip
+     530:	468e      	mov	lr, r1
+    }
+
+    //
+    // Handle optional sample rate selections
+    //
+    switch (psDevice->ui32SampleRate)
+     532:	d1d3      	bne.n	4dc <am_devices_adxl362_config+0x98>
+        case AM_DEVICES_ADXL362_400HZ:
+            sCommand.bytes[14] |= 0x05; //  400Hz
+        break;
+
+        case AM_DEVICES_ADXL362_200HZ:
+            sCommand.bytes[14] |= 0x04; //  200Hz
+     534:	f88d 0016 	strb.w	r0, [sp, #22]
+        break;
+     538:	4663      	mov	r3, ip
+     53a:	e7d5      	b.n	4e8 <am_devices_adxl362_config+0xa4>
+    // Handle optional sample rate selections
+    //
+    switch (psDevice->ui32SampleRate)
+    {
+        case AM_DEVICES_ADXL362_400HZ:
+            sCommand.bytes[14] |= 0x05; //  400Hz
+     53c:	f88d 7016 	strb.w	r7, [sp, #22]
+        break;
+     540:	4633      	mov	r3, r6
+     542:	e7d1      	b.n	4e8 <am_devices_adxl362_config+0xa4>
+    //
+    switch (psDevice->ui32Range)
+    {
+        case AM_DEVICES_ADXL362_2G:
+            sCommand.bytes[14] = 0x00;  // reg +/- 2g
+        break;
+     544:	2605      	movs	r6, #5
+     546:	2103      	movs	r1, #3
+    // Handle optional RANGE setting
+    //
+    switch (psDevice->ui32Range)
+    {
+        case AM_DEVICES_ADXL362_2G:
+            sCommand.bytes[14] = 0x00;  // reg +/- 2g
+     548:	f88d 3016 	strb.w	r3, [sp, #22]
+        break;
+     54c:	4660      	mov	r0, ip
+     54e:	4637      	mov	r7, r6
+     550:	468e      	mov	lr, r1
+     552:	e7c0      	b.n	4d6 <am_devices_adxl362_config+0x92>
+
+        case AM_DEVICES_ADXL362_4G:
+            sCommand.bytes[14] = 0x40;  // reg +/- 4g
+     554:	2340      	movs	r3, #64	; 0x40
+        break;
+     556:	2645      	movs	r6, #69	; 0x45
+     558:	f04f 0c44 	mov.w	ip, #68	; 0x44
+     55c:	2143      	movs	r1, #67	; 0x43
+        case AM_DEVICES_ADXL362_2G:
+            sCommand.bytes[14] = 0x00;  // reg +/- 2g
+        break;
+
+        case AM_DEVICES_ADXL362_4G:
+            sCommand.bytes[14] = 0x40;  // reg +/- 4g
+     55e:	f88d 3016 	strb.w	r3, [sp, #22]
+        break;
+     562:	4637      	mov	r7, r6
+     564:	4660      	mov	r0, ip
+     566:	468e      	mov	lr, r1
+     568:	e7b5      	b.n	4d6 <am_devices_adxl362_config+0x92>
+        q64 += (q64 >> 8);
+        q64 += (q64 >> 16);
+        q64 += (q64 >> 32);
+        q64 >>= 3;
+        r64 = ui64Val - q64*10;
+        return q64 + ((r64 + 6) >> 4);
+     56a:	bf00      	nop
+
+0000056c <am_devices_adxl362_measurement_mode_set>:
+//! @return None
+//
+//*****************************************************************************
+void
+am_devices_adxl362_measurement_mode_set(const am_devices_adxl362_t *psDevice)
+{
+     56c:	b530      	push	{r4, r5, lr}
+     56e:	b085      	sub	sp, #20
+    //
+    // Use polled IOM send routine.
+    //
+    sCommand.bytes[2] = 0x02; // reg #2D POWER_CTL  set measurement mode
+    sCommand.bytes[1] = 0x2D; // register address of POWER_CTL
+    sCommand.bytes[0] = 0x0A; // SPI WRITE command for the ADXL362
+     570:	aa04      	add	r2, sp, #16
+     572:	240a      	movs	r4, #10
+
+    //
+    // Write to the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     574:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
+    //
+    // Use polled IOM send routine.
+    //
+    sCommand.bytes[2] = 0x02; // reg #2D POWER_CTL  set measurement mode
+    sCommand.bytes[1] = 0x2D; // register address of POWER_CTL
+    sCommand.bytes[0] = 0x0A; // SPI WRITE command for the ADXL362
+     578:	f802 4d08 	strb.w	r4, [r2, #-8]!
+
+    //
+    // Write to the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     57c:	c803      	ldmia	r0, {r0, r1}
+    am_hal_iom_buffer(3) sCommand;
+
+    //
+    // Use polled IOM send routine.
+    //
+    sCommand.bytes[2] = 0x02; // reg #2D POWER_CTL  set measurement mode
+     57e:	2502      	movs	r5, #2
+    sCommand.bytes[0] = 0x0A; // SPI WRITE command for the ADXL362
+
+    //
+    // Write to the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     580:	9300      	str	r3, [sp, #0]
+
+    //
+    // Use polled IOM send routine.
+    //
+    sCommand.bytes[2] = 0x02; // reg #2D POWER_CTL  set measurement mode
+    sCommand.bytes[1] = 0x2D; // register address of POWER_CTL
+     582:	242d      	movs	r4, #45	; 0x2d
+    sCommand.bytes[0] = 0x0A; // SPI WRITE command for the ADXL362
+
+    //
+    // Write to the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     584:	2303      	movs	r3, #3
+    am_hal_iom_buffer(3) sCommand;
+
+    //
+    // Use polled IOM send routine.
+    //
+    sCommand.bytes[2] = 0x02; // reg #2D POWER_CTL  set measurement mode
+     586:	f88d 500a 	strb.w	r5, [sp, #10]
+    sCommand.bytes[1] = 0x2D; // register address of POWER_CTL
+     58a:	f88d 4009 	strb.w	r4, [sp, #9]
+    sCommand.bytes[0] = 0x0A; // SPI WRITE command for the ADXL362
+
+    //
+    // Write to the IOM.
+    //
+    am_hal_iom_spi_write(psDevice->ui32IOMModule,
+     58e:	f000 fa49 	bl	a24 <am_hal_iom_spi_write>
+                         psDevice->ui32ChipSelect, sCommand.words, 3,
+                         AM_HAL_IOM_RAW);
+}
+     592:	b005      	add	sp, #20
+     594:	bd30      	pop	{r4, r5, pc}
+    {
+        //
+        // ui32Val /= 10;
+        //
+        ui64Val = divu64_10(ui64Val);
+        ++iNDigits;
+     596:	bf00      	nop
+
+00000598 <am_devices_adxl362_sample_get>:
+void
+am_devices_adxl362_sample_get(const am_devices_adxl362_t *psDevice,
+                              uint32_t ui32NumSamples,
+                              uint32_t *pui32ReturnBuffer,
+                              am_devices_adxl362_callback_t pfnCallback)
+{
+     598:	b570      	push	{r4, r5, r6, lr}
+    {
+        //
+        // Start a non-blocking read from the ADXL. Pass the caller's callback
+        // straight through to the IOM HAL.
+        //
+        am_hal_iom_spi_read_nb(psDevice->ui32IOMModule,
+     59a:	6806      	ldr	r6, [r0, #0]
+     59c:	6845      	ldr	r5, [r0, #4]
+void
+am_devices_adxl362_sample_get(const am_devices_adxl362_t *psDevice,
+                              uint32_t ui32NumSamples,
+                              uint32_t *pui32ReturnBuffer,
+                              am_devices_adxl362_callback_t pfnCallback)
+{
+     59e:	b082      	sub	sp, #8
+    if (pfnCallback)
+     5a0:	b163      	cbz	r3, 5bc <am_devices_adxl362_sample_get+0x24>
+    {
+        //
+        // Start a non-blocking read from the ADXL. Pass the caller's callback
+        // straight through to the IOM HAL.
+        //
+        am_hal_iom_spi_read_nb(psDevice->ui32IOMModule,
+     5a2:	9301      	str	r3, [sp, #4]
+     5a4:	f44f 6450 	mov.w	r4, #3328	; 0xd00
+     5a8:	eb01 0341 	add.w	r3, r1, r1, lsl #1
+     5ac:	005b      	lsls	r3, r3, #1
+     5ae:	4630      	mov	r0, r6
+     5b0:	4629      	mov	r1, r5
+     5b2:	9400      	str	r4, [sp, #0]
+     5b4:	f000 fb42 	bl	c3c <am_hal_iom_spi_read_nb>
+                            psDevice->ui32ChipSelect,
+                            pui32ReturnBuffer,
+                            (ui32NumSamples * 6),
+                            AM_HAL_IOM_OFFSET(0xD));
+    }
+}
+     5b8:	b002      	add	sp, #8
+     5ba:	bd70      	pop	{r4, r5, r6, pc}
+    {
+        //
+        // If the caller didn't provide a callback, fall back to the polling
+        // method. This consumes significantly more power and processor time.
+        //
+        am_hal_iom_spi_read(psDevice->ui32IOMModule,
+     5bc:	eb01 0341 	add.w	r3, r1, r1, lsl #1
+     5c0:	f44f 6450 	mov.w	r4, #3328	; 0xd00
+     5c4:	005b      	lsls	r3, r3, #1
+     5c6:	4630      	mov	r0, r6
+     5c8:	4629      	mov	r1, r5
+     5ca:	9400      	str	r4, [sp, #0]
+     5cc:	f000 fac2 	bl	b54 <am_hal_iom_spi_read>
+                            psDevice->ui32ChipSelect,
+                            pui32ReturnBuffer,
+                            (ui32NumSamples * 6),
+                            AM_HAL_IOM_OFFSET(0xD));
+    }
+}
+     5d0:	b002      	add	sp, #8
+     5d2:	bd70      	pop	{r4, r5, r6, pc}
+
+000005d4 <am_nmi_isr>:
+// by a debugger.
+//
+//*****************************************************************************
+void
+am_nmi_isr(void)
+{
+     5d4:	e7fe      	b.n	5d4 <am_nmi_isr>
+
+                            ++ui32CharCnt;
+                        }
+                    }
+
+                    while ( iWidth-- > 0 )
+     5d6:	bf00      	nop
+
+000005d8 <am_adc_isr>:
+// for examination by a debugger.
+//
+//*****************************************************************************
+void
+am_default_isr(void)
+{
+     5d8:	e7fe      	b.n	5d8 <am_adc_isr>
+     5da:	bf00      	nop
+
+000005dc <am_reset_isr>:
+am_reset_isr(void)
+{
+    //
+    // Set the vector table pointer.
+    //
+    __asm("    ldr    r0, =0xE000ED08\n"
+     5dc:	4811      	ldr	r0, [pc, #68]	; (624 <zero_loop+0x12>)
+     5de:	4912      	ldr	r1, [pc, #72]	; (628 <zero_loop+0x16>)
+     5e0:	6001      	str	r1, [r0, #0]
+          "    str    r1, [r0]");
+
+    //
+    // Set the stack pointer.
+    //
+    __asm("    ldr    sp, [r1]");
+     5e2:	f8d1 d000 	ldr.w	sp, [r1]
+    
+    //
+    // Enable the FPU.
+    //
+    __asm("movw r0,#0xED88\n"
+     5e6:	f64e 5088 	movw	r0, #60808	; 0xed88
+     5ea:	f2ce 0000 	movt	r0, #57344	; 0xe000
+     5ee:	6801      	ldr	r1, [r0, #0]
+     5f0:	f441 0170 	orr.w	r1, r1, #15728640	; 0xf00000
+     5f4:	6001      	str	r1, [r0, #0]
+          "str  r1,[r0]\n");
+
+    //
+    // Copy the data segment initializers from flash to SRAM.
+    //
+    __asm("    ldr     r0, =_etext\n"
+     5f6:	480d      	ldr	r0, [pc, #52]	; (62c <zero_loop+0x1a>)
+     5f8:	490d      	ldr	r1, [pc, #52]	; (630 <zero_loop+0x1e>)
+     5fa:	4a0e      	ldr	r2, [pc, #56]	; (634 <zero_loop+0x22>)
+
+000005fc <copy_loop>:
+     5fc:	f850 3b04 	ldr.w	r3, [r0], #4
+     600:	f841 3b04 	str.w	r3, [r1], #4
+     604:	4291      	cmp	r1, r2
+     606:	f77f aff9 	ble.w	5fc <copy_loop>
+          "        cmp     r1, r2\n"
+          "        ble     copy_loop\n");
+    //
+    // Zero fill the bss segment.
+    //
+    __asm("    ldr     r0, =_bss\n"
+     60a:	480b      	ldr	r0, [pc, #44]	; (638 <zero_loop+0x26>)
+     60c:	490b      	ldr	r1, [pc, #44]	; (63c <zero_loop+0x2a>)
+     60e:	f04f 0200 	mov.w	r2, #0
+
+00000612 <zero_loop>:
+     612:	4288      	cmp	r0, r1
+     614:	bfb8      	it	lt
+     616:	f840 2b04 	strlt.w	r2, [r0], #4
+     61a:	f6ff affa 	blt.w	612 <zero_loop>
+          "        blt     zero_loop");
+
+    //
+    // Call the application's entry point.
+    //
+    main();
+     61e:	f7ff fe1b 	bl	258 <main>
+
+    //
+    // If main returns then execute a break point instruction
+    //
+    __asm("    bkpt     ");
+     622:	be00      	bkpt	0x0000
+     624:	e000ed08 	.word	0xe000ed08
+     628:	00000000 	.word	0x00000000
+     62c:	000011e8 	.word	0x000011e8
+     630:	10000200 	.word	0x10000200
+     634:	10000208 	.word	0x10000208
+     638:	10000208 	.word	0x10000208
+     63c:	10000258 	.word	0x10000258
+
+00000640 <am_bsp_iom_spi_pins_enable>:
+        if ( cCh > 9 )
+        {
+            cCh += bLower ? 0x27 : 0x7;
+        }
+
+        tbuf[ix++] = cCh + '0';
+     640:	2801      	cmp	r0, #1
+        ui64Val >>= 4;
+     642:	b430      	push	{r4, r5}
+     644:	d000      	beq.n	648 <am_bsp_iom_spi_pins_enable+0x8>
+    if ( ui64Val == 0 )
+    {
+        tbuf[ix++] = '0';   // Print a '0'
+    }
+
+    while ( ui64Val )
+     646:	e7fe      	b.n	646 <am_bsp_iom_spi_pins_enable+0x6>
+     648:	4b15      	ldr	r3, [pc, #84]	; (6a0 <am_bsp_iom_spi_pins_enable+0x60>)
+     64a:	4916      	ldr	r1, [pc, #88]	; (6a4 <am_bsp_iom_spi_pins_enable+0x64>)
+        {
+            pcFmt++;
+            if ( *pcFmt == 'l' )    // "ll" (long long)
+            {
+                pcFmt++;
+                bLongLong = true;
+     64c:	4a16      	ldr	r2, [pc, #88]	; (6a8 <am_bsp_iom_spi_pins_enable+0x68>)
+        if ( *pcFmt == 'l' )
+        {
+            pcFmt++;
+            if ( *pcFmt == 'l' )    // "ll" (long long)
+            {
+                pcFmt++;
+     64e:	2473      	movs	r4, #115	; 0x73
+     650:	601c      	str	r4, [r3, #0]
+     652:	6808      	ldr	r0, [r1, #0]
+//
+//*****************************************************************************
+static int
+uint64_to_hexstr(uint64_t ui64Val, char *pcBuf, bool bLower)
+{
+    int iNumDig, ix = 0;
+     654:	f020 0007 	bic.w	r0, r0, #7
+        tbuf[ix++] = '0';   // Print a '0'
+    }
+
+    while ( ui64Val )
+    {
+        cCh = ui64Val & 0xf;
+     658:	6008      	str	r0, [r1, #0]
+     65a:	6815      	ldr	r5, [r2, #0]
+        {
+            cCh += bLower ? 0x27 : 0x7;
+        }
+
+        tbuf[ix++] = cCh + '0';
+        ui64Val >>= 4;
+     65c:	f025 05ff 	bic.w	r5, r5, #255	; 0xff
+     660:	2000      	movs	r0, #0
+     662:	f045 050e 	orr.w	r5, r5, #14
+        //
+        // Alpha character
+        //
+        if ( cCh > 9 )
+        {
+            cCh += bLower ? 0x27 : 0x7;
+     666:	6015      	str	r5, [r2, #0]
+     668:	6018      	str	r0, [r3, #0]
+     66a:	601c      	str	r4, [r3, #0]
+     66c:	680d      	ldr	r5, [r1, #0]
+     66e:	f025 0570 	bic.w	r5, r5, #112	; 0x70
+     672:	600d      	str	r5, [r1, #0]
+        }
+
+        tbuf[ix++] = cCh + '0';
+     674:	6815      	ldr	r5, [r2, #0]
+     676:	f425 457f 	bic.w	r5, r5, #65280	; 0xff00
+    if ( ui64Val == 0 )
+    {
+        tbuf[ix++] = '0';   // Print a '0'
+    }
+
+    while ( ui64Val )
+     67a:	f445 6520 	orr.w	r5, r5, #2560	; 0xa00
+        {
+            cCh += bLower ? 0x27 : 0x7;
+        }
+
+        tbuf[ix++] = cCh + '0';
+        ui64Val >>= 4;
+     67e:	6015      	str	r5, [r2, #0]
+     680:	6018      	str	r0, [r3, #0]
+    if ( ui64Val == 0 )
+    {
+        tbuf[ix++] = '0';   // Print a '0'
+    }
+
+    while ( ui64Val )
+     682:	601c      	str	r4, [r3, #0]
+     684:	680c      	ldr	r4, [r1, #0]
+     686:	f424 64e0 	bic.w	r4, r4, #1792	; 0x700
+     68a:	600c      	str	r4, [r1, #0]
+                // Output for a negative number, for example, -5:
+                //   %d:-5
+                //  %5d:   -5
+                // %05d:-0005
+                //
+                i64Val = bLongLong ? va_arg(pArgs, int64_t) :
+     68c:	6811      	ldr	r1, [r2, #0]
+     68e:	f421 017f 	bic.w	r1, r1, #16711680	; 0xff0000
+     692:	f441 2100 	orr.w	r1, r1, #524288	; 0x80000
+     696:	6011      	str	r1, [r2, #0]
+     698:	bc30      	pop	{r4, r5}
+     69a:	6018      	str	r0, [r3, #0]
+     69c:	4770      	bx	lr
+     69e:	bf00      	nop
+
+                ui32CharCnt += iVal;
+                break;
+
+            case 'u':
+                ui64Val = bLongLong ? va_arg(pArgs, uint64_t) :
+     6a0:	40010060 	.word	0x40010060
+     6a4:	40010044 	.word	0x40010044
+     6a8:	40010008 	.word	0x40010008
+
+000006ac <am_bsp_low_power_init>:
+     6ac:	b508      	push	{r3, lr}
+     6ae:	f000 fca9 	bl	1004 <am_hal_mcuctrl_bucks_enable>
+     6b2:	f000 fd1b 	bl	10ec <am_hal_vcomp_disable>
+     6b6:	2001      	movs	r0, #1
+
+    pcBufInitial = pcBuf;
+
+    unFloatValue.F = fValue;
+
+    iExp2 = ((unFloatValue.I32 >> 23) & 0x000000FF) - 127;
+     6b8:	f000 fcba 	bl	1030 <am_hal_rtc_osc_select>
+     6bc:	2001      	movs	r0, #1
+     6be:	f000 f86f 	bl	7a0 <am_hal_clkgen_osc_stop>
+    i32Mantissa = (unFloatValue.I32 & 0x00FFFFFF) | 0x00800000;
+    i32FracPart = 0;
+    i32IntPart = 0;
+
+    if (iExp2 >= 31)
+     6c2:	2002      	movs	r0, #2
+    pcBufInitial = pcBuf;
+
+    unFloatValue.F = fValue;
+
+    iExp2 = ((unFloatValue.I32 >> 23) & 0x000000FF) - 127;
+    i32Mantissa = (unFloatValue.I32 & 0x00FFFFFF) | 0x00800000;
+     6c4:	f000 f86c 	bl	7a0 <am_hal_clkgen_osc_stop>
+     6c8:	f000 fcc0 	bl	104c <am_hal_rtc_osc_disable>
+    i32FracPart = 0;
+    i32IntPart = 0;
+
+    if (iExp2 >= 31)
+     6cc:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+    {
+        return AM_FTOA_ERR_VAL_TOO_LARGE;
+    }
+    else if (iExp2 < -23)
+     6d0:	f000 bc90 	b.w	ff4 <am_hal_mcuctrl_bandgap_disable>
+
+000006d4 <am_bsp_debug_printf_enable>:
+     6d4:	4b0c      	ldr	r3, [pc, #48]	; (708 <am_bsp_debug_printf_enable+0x34>)
+     6d6:	681b      	ldr	r3, [r3, #0]
+    {
+        return AM_FTOA_ERR_VAL_TOO_SMALL;
+    }
+    else if (iExp2 >= 23)
+     6d8:	b510      	push	{r4, lr}
+     6da:	f013 0401 	ands.w	r4, r3, #1
+    {
+        i32IntPart = i32Mantissa << (iExp2 - 23);
+    }
+    else if (iExp2 >= 0)
+     6de:	d111      	bne.n	704 <am_bsp_debug_printf_enable+0x30>
+     6e0:	f000 fcd6 	bl	1090 <am_hal_tpiu_enable>
+    {
+        i32IntPart = i32Mantissa >> (23 - iExp2);
+        i32FracPart = (i32Mantissa << (iExp2 + 1)) & 0x00FFFFFF;
+     6e4:	4b09      	ldr	r3, [pc, #36]	; (70c <am_bsp_debug_printf_enable+0x38>)
+     6e6:	490a      	ldr	r1, [pc, #40]	; (710 <am_bsp_debug_printf_enable+0x3c>)
+     6e8:	4a0a      	ldr	r2, [pc, #40]	; (714 <am_bsp_debug_printf_enable+0x40>)
+    {
+        i32IntPart = i32Mantissa << (iExp2 - 23);
+    }
+    else if (iExp2 >= 0)
+    {
+        i32IntPart = i32Mantissa >> (23 - iExp2);
+     6ea:	2073      	movs	r0, #115	; 0x73
+     6ec:	6018      	str	r0, [r3, #0]
+        i32FracPart = (i32Mantissa << (iExp2 + 1)) & 0x00FFFFFF;
+     6ee:	6808      	ldr	r0, [r1, #0]
+     6f0:	f020 0070 	bic.w	r0, r0, #112	; 0x70
+    else // if (iExp2 < 0)
+    {
+        i32FracPart = (i32Mantissa & 0x00FFFFFF) >> -(iExp2 + 1);
+    }
+
+    if (unFloatValue.I32 < 0)
+     6f4:	6008      	str	r0, [r1, #0]
+    {
+        *pcBuf++ = '-';
+     6f6:	6811      	ldr	r1, [r2, #0]
+     6f8:	f421 417f 	bic.w	r1, r1, #65280	; 0xff00
+     6fc:	f441 5180 	orr.w	r1, r1, #4096	; 0x1000
+    else // if (iExp2 < 0)
+    {
+        i32FracPart = (i32Mantissa & 0x00FFFFFF) >> -(iExp2 + 1);
+    }
+
+    if (unFloatValue.I32 < 0)
+     700:	6011      	str	r1, [r2, #0]
+    {
+        *pcBuf++ = '-';
+    }
+
+    if (i32IntPart == 0)
+     702:	601c      	str	r4, [r3, #0]
+     704:	bd10      	pop	{r4, pc}
+    {
+        *pcBuf++ = '0';
+     706:	bf00      	nop
+     708:	10000224 	.word	0x10000224
+     70c:	40010060 	.word	0x40010060
+    }
+
+    //
+    // Now, begin the fractional part
+    //
+    *pcBuf++ = '.';
+     710:	40010054 	.word	0x40010054
+
+    if (i32FracPart == 0)
+     714:	40010028 	.word	0x40010028
+
+00000718 <am_bsp_debug_printf_disable>:
+    {
+        *pcBuf++ = '0';
+     718:	4b0f      	ldr	r3, [pc, #60]	; (758 <am_bsp_debug_printf_disable+0x40>)
+     71a:	681b      	ldr	r3, [r3, #0]
+     71c:	b510      	push	{r4, lr}
+    }
+
+    //
+    // Terminate the string and we're done
+    //
+    *pcBuf = 0x00;
+     71e:	f013 0401 	ands.w	r4, r3, #1
+                    // pcBuf is an input (size of buffer) and also an output of ftoa()
+                    //
+                    *(uint32_t*)pcBuf = 20;
+
+                    iVal = ftoa(fValue, pcBuf, iPrecision);
+                    if ( iVal < 0 )
+     722:	d000      	beq.n	726 <am_bsp_debug_printf_disable+0xe>
+     724:	bd10      	pop	{r4, pc}
+     726:	f000 fc0f 	bl	f48 <am_hal_itm_not_busy>
+                    {
+                        uint32_t u32PrntErrVal;
+                        if ( iVal == AM_FTOA_ERR_VAL_TOO_SMALL )
+     72a:	4b0c      	ldr	r3, [pc, #48]	; (75c <am_bsp_debug_printf_disable+0x44>)
+                        {
+                            u32PrntErrVal = (0x00 << 24) | ('0' << 16) |
+                                            ('.' << 8)   | ('0' << 0);  // "0.0"
+                        }
+                        else if ( iVal == AM_FTOA_ERR_VAL_TOO_LARGE )
+     72c:	490c      	ldr	r1, [pc, #48]	; (760 <am_bsp_debug_printf_disable+0x48>)
+     72e:	4a0d      	ldr	r2, [pc, #52]	; (764 <am_bsp_debug_printf_disable+0x4c>)
+                            u32PrntErrVal = (0x00 << 24) | ('#' << 16) |
+                                            ('.' << 8)   | ('#' << 0);  // "#.#"
+                        }
+                        else
+                        {
+                            u32PrntErrVal = (0x00 << 24) | ('?' << 16) |
+     730:	2073      	movs	r0, #115	; 0x73
+                                            ('.' << 8)   | ('?' << 0);  // "?.?"
+                        }
+                        *(uint32_t*)pcBuf = u32PrntErrVal;
+     732:	6018      	str	r0, [r3, #0]
+     734:	6808      	ldr	r0, [r1, #0]
+     736:	f020 0070 	bic.w	r0, r0, #112	; 0x70
+                //
+                // Get absolute value
+                //
+                if ( i64Val < 0 )
+                {
+                    ui64Val = -i64Val;          // Get absolute value
+     73a:	f040 0020 	orr.w	r0, r0, #32
+     73e:	6008      	str	r0, [r1, #0]
+     740:	6811      	ldr	r1, [r2, #0]
+                {
+                    ui64Val = i64Val;
+                    bNeg = false;
+                }
+
+                if ( iWidth )
+     742:	f421 417f 	bic.w	r1, r1, #65280	; 0xff00
+     746:	f441 51c0 	orr.w	r1, r1, #6144	; 0x1800
+                // Get absolute value
+                //
+                if ( i64Val < 0 )
+                {
+                    ui64Val = -i64Val;          // Get absolute value
+                    bNeg = true;
+     74a:	6011      	str	r1, [r2, #0]
+     74c:	601c      	str	r4, [r3, #0]
+     74e:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+//
+//*****************************************************************************
+static uint32_t
+decstr_to_u(const char *pcStr, uint32_t *pui32CharCnt)
+{
+    uint32_t ui32Val = 0, uCnt = 0;
+     752:	f000 bcc5 	b.w	10e0 <am_hal_tpiu_disable>
+    {
+        return AM_FTOA_ERR_VAL_TOO_SMALL;
+    }
+    else if (iExp2 >= 23)
+    {
+        i32IntPart = i32Mantissa << (iExp2 - 23);
+     756:	bf00      	nop
+     758:	10000224 	.word	0x10000224
+
+    unFloatValue.F = fValue;
+
+    iExp2 = ((unFloatValue.I32 >> 23) & 0x000000FF) - 127;
+    i32Mantissa = (unFloatValue.I32 & 0x00FFFFFF) | 0x00800000;
+    i32FracPart = 0;
+     75c:	40010060 	.word	0x40010060
+     760:	40010054 	.word	0x40010054
+     764:	40010028 	.word	0x40010028
+
+00000768 <am_hal_clkgen_sysclk_select>:
+    }
+    else
+    {
+        if (i32IntPart > 0)
+        {
+            uint64_to_str(i32IntPart, pcBuf);
+     768:	4b05      	ldr	r3, [pc, #20]	; (780 <am_hal_clkgen_sysclk_select+0x18>)
+     76a:	4a06      	ldr	r2, [pc, #24]	; (784 <am_hal_clkgen_sysclk_select+0x1c>)
+     76c:	b410      	push	{r4}
+     76e:	2100      	movs	r1, #0
+        else
+        {
+            *pcBuf++ = '-';
+            uint64_to_str(-i32IntPart, pcBuf);
+        }
+        while (*pcBuf)    // Get to end of new string
+     770:	2447      	movs	r4, #71	; 0x47
+     772:	601c      	str	r4, [r3, #0]
+     774:	6010      	str	r0, [r2, #0]
+     776:	f85d 4b04 	ldr.w	r4, [sp], #4
+     77a:	6019      	str	r1, [r3, #0]
+        {
+            pcBuf++;
+     77c:	4770      	bx	lr
+     77e:	bf00      	nop
+     780:	40004014 	.word	0x40004014
+        else
+        {
+            *pcBuf++ = '-';
+            uint64_to_str(-i32IntPart, pcBuf);
+        }
+        while (*pcBuf)    // Get to end of new string
+     784:	40004018 	.word	0x40004018
+
+00000788 <am_hal_clkgen_sysclk_get>:
+     788:	4a03      	ldr	r2, [pc, #12]	; (798 <am_hal_clkgen_sysclk_get+0x10>)
+    }
+
+    //
+    // Now, begin the fractional part
+    //
+    *pcBuf++ = '.';
+     78a:	4b04      	ldr	r3, [pc, #16]	; (79c <am_hal_clkgen_sysclk_get+0x14>)
+    }
+    else
+    {
+        int jx, iMax;
+
+        iMax = iBufSize - (pcBuf - pcBufInitial) - 1;
+     78c:	6812      	ldr	r2, [r2, #0]
+     78e:	f002 0207 	and.w	r2, r2, #7
+        iMax = (iMax > iPrecision) ? iPrecision : iMax;
+     792:	f853 0022 	ldr.w	r0, [r3, r2, lsl #2]
+
+        for (jx = 0; jx < iMax; jx++)
+     796:	4770      	bx	lr
+     798:	40004018 	.word	0x40004018
+        {
+            i32FracPart *= 10;
+     79c:	00001118 	.word	0x00001118
+
+000007a0 <am_hal_clkgen_osc_stop>:
+     7a0:	4b02      	ldr	r3, [pc, #8]	; (7ac <am_hal_clkgen_osc_stop+0xc>)
+            *pcBuf++ = (i32FracPart >> 24) + '0';
+     7a2:	681a      	ldr	r2, [r3, #0]
+     7a4:	4310      	orrs	r0, r2
+     7a6:	6018      	str	r0, [r3, #0]
+     7a8:	4770      	bx	lr
+     7aa:	bf00      	nop
+        int jx, iMax;
+
+        iMax = iBufSize - (pcBuf - pcBufInitial) - 1;
+        iMax = (iMax > iPrecision) ? iPrecision : iMax;
+
+        for (jx = 0; jx < iMax; jx++)
+     7ac:	4000400c 	.word	0x4000400c
+
+000007b0 <am_hal_gpio_int_enable>:
+        {
+            i32FracPart *= 10;
+            *pcBuf++ = (i32FracPart >> 24) + '0';
+            i32FracPart &= 0x00FFFFFF;
+     7b0:	b470      	push	{r4, r5, r6}
+        int jx, iMax;
+
+        iMax = iBufSize - (pcBuf - pcBufInitial) - 1;
+        iMax = (iMax > iPrecision) ? iPrecision : iMax;
+
+        for (jx = 0; jx < iMax; jx++)
+     7b2:	4d05      	ldr	r5, [pc, #20]	; (7c8 <am_hal_gpio_int_enable+0x18>)
+
+        //
+        // Remove trailing zeros
+        //
+        --pcBuf;
+        while ((*pcBuf == '0')  &&  (*(pcBuf-1) != '.'))
+     7b4:	4c05      	ldr	r4, [pc, #20]	; (7cc <am_hal_gpio_int_enable+0x1c>)
+     7b6:	682e      	ldr	r6, [r5, #0]
+     7b8:	ea46 0201 	orr.w	r2, r6, r1
+     7bc:	602a      	str	r2, [r5, #0]
+     7be:	6823      	ldr	r3, [r4, #0]
+     7c0:	4318      	orrs	r0, r3
+     7c2:	6020      	str	r0, [r4, #0]
+     7c4:	bc70      	pop	{r4, r5, r6}
+     7c6:	4770      	bx	lr
+     7c8:	40010210 	.word	0x40010210
+        {
+            --pcBuf;
+     7cc:	40010200 	.word	0x40010200
+
+000007d0 <am_hal_gpio_int_clear>:
+
+        //
+        // Remove trailing zeros
+        //
+        --pcBuf;
+        while ((*pcBuf == '0')  &&  (*(pcBuf-1) != '.'))
+     7d0:	b410      	push	{r4}
+     7d2:	460a      	mov	r2, r1
+     7d4:	4c03      	ldr	r4, [pc, #12]	; (7e4 <am_hal_gpio_int_clear+0x14>)
+     7d6:	4904      	ldr	r1, [pc, #16]	; (7e8 <am_hal_gpio_int_clear+0x18>)
+        {
+            --pcBuf;
+        }
+        ++pcBuf;
+     7d8:	6022      	str	r2, [r4, #0]
+     7da:	6008      	str	r0, [r1, #0]
+                        if ( ui8PadChar == '0' )
+                        {
+                            //
+                            // Print the neg sign BEFORE the leading zeros
+                            //
+                            if ( pcBuf )
+     7dc:	f85d 4b04 	ldr.w	r4, [sp], #4
+                            {
+                                *pcBuf++ = '-';
+     7e0:	4770      	bx	lr
+     7e2:	bf00      	nop
+                            }
+
+                            ++ui32CharCnt;
+     7e4:	40010218 	.word	0x40010218
+     7e8:	40010208 	.word	0x40010208
+
+000007ec <am_hal_gpio_int_status_get>:
+                    if ( iVal < 0 )
+                    {
+                        uint32_t u32PrntErrVal;
+                        if ( iVal == AM_FTOA_ERR_VAL_TOO_SMALL )
+                        {
+                            u32PrntErrVal = (0x00 << 24) | ('0' << 16) |
+     7ec:	b470      	push	{r4, r5, r6}
+                                            ('.' << 8)   | ('0' << 0);  // "0.0"
+                        }
+                        else if ( iVal == AM_FTOA_ERR_VAL_TOO_LARGE )
+                        {
+                            u32PrntErrVal = (0x00 << 24) | ('#' << 16) |
+     7ee:	b930      	cbnz	r0, 7fe <am_hal_gpio_int_status_get+0x12>
+     7f0:	4a0d      	ldr	r2, [pc, #52]	; (828 <am_hal_gpio_int_status_get+0x3c>)
+        i32IntPart = i32Mantissa >> (23 - iExp2);
+        i32FracPart = (i32Mantissa << (iExp2 + 1)) & 0x00FFFFFF;
+    }
+    else // if (iExp2 < 0)
+    {
+        i32FracPart = (i32Mantissa & 0x00FFFFFF) >> -(iExp2 + 1);
+     7f2:	4b0e      	ldr	r3, [pc, #56]	; (82c <am_hal_gpio_int_status_get+0x40>)
+     7f4:	6811      	ldr	r1, [r2, #0]
+     7f6:	681c      	ldr	r4, [r3, #0]
+    unFloatValue.F = fValue;
+
+    iExp2 = ((unFloatValue.I32 >> 23) & 0x000000FF) - 127;
+    i32Mantissa = (unFloatValue.I32 & 0x00FFFFFF) | 0x00800000;
+    i32FracPart = 0;
+    i32IntPart = 0;
+     7f8:	4320      	orrs	r0, r4
+     7fa:	bc70      	pop	{r4, r5, r6}
+        {
+            uint64_to_str(i32IntPart, pcBuf);
+        }
+        else
+        {
+            *pcBuf++ = '-';
+     7fc:	4770      	bx	lr
+     7fe:	4b0c      	ldr	r3, [pc, #48]	; (830 <am_hal_gpio_int_status_get+0x44>)
+            uint64_to_str(-i32IntPart, pcBuf);
+     800:	4a09      	ldr	r2, [pc, #36]	; (828 <am_hal_gpio_int_status_get+0x3c>)
+        {
+            uint64_to_str(i32IntPart, pcBuf);
+        }
+        else
+        {
+            *pcBuf++ = '-';
+     802:	490c      	ldr	r1, [pc, #48]	; (834 <am_hal_gpio_int_status_get+0x48>)
+     804:	681c      	ldr	r4, [r3, #0]
+     806:	6809      	ldr	r1, [r1, #0]
+     808:	6810      	ldr	r0, [r2, #0]
+            uint64_to_str(-i32IntPart, pcBuf);
+     80a:	f853 6c0c 	ldr.w	r6, [r3, #-12]
+     80e:	2200      	movs	r2, #0
+     810:	4623      	mov	r3, r4
+     812:	4614      	mov	r4, r2
+        {
+            uint64_to_str(i32IntPart, pcBuf);
+        }
+        else
+        {
+            *pcBuf++ = '-';
+     814:	4605      	mov	r5, r0
+     816:	430a      	orrs	r2, r1
+     818:	ea44 0006 	orr.w	r0, r4, r6
+            uint64_to_str(-i32IntPart, pcBuf);
+        }
+        while (*pcBuf)    // Get to end of new string
+     81c:	ea05 0103 	and.w	r1, r5, r3
+     820:	4010      	ands	r0, r2
+     822:	bc70      	pop	{r4, r5, r6}
+     824:	4770      	bx	lr
+     826:	bf00      	nop
+     828:	40010214 	.word	0x40010214
+     82c:	40010204 	.word	0x40010204
+     830:	40010210 	.word	0x40010210
+     834:	40010200 	.word	0x40010200
+
+00000838 <am_hal_interrupt_enable>:
+     838:	280f      	cmp	r0, #15
+     83a:	d80b      	bhi.n	854 <am_hal_interrupt_enable+0x1c>
+     83c:	2805      	cmp	r0, #5
+     83e:	d012      	beq.n	866 <am_hal_interrupt_enable+0x2e>
+     840:	2806      	cmp	r0, #6
+     842:	d016      	beq.n	872 <am_hal_interrupt_enable+0x3a>
+     844:	2804      	cmp	r0, #4
+     846:	d104      	bne.n	852 <am_hal_interrupt_enable+0x1a>
+     848:	4b0d      	ldr	r3, [pc, #52]	; (880 <am_hal_interrupt_enable+0x48>)
+     84a:	681a      	ldr	r2, [r3, #0]
+     84c:	f442 3280 	orr.w	r2, r2, #65536	; 0x10000
+     850:	601a      	str	r2, [r3, #0]
+     852:	4770      	bx	lr
+     854:	3810      	subs	r0, #16
+     856:	f000 001f 	and.w	r0, r0, #31
+     85a:	2201      	movs	r2, #1
+     85c:	4b09      	ldr	r3, [pc, #36]	; (884 <am_hal_interrupt_enable+0x4c>)
+     85e:	fa02 f000 	lsl.w	r0, r2, r0
+     862:	6018      	str	r0, [r3, #0]
+     864:	4770      	bx	lr
+     866:	4b06      	ldr	r3, [pc, #24]	; (880 <am_hal_interrupt_enable+0x48>)
+     868:	681a      	ldr	r2, [r3, #0]
+     86a:	f442 3200 	orr.w	r2, r2, #131072	; 0x20000
+     86e:	601a      	str	r2, [r3, #0]
+     870:	4770      	bx	lr
+     872:	4b03      	ldr	r3, [pc, #12]	; (880 <am_hal_interrupt_enable+0x48>)
+     874:	681a      	ldr	r2, [r3, #0]
+     876:	f442 2280 	orr.w	r2, r2, #262144	; 0x40000
+     87a:	601a      	str	r2, [r3, #0]
+     87c:	4770      	bx	lr
+     87e:	bf00      	nop
+     880:	e000ed24 	.word	0xe000ed24
+     884:	e000e100 	.word	0xe000e100
+
+00000888 <am_hal_interrupt_master_enable>:
+     888:	f3ef 8010 	mrs	r0, PRIMASK
+     88c:	b662      	cpsie	i
+     88e:	4770      	bx	lr
+
+00000890 <am_hal_interrupt_master_disable>:
+     890:	f3ef 8010 	mrs	r0, PRIMASK
+     894:	b672      	cpsid	i
+     896:	4770      	bx	lr
+
+00000898 <am_hal_iom_enable>:
+     898:	f500 23a0 	add.w	r3, r0, #327680	; 0x50000
+     89c:	3304      	adds	r3, #4
+     89e:	031b      	lsls	r3, r3, #12
+     8a0:	b410      	push	{r4}
+     8a2:	f8d3 211c 	ldr.w	r2, [r3, #284]	; 0x11c
+     8a6:	f042 4200 	orr.w	r2, r2, #2147483648	; 0x80000000
+     8aa:	f8c3 211c 	str.w	r2, [r3, #284]	; 0x11c
+     8ae:	b930      	cbnz	r0, 8be <am_hal_iom_enable+0x26>
+     8b0:	4b18      	ldr	r3, [pc, #96]	; (914 <am_hal_iom_enable+0x7c>)
+     8b2:	681b      	ldr	r3, [r3, #0]
+     8b4:	2b01      	cmp	r3, #1
+     8b6:	d01a      	beq.n	8ee <am_hal_iom_enable+0x56>
+     8b8:	f85d 4b04 	ldr.w	r4, [sp], #4
+     8bc:	4770      	bx	lr
+     8be:	4b16      	ldr	r3, [pc, #88]	; (918 <am_hal_iom_enable+0x80>)
+     8c0:	681b      	ldr	r3, [r3, #0]
+     8c2:	2b01      	cmp	r3, #1
+     8c4:	d1f8      	bne.n	8b8 <am_hal_iom_enable+0x20>
+     8c6:	4b15      	ldr	r3, [pc, #84]	; (91c <am_hal_iom_enable+0x84>)
+     8c8:	4915      	ldr	r1, [pc, #84]	; (920 <am_hal_iom_enable+0x88>)
+     8ca:	4a16      	ldr	r2, [pc, #88]	; (924 <am_hal_iom_enable+0x8c>)
+     8cc:	f85d 4b04 	ldr.w	r4, [sp], #4
+     8d0:	2073      	movs	r0, #115	; 0x73
+     8d2:	6018      	str	r0, [r3, #0]
+     8d4:	6808      	ldr	r0, [r1, #0]
+     8d6:	f020 0070 	bic.w	r0, r0, #112	; 0x70
+     8da:	6008      	str	r0, [r1, #0]
+     8dc:	6810      	ldr	r0, [r2, #0]
+     8de:	f420 407f 	bic.w	r0, r0, #65280	; 0xff00
+     8e2:	f440 6020 	orr.w	r0, r0, #2560	; 0xa00
+     8e6:	2100      	movs	r1, #0
+     8e8:	6010      	str	r0, [r2, #0]
+     8ea:	6019      	str	r1, [r3, #0]
+     8ec:	4770      	bx	lr
+     8ee:	4b0b      	ldr	r3, [pc, #44]	; (91c <am_hal_iom_enable+0x84>)
+     8f0:	490d      	ldr	r1, [pc, #52]	; (928 <am_hal_iom_enable+0x90>)
+     8f2:	4a0e      	ldr	r2, [pc, #56]	; (92c <am_hal_iom_enable+0x94>)
+     8f4:	2473      	movs	r4, #115	; 0x73
+     8f6:	601c      	str	r4, [r3, #0]
+     8f8:	680c      	ldr	r4, [r1, #0]
+     8fa:	f024 64e0 	bic.w	r4, r4, #117440512	; 0x7000000
+     8fe:	600c      	str	r4, [r1, #0]
+     900:	6811      	ldr	r1, [r2, #0]
+     902:	f85d 4b04 	ldr.w	r4, [sp], #4
+     906:	f421 017f 	bic.w	r1, r1, #16711680	; 0xff0000
+     90a:	f441 2120 	orr.w	r1, r1, #655360	; 0xa0000
+     90e:	6011      	str	r1, [r2, #0]
+     910:	6018      	str	r0, [r3, #0]
+     912:	4770      	bx	lr
+     914:	10000228 	.word	0x10000228
+     918:	1000022c 	.word	0x1000022c
+     91c:	40010060 	.word	0x40010060
+     920:	40010044 	.word	0x40010044
+     924:	40010008 	.word	0x40010008
+     928:	40010040 	.word	0x40010040
+     92c:	40010004 	.word	0x40010004
+
+00000930 <am_hal_iom_disable>:
+     930:	b410      	push	{r4}
+     932:	f500 21a0 	add.w	r1, r0, #327680	; 0x50000
+     936:	3104      	adds	r1, #4
+     938:	0309      	lsls	r1, r1, #12
+     93a:	f501 728c 	add.w	r2, r1, #280	; 0x118
+     93e:	6813      	ldr	r3, [r2, #0]
+     940:	075b      	lsls	r3, r3, #29
+     942:	d5fc      	bpl.n	93e <am_hal_iom_disable+0xe>
+     944:	f8d1 311c 	ldr.w	r3, [r1, #284]	; 0x11c
+     948:	f023 4300 	bic.w	r3, r3, #2147483648	; 0x80000000
+     94c:	f8c1 311c 	str.w	r3, [r1, #284]	; 0x11c
+     950:	b930      	cbnz	r0, 960 <am_hal_iom_disable+0x30>
+     952:	4b19      	ldr	r3, [pc, #100]	; (9b8 <am_hal_iom_disable+0x88>)
+     954:	681b      	ldr	r3, [r3, #0]
+     956:	2b01      	cmp	r3, #1
+     958:	d01a      	beq.n	990 <am_hal_iom_disable+0x60>
+     95a:	f85d 4b04 	ldr.w	r4, [sp], #4
+     95e:	4770      	bx	lr
+     960:	4b16      	ldr	r3, [pc, #88]	; (9bc <am_hal_iom_disable+0x8c>)
+     962:	681b      	ldr	r3, [r3, #0]
+     964:	2b01      	cmp	r3, #1
+     966:	d1f8      	bne.n	95a <am_hal_iom_disable+0x2a>
+     968:	4b15      	ldr	r3, [pc, #84]	; (9c0 <am_hal_iom_disable+0x90>)
+     96a:	4916      	ldr	r1, [pc, #88]	; (9c4 <am_hal_iom_disable+0x94>)
+     96c:	4a16      	ldr	r2, [pc, #88]	; (9c8 <am_hal_iom_disable+0x98>)
+     96e:	f85d 4b04 	ldr.w	r4, [sp], #4
+     972:	2073      	movs	r0, #115	; 0x73
+     974:	6018      	str	r0, [r3, #0]
+     976:	6808      	ldr	r0, [r1, #0]
+     978:	f020 0070 	bic.w	r0, r0, #112	; 0x70
+     97c:	6008      	str	r0, [r1, #0]
+     97e:	6810      	ldr	r0, [r2, #0]
+     980:	f420 407f 	bic.w	r0, r0, #65280	; 0xff00
+     984:	f440 6000 	orr.w	r0, r0, #2048	; 0x800
+     988:	2100      	movs	r1, #0
+     98a:	6010      	str	r0, [r2, #0]
+     98c:	6019      	str	r1, [r3, #0]
+     98e:	4770      	bx	lr
+     990:	4b0b      	ldr	r3, [pc, #44]	; (9c0 <am_hal_iom_disable+0x90>)
+     992:	490e      	ldr	r1, [pc, #56]	; (9cc <am_hal_iom_disable+0x9c>)
+     994:	4a0e      	ldr	r2, [pc, #56]	; (9d0 <am_hal_iom_disable+0xa0>)
+     996:	2473      	movs	r4, #115	; 0x73
+     998:	601c      	str	r4, [r3, #0]
+     99a:	680c      	ldr	r4, [r1, #0]
+     99c:	f024 64e0 	bic.w	r4, r4, #117440512	; 0x7000000
+     9a0:	600c      	str	r4, [r1, #0]
+     9a2:	6811      	ldr	r1, [r2, #0]
+     9a4:	f85d 4b04 	ldr.w	r4, [sp], #4
+     9a8:	f421 017f 	bic.w	r1, r1, #16711680	; 0xff0000
+     9ac:	f441 2100 	orr.w	r1, r1, #524288	; 0x80000
+     9b0:	6011      	str	r1, [r2, #0]
+     9b2:	6018      	str	r0, [r3, #0]
+     9b4:	4770      	bx	lr
+     9b6:	bf00      	nop
+     9b8:	10000228 	.word	0x10000228
+     9bc:	1000022c 	.word	0x1000022c
+     9c0:	40010060 	.word	0x40010060
+     9c4:	40010044 	.word	0x40010044
+     9c8:	40010008 	.word	0x40010008
+     9cc:	40010040 	.word	0x40010040
+     9d0:	40010004 	.word	0x40010004
+
+000009d4 <am_hal_iom_config>:
+     9d4:	680b      	ldr	r3, [r1, #0]
+     9d6:	b9e8      	cbnz	r0, a14 <am_hal_iom_config+0x40>
+     9d8:	4a10      	ldr	r2, [pc, #64]	; (a1c <am_hal_iom_config+0x48>)
+     9da:	6013      	str	r3, [r2, #0]
+     9dc:	7a0a      	ldrb	r2, [r1, #8]
+     9de:	b10a      	cbz	r2, 9e4 <am_hal_iom_config+0x10>
+     9e0:	f043 0304 	orr.w	r3, r3, #4
+     9e4:	7a4a      	ldrb	r2, [r1, #9]
+     9e6:	b10a      	cbz	r2, 9ec <am_hal_iom_config+0x18>
+     9e8:	f043 0302 	orr.w	r3, r3, #2
+     9ec:	f500 20a0 	add.w	r0, r0, #327680	; 0x50000
+     9f0:	3004      	adds	r0, #4
+     9f2:	0300      	lsls	r0, r0, #12
+     9f4:	f8c0 311c 	str.w	r3, [r0, #284]	; 0x11c
+     9f8:	7a8b      	ldrb	r3, [r1, #10]
+     9fa:	7aca      	ldrb	r2, [r1, #11]
+     9fc:	021b      	lsls	r3, r3, #8
+     9fe:	f403 537c 	and.w	r3, r3, #16128	; 0x3f00
+     a02:	f002 023f 	and.w	r2, r2, #63	; 0x3f
+     a06:	4313      	orrs	r3, r2
+     a08:	f8c0 3108 	str.w	r3, [r0, #264]	; 0x108
+     a0c:	684b      	ldr	r3, [r1, #4]
+     a0e:	f8c0 310c 	str.w	r3, [r0, #268]	; 0x10c
+     a12:	4770      	bx	lr
+     a14:	4a02      	ldr	r2, [pc, #8]	; (a20 <am_hal_iom_config+0x4c>)
+     a16:	6013      	str	r3, [r2, #0]
+     a18:	e7e0      	b.n	9dc <am_hal_iom_config+0x8>
+     a1a:	bf00      	nop
+     a1c:	10000228 	.word	0x10000228
+     a20:	1000022c 	.word	0x1000022c
+
+00000a24 <am_hal_iom_spi_write>:
+     a24:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+     a28:	f5b3 5f80 	cmp.w	r3, #4096	; 0x1000
+     a2c:	469a      	mov	sl, r3
+     a2e:	4606      	mov	r6, r0
+     a30:	468b      	mov	fp, r1
+     a32:	4691      	mov	r9, r2
+     a34:	9f0a      	ldr	r7, [sp, #40]	; 0x28
+     a36:	d276      	bcs.n	b26 <am_hal_iom_spi_write+0x102>
+     a38:	f506 26a0 	add.w	r6, r6, #327680	; 0x50000
+     a3c:	3604      	adds	r6, #4
+     a3e:	0336      	lsls	r6, r6, #12
+     a40:	f506 738c 	add.w	r3, r6, #280	; 0x118
+     a44:	f1ba 0f40 	cmp.w	sl, #64	; 0x40
+     a48:	bf34      	ite	cc
+     a4a:	4654      	movcc	r4, sl
+     a4c:	2440      	movcs	r4, #64	; 0x40
+     a4e:	6818      	ldr	r0, [r3, #0]
+     a50:	0742      	lsls	r2, r0, #29
+     a52:	d5fc      	bpl.n	a4e <am_hal_iom_spi_write+0x2a>
+     a54:	f8d6 3100 	ldr.w	r3, [r6, #256]	; 0x100
+     a58:	f3c3 4306 	ubfx	r3, r3, #16, #7
+     a5c:	429c      	cmp	r4, r3
+     a5e:	f506 7880 	add.w	r8, r6, #256	; 0x100
+     a62:	d867      	bhi.n	b34 <am_hal_iom_spi_write+0x110>
+     a64:	b15c      	cbz	r4, a7e <am_hal_iom_spi_write+0x5a>
+     a66:	2004      	movs	r0, #4
+     a68:	2300      	movs	r3, #0
+     a6a:	e001      	b.n	a70 <am_hal_iom_spi_write+0x4c>
+     a6c:	4603      	mov	r3, r0
+     a6e:	4610      	mov	r0, r2
+     a70:	f859 5003 	ldr.w	r5, [r9, r3]
+     a74:	6035      	str	r5, [r6, #0]
+     a76:	4284      	cmp	r4, r0
+     a78:	f100 0204 	add.w	r2, r0, #4
+     a7c:	d8f6      	bhi.n	a6c <am_hal_iom_spi_write+0x48>
+     a7e:	ea4f 430b 	mov.w	r3, fp, lsl #16
+     a82:	f027 4723 	bic.w	r7, r7, #2734686208	; 0xa3000000
+     a86:	f403 23e0 	and.w	r3, r3, #458752	; 0x70000
+     a8a:	f007 27ff 	and.w	r7, r7, #4278255360	; 0xff00ff00
+     a8e:	431f      	orrs	r7, r3
+     a90:	fa5f f38a 	uxtb.w	r3, sl
+     a94:	433b      	orrs	r3, r7
+     a96:	f40a 6270 	and.w	r2, sl, #3840	; 0xf00
+     a9a:	f024 0503 	bic.w	r5, r4, #3
+     a9e:	ea43 33c2 	orr.w	r3, r3, r2, lsl #15
+     aa2:	ebba 0404 	subs.w	r4, sl, r4
+     aa6:	f8c6 3110 	str.w	r3, [r6, #272]	; 0x110
+     aaa:	444d      	add	r5, r9
+     aac:	d049      	beq.n	b42 <am_hal_iom_spi_write+0x11e>
+     aae:	f8d8 3000 	ldr.w	r3, [r8]
+     ab2:	f3c3 4306 	ubfx	r3, r3, #16, #7
+     ab6:	42a3      	cmp	r3, r4
+     ab8:	d224      	bcs.n	b04 <am_hal_iom_spi_write+0xe0>
+     aba:	f8d8 3000 	ldr.w	r3, [r8]
+     abe:	f3c3 4306 	ubfx	r3, r3, #16, #7
+     ac2:	f003 03fc 	and.w	r3, r3, #252	; 0xfc
+     ac6:	1ae7      	subs	r7, r4, r3
+     ac8:	461c      	mov	r4, r3
+     aca:	f8d8 3000 	ldr.w	r3, [r8]
+     ace:	f3c3 4306 	ubfx	r3, r3, #16, #7
+     ad2:	429c      	cmp	r4, r3
+     ad4:	d81e      	bhi.n	b14 <am_hal_iom_spi_write+0xf0>
+     ad6:	b154      	cbz	r4, aee <am_hal_iom_spi_write+0xca>
+     ad8:	2304      	movs	r3, #4
+     ada:	2200      	movs	r2, #0
+     adc:	e001      	b.n	ae2 <am_hal_iom_spi_write+0xbe>
+     ade:	461a      	mov	r2, r3
+     ae0:	460b      	mov	r3, r1
+     ae2:	58aa      	ldr	r2, [r5, r2]
+     ae4:	6032      	str	r2, [r6, #0]
+     ae6:	429c      	cmp	r4, r3
+     ae8:	f103 0104 	add.w	r1, r3, #4
+     aec:	d8f7      	bhi.n	ade <am_hal_iom_spi_write+0xba>
+     aee:	f024 0403 	bic.w	r4, r4, #3
+     af2:	4425      	add	r5, r4
+     af4:	b1af      	cbz	r7, b22 <am_hal_iom_spi_write+0xfe>
+     af6:	f8d8 3000 	ldr.w	r3, [r8]
+     afa:	463c      	mov	r4, r7
+     afc:	f3c3 4306 	ubfx	r3, r3, #16, #7
+     b00:	42a3      	cmp	r3, r4
+     b02:	d3da      	bcc.n	aba <am_hal_iom_spi_write+0x96>
+     b04:	f8d8 3000 	ldr.w	r3, [r8]
+     b08:	f3c3 4306 	ubfx	r3, r3, #16, #7
+     b0c:	429c      	cmp	r4, r3
+     b0e:	f04f 0700 	mov.w	r7, #0
+     b12:	d9e0      	bls.n	ad6 <am_hal_iom_spi_write+0xb2>
+     b14:	480c      	ldr	r0, [pc, #48]	; (b48 <am_hal_iom_spi_write+0x124>)
+     b16:	4a0d      	ldr	r2, [pc, #52]	; (b4c <am_hal_iom_spi_write+0x128>)
+     b18:	f240 419b 	movw	r1, #1179	; 0x49b
+     b1c:	f000 faec 	bl	10f8 <am_hal_debug_error>
+     b20:	e7da      	b.n	ad8 <am_hal_iom_spi_write+0xb4>
+     b22:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+     b26:	4808      	ldr	r0, [pc, #32]	; (b48 <am_hal_iom_spi_write+0x124>)
+     b28:	4a09      	ldr	r2, [pc, #36]	; (b50 <am_hal_iom_spi_write+0x12c>)
+     b2a:	f44f 718f 	mov.w	r1, #286	; 0x11e
+     b2e:	f000 fae3 	bl	10f8 <am_hal_debug_error>
+     b32:	e781      	b.n	a38 <am_hal_iom_spi_write+0x14>
+     b34:	4804      	ldr	r0, [pc, #16]	; (b48 <am_hal_iom_spi_write+0x124>)
+     b36:	4a05      	ldr	r2, [pc, #20]	; (b4c <am_hal_iom_spi_write+0x128>)
+     b38:	f240 419b 	movw	r1, #1179	; 0x49b
+     b3c:	f000 fadc 	bl	10f8 <am_hal_debug_error>
+     b40:	e791      	b.n	a66 <am_hal_iom_spi_write+0x42>
+     b42:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+     b46:	bf00      	nop
+     b48:	00001138 	.word	0x00001138
+     b4c:	00001164 	.word	0x00001164
+     b50:	0000114c 	.word	0x0000114c
+
+00000b54 <am_hal_iom_spi_read>:
+     b54:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+     b58:	f5b3 5f80 	cmp.w	r3, #4096	; 0x1000
+     b5c:	4699      	mov	r9, r3
+     b5e:	4604      	mov	r4, r0
+     b60:	460e      	mov	r6, r1
+     b62:	4690      	mov	r8, r2
+     b64:	9d08      	ldr	r5, [sp, #32]
+     b66:	d25c      	bcs.n	c22 <am_hal_iom_spi_read+0xce>
+     b68:	f504 24a0 	add.w	r4, r4, #327680	; 0x50000
+     b6c:	3404      	adds	r4, #4
+     b6e:	0324      	lsls	r4, r4, #12
+     b70:	f504 778c 	add.w	r7, r4, #280	; 0x118
+     b74:	683b      	ldr	r3, [r7, #0]
+     b76:	075b      	lsls	r3, r3, #29
+     b78:	d5fc      	bpl.n	b74 <am_hal_iom_spi_read+0x20>
+     b7a:	f025 4523 	bic.w	r5, r5, #2734686208	; 0xa3000000
+     b7e:	f005 25ff 	and.w	r5, r5, #4278255360	; 0xff00ff00
+     b82:	0436      	lsls	r6, r6, #16
+     b84:	f045 4500 	orr.w	r5, r5, #2147483648	; 0x80000000
+     b88:	f406 26e0 	and.w	r6, r6, #458752	; 0x70000
+     b8c:	4335      	orrs	r5, r6
+     b8e:	fa5f f389 	uxtb.w	r3, r9
+     b92:	432b      	orrs	r3, r5
+     b94:	f409 6270 	and.w	r2, r9, #3840	; 0xf00
+     b98:	ea43 33c2 	orr.w	r3, r3, r2, lsl #15
+     b9c:	f8c4 3110 	str.w	r3, [r4, #272]	; 0x110
+     ba0:	683d      	ldr	r5, [r7, #0]
+     ba2:	f015 0504 	ands.w	r5, r5, #4
+     ba6:	d11a      	bne.n	bde <am_hal_iom_spi_read+0x8a>
+     ba8:	f8d4 6100 	ldr.w	r6, [r4, #256]	; 0x100
+     bac:	f8d4 3100 	ldr.w	r3, [r4, #256]	; 0x100
+     bb0:	f006 067f 	and.w	r6, r6, #127	; 0x7f
+     bb4:	454e      	cmp	r6, r9
+     bb6:	f003 037f 	and.w	r3, r3, #127	; 0x7f
+     bba:	d012      	beq.n	be2 <am_hal_iom_spi_read+0x8e>
+     bbc:	2b03      	cmp	r3, #3
+     bbe:	d9ef      	bls.n	ba0 <am_hal_iom_spi_read+0x4c>
+     bc0:	f8d4 3100 	ldr.w	r3, [r4, #256]	; 0x100
+     bc4:	f003 037f 	and.w	r3, r3, #127	; 0x7f
+     bc8:	2b03      	cmp	r3, #3
+     bca:	d91c      	bls.n	c06 <am_hal_iom_spi_read+0xb2>
+     bcc:	6823      	ldr	r3, [r4, #0]
+     bce:	f848 3b04 	str.w	r3, [r8], #4
+     bd2:	683d      	ldr	r5, [r7, #0]
+     bd4:	f015 0504 	ands.w	r5, r5, #4
+     bd8:	f1a9 0904 	sub.w	r9, r9, #4
+     bdc:	d0e4      	beq.n	ba8 <am_hal_iom_spi_read+0x54>
+     bde:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+     be2:	4599      	cmp	r9, r3
+     be4:	d816      	bhi.n	c14 <am_hal_iom_spi_read+0xc0>
+     be6:	f1b9 0f00 	cmp.w	r9, #0
+     bea:	d0d9      	beq.n	ba0 <am_hal_iom_spi_read+0x4c>
+     bec:	2304      	movs	r3, #4
+     bee:	e001      	b.n	bf4 <am_hal_iom_spi_read+0xa0>
+     bf0:	461d      	mov	r5, r3
+     bf2:	460b      	mov	r3, r1
+     bf4:	6821      	ldr	r1, [r4, #0]
+     bf6:	f848 1005 	str.w	r1, [r8, r5]
+     bfa:	429e      	cmp	r6, r3
+     bfc:	f103 0104 	add.w	r1, r3, #4
+     c00:	d8f6      	bhi.n	bf0 <am_hal_iom_spi_read+0x9c>
+     c02:	46b1      	mov	r9, r6
+     c04:	e7cc      	b.n	ba0 <am_hal_iom_spi_read+0x4c>
+     c06:	480a      	ldr	r0, [pc, #40]	; (c30 <am_hal_iom_spi_read+0xdc>)
+     c08:	4a0a      	ldr	r2, [pc, #40]	; (c34 <am_hal_iom_spi_read+0xe0>)
+     c0a:	f240 41c9 	movw	r1, #1225	; 0x4c9
+     c0e:	f000 fa73 	bl	10f8 <am_hal_debug_error>
+     c12:	e7db      	b.n	bcc <am_hal_iom_spi_read+0x78>
+     c14:	4806      	ldr	r0, [pc, #24]	; (c30 <am_hal_iom_spi_read+0xdc>)
+     c16:	4a07      	ldr	r2, [pc, #28]	; (c34 <am_hal_iom_spi_read+0xe0>)
+     c18:	f240 41c9 	movw	r1, #1225	; 0x4c9
+     c1c:	f000 fa6c 	bl	10f8 <am_hal_debug_error>
+     c20:	e7e4      	b.n	bec <am_hal_iom_spi_read+0x98>
+     c22:	4803      	ldr	r0, [pc, #12]	; (c30 <am_hal_iom_spi_read+0xdc>)
+     c24:	4a04      	ldr	r2, [pc, #16]	; (c38 <am_hal_iom_spi_read+0xe4>)
+     c26:	f240 117b 	movw	r1, #379	; 0x17b
+     c2a:	f000 fa65 	bl	10f8 <am_hal_debug_error>
+     c2e:	e79b      	b.n	b68 <am_hal_iom_spi_read+0x14>
+     c30:	00001138 	.word	0x00001138
+     c34:	00001198 	.word	0x00001198
+     c38:	0000114c 	.word	0x0000114c
+
+00000c3c <am_hal_iom_spi_read_nb>:
+     c3c:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+     c40:	f5b3 5f80 	cmp.w	r3, #4096	; 0x1000
+     c44:	461e      	mov	r6, r3
+     c46:	4680      	mov	r8, r0
+     c48:	468a      	mov	sl, r1
+     c4a:	4691      	mov	r9, r2
+     c4c:	9f08      	ldr	r7, [sp, #32]
+     c4e:	d22b      	bcs.n	ca8 <am_hal_iom_spi_read_nb+0x6c>
+     c50:	f508 24a0 	add.w	r4, r8, #327680	; 0x50000
+     c54:	3404      	adds	r4, #4
+     c56:	0322      	lsls	r2, r4, #12
+     c58:	f502 758c 	add.w	r5, r2, #280	; 0x118
+     c5c:	682c      	ldr	r4, [r5, #0]
+     c5e:	0763      	lsls	r3, r4, #29
+     c60:	d5fc      	bpl.n	c5c <am_hal_iom_spi_read_nb+0x20>
+     c62:	f027 4723 	bic.w	r7, r7, #2734686208	; 0xa3000000
+     c66:	f007 27ff 	and.w	r7, r7, #4278255360	; 0xff00ff00
+     c6a:	ea4f 4a0a 	mov.w	sl, sl, lsl #16
+     c6e:	4812      	ldr	r0, [pc, #72]	; (cb8 <am_hal_iom_spi_read_nb+0x7c>)
+     c70:	9b09      	ldr	r3, [sp, #36]	; 0x24
+     c72:	f047 4700 	orr.w	r7, r7, #2147483648	; 0x80000000
+     c76:	f40a 2ae0 	and.w	sl, sl, #458752	; 0x70000
+     c7a:	ea4f 1808 	mov.w	r8, r8, lsl #4
+     c7e:	b2f1      	uxtb	r1, r6
+     c80:	ea47 040a 	orr.w	r4, r7, sl
+     c84:	430c      	orrs	r4, r1
+     c86:	f406 6570 	and.w	r5, r6, #3840	; 0xf00
+     c8a:	eb00 0108 	add.w	r1, r0, r8
+     c8e:	ea44 34c5 	orr.w	r4, r4, r5, lsl #15
+     c92:	2502      	movs	r5, #2
+     c94:	f840 5008 	str.w	r5, [r0, r8]
+     c98:	f8c1 9004 	str.w	r9, [r1, #4]
+     c9c:	608e      	str	r6, [r1, #8]
+     c9e:	60cb      	str	r3, [r1, #12]
+     ca0:	f8c2 4110 	str.w	r4, [r2, #272]	; 0x110
+     ca4:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+     ca8:	4804      	ldr	r0, [pc, #16]	; (cbc <am_hal_iom_spi_read_nb+0x80>)
+     caa:	4a05      	ldr	r2, [pc, #20]	; (cc0 <am_hal_iom_spi_read_nb+0x84>)
+     cac:	f44f 7106 	mov.w	r1, #536	; 0x218
+     cb0:	f000 fa22 	bl	10f8 <am_hal_debug_error>
+     cb4:	e7cc      	b.n	c50 <am_hal_iom_spi_read_nb+0x14>
+     cb6:	bf00      	nop
+     cb8:	10000238 	.word	0x10000238
+     cbc:	00001138 	.word	0x00001138
+     cc0:	0000114c 	.word	0x0000114c
+
+00000cc4 <am_hal_iom_poll_complete>:
+     cc4:	4a03      	ldr	r2, [pc, #12]	; (cd4 <am_hal_iom_poll_complete+0x10>)
+     cc6:	0300      	lsls	r0, r0, #12
+     cc8:	4402      	add	r2, r0
+     cca:	6813      	ldr	r3, [r2, #0]
+     ccc:	075b      	lsls	r3, r3, #29
+     cce:	d5fc      	bpl.n	cca <am_hal_iom_poll_complete+0x6>
+     cd0:	4770      	bx	lr
+     cd2:	bf00      	nop
+     cd4:	50004118 	.word	0x50004118
+
+00000cd8 <am_hal_iom_int_service>:
+     cd8:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+     cdc:	0104      	lsls	r4, r0, #4
+     cde:	4d66      	ldr	r5, [pc, #408]	; (e78 <am_hal_iom_int_service+0x1a0>)
+     ce0:	5963      	ldr	r3, [r4, r5]
+     ce2:	1967      	adds	r7, r4, r5
+     ce4:	b313      	cbz	r3, d2c <am_hal_iom_int_service+0x54>
+     ce6:	f011 0601 	ands.w	r6, r1, #1
+     cea:	d008      	beq.n	cfe <am_hal_iom_int_service+0x26>
+     cec:	2b02      	cmp	r3, #2
+     cee:	d076      	beq.n	dde <am_hal_iom_int_service+0x106>
+     cf0:	68fb      	ldr	r3, [r7, #12]
+     cf2:	2200      	movs	r2, #0
+     cf4:	5162      	str	r2, [r4, r5]
+     cf6:	b1db      	cbz	r3, d30 <am_hal_iom_int_service+0x58>
+     cf8:	4798      	blx	r3
+     cfa:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+     cfe:	078a      	lsls	r2, r1, #30
+     d00:	d514      	bpl.n	d2c <am_hal_iom_int_service+0x54>
+     d02:	f500 20a0 	add.w	r0, r0, #327680	; 0x50000
+     d06:	2b01      	cmp	r3, #1
+     d08:	f100 0004 	add.w	r0, r0, #4
+     d0c:	d012      	beq.n	d34 <am_hal_iom_int_service+0x5c>
+     d0e:	0304      	lsls	r4, r0, #12
+     d10:	68bb      	ldr	r3, [r7, #8]
+     d12:	f8d4 5100 	ldr.w	r5, [r4, #256]	; 0x100
+     d16:	f005 057f 	and.w	r5, r5, #127	; 0x7f
+     d1a:	429d      	cmp	r5, r3
+     d1c:	f000 8088 	beq.w	e30 <am_hal_iom_int_service+0x158>
+     d20:	f8d4 2100 	ldr.w	r2, [r4, #256]	; 0x100
+     d24:	f002 027f 	and.w	r2, r2, #127	; 0x7f
+     d28:	2a03      	cmp	r2, #3
+     d2a:	d830      	bhi.n	d8e <am_hal_iom_int_service+0xb6>
+     d2c:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+     d30:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+     d34:	0305      	lsls	r5, r0, #12
+     d36:	68bb      	ldr	r3, [r7, #8]
+     d38:	f8d5 2100 	ldr.w	r2, [r5, #256]	; 0x100
+     d3c:	f3c2 4206 	ubfx	r2, r2, #16, #7
+     d40:	4293      	cmp	r3, r2
+     d42:	461c      	mov	r4, r3
+     d44:	d905      	bls.n	d52 <am_hal_iom_int_service+0x7a>
+     d46:	f8d5 4100 	ldr.w	r4, [r5, #256]	; 0x100
+     d4a:	f3c4 4406 	ubfx	r4, r4, #16, #7
+     d4e:	f004 04fc 	and.w	r4, r4, #252	; 0xfc
+     d52:	f8d5 2100 	ldr.w	r2, [r5, #256]	; 0x100
+     d56:	f8d7 8004 	ldr.w	r8, [r7, #4]
+     d5a:	f3c2 4206 	ubfx	r2, r2, #16, #7
+     d5e:	4294      	cmp	r4, r2
+     d60:	d835      	bhi.n	dce <am_hal_iom_int_service+0xf6>
+     d62:	4641      	mov	r1, r8
+     d64:	b15c      	cbz	r4, d7e <am_hal_iom_int_service+0xa6>
+     d66:	2304      	movs	r3, #4
+     d68:	e001      	b.n	d6e <am_hal_iom_int_service+0x96>
+     d6a:	461e      	mov	r6, r3
+     d6c:	4613      	mov	r3, r2
+     d6e:	f858 2006 	ldr.w	r2, [r8, r6]
+     d72:	602a      	str	r2, [r5, #0]
+     d74:	429c      	cmp	r4, r3
+     d76:	f103 0204 	add.w	r2, r3, #4
+     d7a:	d8f6      	bhi.n	d6a <am_hal_iom_int_service+0x92>
+     d7c:	68bb      	ldr	r3, [r7, #8]
+     d7e:	f024 0203 	bic.w	r2, r4, #3
+     d82:	1b1b      	subs	r3, r3, r4
+     d84:	440a      	add	r2, r1
+     d86:	607a      	str	r2, [r7, #4]
+     d88:	60bb      	str	r3, [r7, #8]
+     d8a:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+     d8e:	f8d4 5100 	ldr.w	r5, [r4, #256]	; 0x100
+     d92:	f8d4 2100 	ldr.w	r2, [r4, #256]	; 0x100
+     d96:	f8d7 8004 	ldr.w	r8, [r7, #4]
+     d9a:	f005 057c 	and.w	r5, r5, #124	; 0x7c
+     d9e:	f002 027f 	and.w	r2, r2, #127	; 0x7f
+     da2:	4295      	cmp	r5, r2
+     da4:	d83c      	bhi.n	e20 <am_hal_iom_int_service+0x148>
+     da6:	4641      	mov	r1, r8
+     da8:	b15d      	cbz	r5, dc2 <am_hal_iom_int_service+0xea>
+     daa:	2304      	movs	r3, #4
+     dac:	e001      	b.n	db2 <am_hal_iom_int_service+0xda>
+     dae:	461e      	mov	r6, r3
+     db0:	4613      	mov	r3, r2
+     db2:	6822      	ldr	r2, [r4, #0]
+     db4:	f848 2006 	str.w	r2, [r8, r6]
+     db8:	429d      	cmp	r5, r3
+     dba:	f103 0204 	add.w	r2, r3, #4
+     dbe:	d8f6      	bhi.n	dae <am_hal_iom_int_service+0xd6>
+     dc0:	68bb      	ldr	r3, [r7, #8]
+     dc2:	1b5b      	subs	r3, r3, r5
+     dc4:	440d      	add	r5, r1
+     dc6:	60bb      	str	r3, [r7, #8]
+     dc8:	607d      	str	r5, [r7, #4]
+     dca:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+     dce:	f240 419b 	movw	r1, #1179	; 0x49b
+     dd2:	482a      	ldr	r0, [pc, #168]	; (e7c <am_hal_iom_int_service+0x1a4>)
+     dd4:	4a2a      	ldr	r2, [pc, #168]	; (e80 <am_hal_iom_int_service+0x1a8>)
+     dd6:	f000 f98f 	bl	10f8 <am_hal_debug_error>
+     dda:	6879      	ldr	r1, [r7, #4]
+     ddc:	e7c3      	b.n	d66 <am_hal_iom_int_service+0x8e>
+     dde:	f500 20a0 	add.w	r0, r0, #327680	; 0x50000
+     de2:	3004      	adds	r0, #4
+     de4:	0306      	lsls	r6, r0, #12
+     de6:	f8d7 9004 	ldr.w	r9, [r7, #4]
+     dea:	f8d6 2100 	ldr.w	r2, [r6, #256]	; 0x100
+     dee:	f8d6 3100 	ldr.w	r3, [r6, #256]	; 0x100
+     df2:	f002 087f 	and.w	r8, r2, #127	; 0x7f
+     df6:	f003 037f 	and.w	r3, r3, #127	; 0x7f
+     dfa:	4598      	cmp	r8, r3
+     dfc:	d82d      	bhi.n	e5a <am_hal_iom_int_service+0x182>
+     dfe:	f1b8 0f00 	cmp.w	r8, #0
+     e02:	f43f af75 	beq.w	cf0 <am_hal_iom_int_service+0x18>
+     e06:	2304      	movs	r3, #4
+     e08:	2100      	movs	r1, #0
+     e0a:	e001      	b.n	e10 <am_hal_iom_int_service+0x138>
+     e0c:	4619      	mov	r1, r3
+     e0e:	4613      	mov	r3, r2
+     e10:	6832      	ldr	r2, [r6, #0]
+     e12:	f849 2001 	str.w	r2, [r9, r1]
+     e16:	4598      	cmp	r8, r3
+     e18:	f103 0204 	add.w	r2, r3, #4
+     e1c:	d8f6      	bhi.n	e0c <am_hal_iom_int_service+0x134>
+     e1e:	e767      	b.n	cf0 <am_hal_iom_int_service+0x18>
+     e20:	f240 41c9 	movw	r1, #1225	; 0x4c9
+     e24:	4815      	ldr	r0, [pc, #84]	; (e7c <am_hal_iom_int_service+0x1a4>)
+     e26:	4a17      	ldr	r2, [pc, #92]	; (e84 <am_hal_iom_int_service+0x1ac>)
+     e28:	f000 f966 	bl	10f8 <am_hal_debug_error>
+     e2c:	6879      	ldr	r1, [r7, #4]
+     e2e:	e7bc      	b.n	daa <am_hal_iom_int_service+0xd2>
+     e30:	f8d4 3100 	ldr.w	r3, [r4, #256]	; 0x100
+     e34:	687f      	ldr	r7, [r7, #4]
+     e36:	f003 037f 	and.w	r3, r3, #127	; 0x7f
+     e3a:	429d      	cmp	r5, r3
+     e3c:	d814      	bhi.n	e68 <am_hal_iom_int_service+0x190>
+     e3e:	2d00      	cmp	r5, #0
+     e40:	f43f af74 	beq.w	d2c <am_hal_iom_int_service+0x54>
+     e44:	2304      	movs	r3, #4
+     e46:	e001      	b.n	e4c <am_hal_iom_int_service+0x174>
+     e48:	461e      	mov	r6, r3
+     e4a:	4613      	mov	r3, r2
+     e4c:	6822      	ldr	r2, [r4, #0]
+     e4e:	51ba      	str	r2, [r7, r6]
+     e50:	429d      	cmp	r5, r3
+     e52:	f103 0204 	add.w	r2, r3, #4
+     e56:	d8f7      	bhi.n	e48 <am_hal_iom_int_service+0x170>
+     e58:	e768      	b.n	d2c <am_hal_iom_int_service+0x54>
+     e5a:	4808      	ldr	r0, [pc, #32]	; (e7c <am_hal_iom_int_service+0x1a4>)
+     e5c:	4a09      	ldr	r2, [pc, #36]	; (e84 <am_hal_iom_int_service+0x1ac>)
+     e5e:	f240 41c9 	movw	r1, #1225	; 0x4c9
+     e62:	f000 f949 	bl	10f8 <am_hal_debug_error>
+     e66:	e7ce      	b.n	e06 <am_hal_iom_int_service+0x12e>
+     e68:	4804      	ldr	r0, [pc, #16]	; (e7c <am_hal_iom_int_service+0x1a4>)
+     e6a:	4a06      	ldr	r2, [pc, #24]	; (e84 <am_hal_iom_int_service+0x1ac>)
+     e6c:	f240 41c9 	movw	r1, #1225	; 0x4c9
+     e70:	f000 f942 	bl	10f8 <am_hal_debug_error>
+     e74:	e7e6      	b.n	e44 <am_hal_iom_int_service+0x16c>
+     e76:	bf00      	nop
+     e78:	10000238 	.word	0x10000238
+     e7c:	00001138 	.word	0x00001138
+     e80:	00001164 	.word	0x00001164
+     e84:	00001198 	.word	0x00001198
+
+00000e88 <am_hal_iom_int_enable>:
+     e88:	f500 20a0 	add.w	r0, r0, #327680	; 0x50000
+     e8c:	3004      	adds	r0, #4
+     e8e:	0300      	lsls	r0, r0, #12
+     e90:	f8d0 3200 	ldr.w	r3, [r0, #512]	; 0x200
+     e94:	4319      	orrs	r1, r3
+     e96:	f8c0 1200 	str.w	r1, [r0, #512]	; 0x200
+     e9a:	4770      	bx	lr
+
+00000e9c <am_hal_iom_int_clear>:
+     e9c:	f500 20a0 	add.w	r0, r0, #327680	; 0x50000
+     ea0:	3004      	adds	r0, #4
+     ea2:	0300      	lsls	r0, r0, #12
+     ea4:	f8c0 1208 	str.w	r1, [r0, #520]	; 0x208
+     ea8:	4770      	bx	lr
+     eaa:	bf00      	nop
+
+00000eac <am_hal_iom_int_status_get>:
+     eac:	f500 20a0 	add.w	r0, r0, #327680	; 0x50000
+     eb0:	3004      	adds	r0, #4
+     eb2:	0300      	lsls	r0, r0, #12
+     eb4:	b911      	cbnz	r1, ebc <am_hal_iom_int_status_get+0x10>
+     eb6:	f8d0 0204 	ldr.w	r0, [r0, #516]	; 0x204
+     eba:	4770      	bx	lr
+     ebc:	f8d0 3204 	ldr.w	r3, [r0, #516]	; 0x204
+     ec0:	f8d0 0200 	ldr.w	r0, [r0, #512]	; 0x200
+     ec4:	4018      	ands	r0, r3
+     ec6:	4770      	bx	lr
+
+00000ec8 <am_itm_delay_cycles>:
+     ec8:	3801      	subs	r0, #1
+     eca:	f47f affd 	bne.w	ec8 <am_itm_delay_cycles>
+     ece:	4770      	bx	lr
+
+00000ed0 <am_hal_itm_delay_us>:
+     ed0:	b510      	push	{r4, lr}
+     ed2:	4604      	mov	r4, r0
+     ed4:	f7ff fc58 	bl	788 <am_hal_clkgen_sysclk_get>
+     ed8:	4b04      	ldr	r3, [pc, #16]	; (eec <am_hal_itm_delay_us+0x1c>)
+     eda:	fba3 2000 	umull	r2, r0, r3, r0
+     ede:	0c80      	lsrs	r0, r0, #18
+     ee0:	fb04 f000 	mul.w	r0, r4, r0
+     ee4:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+     ee8:	f7ff bfee 	b.w	ec8 <am_itm_delay_cycles>
+     eec:	165e9f81 	.word	0x165e9f81
+
+00000ef0 <am_hal_itm_enable>:
+     ef0:	4b0d      	ldr	r3, [pc, #52]	; (f28 <am_hal_itm_enable+0x38>)
+     ef2:	681b      	ldr	r3, [r3, #0]
+     ef4:	07da      	lsls	r2, r3, #31
+     ef6:	b430      	push	{r4, r5}
+     ef8:	d414      	bmi.n	f24 <am_hal_itm_enable+0x34>
+     efa:	4a0c      	ldr	r2, [pc, #48]	; (f2c <am_hal_itm_enable+0x3c>)
+     efc:	6813      	ldr	r3, [r2, #0]
+     efe:	f043 7380 	orr.w	r3, r3, #16777216	; 0x1000000
+     f02:	6013      	str	r3, [r2, #0]
+     f04:	6813      	ldr	r3, [r2, #0]
+     f06:	01db      	lsls	r3, r3, #7
+     f08:	d5fc      	bpl.n	f04 <am_hal_itm_enable+0x14>
+     f0a:	4809      	ldr	r0, [pc, #36]	; (f30 <am_hal_itm_enable+0x40>)
+     f0c:	4d09      	ldr	r5, [pc, #36]	; (f34 <am_hal_itm_enable+0x44>)
+     f0e:	4c0a      	ldr	r4, [pc, #40]	; (f38 <am_hal_itm_enable+0x48>)
+     f10:	490a      	ldr	r1, [pc, #40]	; (f3c <am_hal_itm_enable+0x4c>)
+     f12:	4b0b      	ldr	r3, [pc, #44]	; (f40 <am_hal_itm_enable+0x50>)
+     f14:	6005      	str	r5, [r0, #0]
+     f16:	4a0b      	ldr	r2, [pc, #44]	; (f44 <am_hal_itm_enable+0x54>)
+     f18:	250f      	movs	r5, #15
+     f1a:	f04f 30ff 	mov.w	r0, #4294967295
+     f1e:	6025      	str	r5, [r4, #0]
+     f20:	6008      	str	r0, [r1, #0]
+     f22:	601a      	str	r2, [r3, #0]
+     f24:	bc30      	pop	{r4, r5}
+     f26:	4770      	bx	lr
+     f28:	10000224 	.word	0x10000224
+     f2c:	e000edfc 	.word	0xe000edfc
+     f30:	e0000fb0 	.word	0xe0000fb0
+     f34:	c5acce55 	.word	0xc5acce55
+     f38:	e0000e40 	.word	0xe0000e40
+     f3c:	e0000e00 	.word	0xe0000e00
+     f40:	e0000e80 	.word	0xe0000e80
+     f44:	00150511 	.word	0x00150511
+
+00000f48 <am_hal_itm_not_busy>:
+     f48:	b508      	push	{r3, lr}
+     f4a:	4a08      	ldr	r2, [pc, #32]	; (f6c <am_hal_itm_not_busy+0x24>)
+     f4c:	6813      	ldr	r3, [r2, #0]
+     f4e:	021b      	lsls	r3, r3, #8
+     f50:	d4fc      	bmi.n	f4c <am_hal_itm_not_busy+0x4>
+     f52:	f7ff fc19 	bl	788 <am_hal_clkgen_sysclk_get>
+     f56:	4b06      	ldr	r3, [pc, #24]	; (f70 <am_hal_itm_not_busy+0x28>)
+     f58:	fba3 2000 	umull	r2, r0, r3, r0
+     f5c:	0c80      	lsrs	r0, r0, #18
+     f5e:	2332      	movs	r3, #50	; 0x32
+     f60:	fb03 f000 	mul.w	r0, r3, r0
+     f64:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+     f68:	f7ff bfae 	b.w	ec8 <am_itm_delay_cycles>
+     f6c:	e0000e80 	.word	0xe0000e80
+     f70:	165e9f81 	.word	0x165e9f81
+
+00000f74 <am_hal_itm_stimulus_reg_word_write>:
+     f74:	f100 5060 	add.w	r0, r0, #939524096	; 0x38000000
+     f78:	0082      	lsls	r2, r0, #2
+     f7a:	6813      	ldr	r3, [r2, #0]
+     f7c:	2b00      	cmp	r3, #0
+     f7e:	d0fc      	beq.n	f7a <am_hal_itm_stimulus_reg_word_write+0x6>
+     f80:	6011      	str	r1, [r2, #0]
+     f82:	4770      	bx	lr
+
+00000f84 <am_hal_itm_sync_send>:
+     f84:	4904      	ldr	r1, [pc, #16]	; (f98 <am_hal_itm_sync_send+0x14>)
+     f86:	680b      	ldr	r3, [r1, #0]
+     f88:	4a03      	ldr	r2, [pc, #12]	; (f98 <am_hal_itm_sync_send+0x14>)
+     f8a:	2b00      	cmp	r3, #0
+     f8c:	d0fb      	beq.n	f86 <am_hal_itm_sync_send+0x2>
+     f8e:	f04f 33f8 	mov.w	r3, #4177066232	; 0xf8f8f8f8
+     f92:	6013      	str	r3, [r2, #0]
+     f94:	4770      	bx	lr
+     f96:	bf00      	nop
+     f98:	e000005c 	.word	0xe000005c
+
+00000f9c <am_hal_itm_print>:
+     f9c:	7803      	ldrb	r3, [r0, #0]
+     f9e:	b4f0      	push	{r4, r5, r6, r7}
+     fa0:	b303      	cbz	r3, fe4 <am_hal_itm_print+0x48>
+     fa2:	4603      	mov	r3, r0
+     fa4:	2200      	movs	r2, #0
+     fa6:	f813 1f01 	ldrb.w	r1, [r3, #1]!
+     faa:	3201      	adds	r2, #1
+     fac:	2900      	cmp	r1, #0
+     fae:	d1fa      	bne.n	fa6 <am_hal_itm_print+0xa>
+     fb0:	490d      	ldr	r1, [pc, #52]	; (fe8 <am_hal_itm_print+0x4c>)
+     fb2:	4d0e      	ldr	r5, [pc, #56]	; (fec <am_hal_itm_print+0x50>)
+     fb4:	680b      	ldr	r3, [r1, #0]
+     fb6:	1886      	adds	r6, r0, r2
+     fb8:	468c      	mov	ip, r1
+     fba:	1f2f      	subs	r7, r5, #4
+     fbc:	1d1c      	adds	r4, r3, #4
+     fbe:	681a      	ldr	r2, [r3, #0]
+     fc0:	600c      	str	r4, [r1, #0]
+     fc2:	f102 5260 	add.w	r2, r2, #939524096	; 0x38000000
+     fc6:	f810 4b01 	ldrb.w	r4, [r0], #1
+     fca:	0092      	lsls	r2, r2, #2
+     fcc:	6813      	ldr	r3, [r2, #0]
+     fce:	2b00      	cmp	r3, #0
+     fd0:	d0fc      	beq.n	fcc <am_hal_itm_print+0x30>
+     fd2:	7014      	strb	r4, [r2, #0]
+     fd4:	680b      	ldr	r3, [r1, #0]
+     fd6:	42ab      	cmp	r3, r5
+     fd8:	bf24      	itt	cs
+     fda:	f8cc 7000 	strcs.w	r7, [ip]
+     fde:	4b04      	ldrcs	r3, [pc, #16]	; (ff0 <am_hal_itm_print+0x54>)
+     fe0:	42b0      	cmp	r0, r6
+     fe2:	d1eb      	bne.n	fbc <am_hal_itm_print+0x20>
+     fe4:	bcf0      	pop	{r4, r5, r6, r7}
+     fe6:	4770      	bx	lr
+     fe8:	10000204 	.word	0x10000204
+     fec:	10000234 	.word	0x10000234
+     ff0:	10000230 	.word	0x10000230
+
+00000ff4 <am_hal_mcuctrl_bandgap_disable>:
+     ff4:	4b02      	ldr	r3, [pc, #8]	; (1000 <am_hal_mcuctrl_bandgap_disable+0xc>)
+     ff6:	f06f 0201 	mvn.w	r2, #1
+     ffa:	601a      	str	r2, [r3, #0]
+     ffc:	4770      	bx	lr
+     ffe:	bf00      	nop
+    1000:	400200fc 	.word	0x400200fc
+
+00001004 <am_hal_mcuctrl_bucks_enable>:
+    1004:	4b08      	ldr	r3, [pc, #32]	; (1028 <am_hal_mcuctrl_bucks_enable+0x24>)
+    1006:	4a09      	ldr	r2, [pc, #36]	; (102c <am_hal_mcuctrl_bucks_enable+0x28>)
+    1008:	6819      	ldr	r1, [r3, #0]
+    100a:	f041 0102 	orr.w	r1, r1, #2
+    100e:	6019      	str	r1, [r3, #0]
+    1010:	6819      	ldr	r1, [r3, #0]
+    1012:	f041 0101 	orr.w	r1, r1, #1
+    1016:	6019      	str	r1, [r3, #0]
+    1018:	6813      	ldr	r3, [r2, #0]
+    101a:	0799      	lsls	r1, r3, #30
+    101c:	d5fc      	bpl.n	1018 <am_hal_mcuctrl_bucks_enable+0x14>
+    101e:	4a03      	ldr	r2, [pc, #12]	; (102c <am_hal_mcuctrl_bucks_enable+0x28>)
+    1020:	6813      	ldr	r3, [r2, #0]
+    1022:	07db      	lsls	r3, r3, #31
+    1024:	d5fc      	bpl.n	1020 <am_hal_mcuctrl_bucks_enable+0x1c>
+    1026:	4770      	bx	lr
+    1028:	40020010 	.word	0x40020010
+    102c:	40020014 	.word	0x40020014
+
+00001030 <am_hal_rtc_osc_select>:
+    1030:	4b05      	ldr	r3, [pc, #20]	; (1048 <am_hal_rtc_osc_select+0x18>)
+    1032:	681a      	ldr	r2, [r3, #0]
+    1034:	b918      	cbnz	r0, 103e <am_hal_rtc_osc_select+0xe>
+    1036:	f022 0280 	bic.w	r2, r2, #128	; 0x80
+    103a:	601a      	str	r2, [r3, #0]
+    103c:	4770      	bx	lr
+    103e:	f042 0280 	orr.w	r2, r2, #128	; 0x80
+    1042:	601a      	str	r2, [r3, #0]
+    1044:	4770      	bx	lr
+    1046:	bf00      	nop
+    1048:	4000400c 	.word	0x4000400c
+
+0000104c <am_hal_rtc_osc_disable>:
+    104c:	4b02      	ldr	r3, [pc, #8]	; (1058 <am_hal_rtc_osc_disable+0xc>)
+    104e:	681a      	ldr	r2, [r3, #0]
+    1050:	f042 0210 	orr.w	r2, r2, #16
+    1054:	601a      	str	r2, [r3, #0]
+    1056:	4770      	bx	lr
+    1058:	40004050 	.word	0x40004050
+
+0000105c <am_hal_sysctrl_sleep>:
+    105c:	b158      	cbz	r0, 1076 <am_hal_sysctrl_sleep+0x1a>
+    105e:	4b0a      	ldr	r3, [pc, #40]	; (1088 <am_hal_sysctrl_sleep+0x2c>)
+    1060:	681b      	ldr	r3, [r3, #0]
+    1062:	f033 0201 	bics.w	r2, r3, #1
+    1066:	4b09      	ldr	r3, [pc, #36]	; (108c <am_hal_sysctrl_sleep+0x30>)
+    1068:	681a      	ldr	r2, [r3, #0]
+    106a:	d007      	beq.n	107c <am_hal_sysctrl_sleep+0x20>
+    106c:	f022 0204 	bic.w	r2, r2, #4
+    1070:	601a      	str	r2, [r3, #0]
+    1072:	bf30      	wfi
+    1074:	4770      	bx	lr
+    1076:	4b05      	ldr	r3, [pc, #20]	; (108c <am_hal_sysctrl_sleep+0x30>)
+    1078:	681a      	ldr	r2, [r3, #0]
+    107a:	e7f7      	b.n	106c <am_hal_sysctrl_sleep+0x10>
+    107c:	f042 0204 	orr.w	r2, r2, #4
+    1080:	601a      	str	r2, [r3, #0]
+    1082:	bf30      	wfi
+    1084:	4770      	bx	lr
+    1086:	bf00      	nop
+    1088:	40020250 	.word	0x40020250
+    108c:	e000ed10 	.word	0xe000ed10
+
+00001090 <am_hal_tpiu_enable>:
+    1090:	e92d 01f0 	stmdb	sp!, {r4, r5, r6, r7, r8}
+    1094:	480c      	ldr	r0, [pc, #48]	; (10c8 <am_hal_tpiu_enable+0x38>)
+    1096:	4f0d      	ldr	r7, [pc, #52]	; (10cc <am_hal_tpiu_enable+0x3c>)
+    1098:	4e0d      	ldr	r6, [pc, #52]	; (10d0 <am_hal_tpiu_enable+0x40>)
+    109a:	4d0e      	ldr	r5, [pc, #56]	; (10d4 <am_hal_tpiu_enable+0x44>)
+    109c:	f8df c03c 	ldr.w	ip, [pc, #60]	; 10dc <am_hal_tpiu_enable+0x4c>
+    10a0:	490d      	ldr	r1, [pc, #52]	; (10d8 <am_hal_tpiu_enable+0x48>)
+    10a2:	2300      	movs	r3, #0
+    10a4:	f04f 0801 	mov.w	r8, #1
+    10a8:	2202      	movs	r2, #2
+    10aa:	f240 2401 	movw	r4, #513	; 0x201
+    10ae:	6003      	str	r3, [r0, #0]
+    10b0:	f8cc 8000 	str.w	r8, [ip]
+    10b4:	2032      	movs	r0, #50	; 0x32
+    10b6:	603a      	str	r2, [r7, #0]
+    10b8:	6032      	str	r2, [r6, #0]
+    10ba:	602b      	str	r3, [r5, #0]
+    10bc:	600c      	str	r4, [r1, #0]
+    10be:	e8bd 01f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8}
+    10c2:	f7ff bf05 	b.w	ed0 <am_hal_itm_delay_us>
+    10c6:	bf00      	nop
+    10c8:	e0040304 	.word	0xe0040304
+    10cc:	e0040010 	.word	0xe0040010
+    10d0:	e00400f0 	.word	0xe00400f0
+    10d4:	e0040f00 	.word	0xe0040f00
+    10d8:	40020250 	.word	0x40020250
+    10dc:	e0040004 	.word	0xe0040004
+
+000010e0 <am_hal_tpiu_disable>:
+    10e0:	4b01      	ldr	r3, [pc, #4]	; (10e8 <am_hal_tpiu_disable+0x8>)
+    10e2:	2200      	movs	r2, #0
+    10e4:	601a      	str	r2, [r3, #0]
+    10e6:	4770      	bx	lr
+    10e8:	40020250 	.word	0x40020250
+
+000010ec <am_hal_vcomp_disable>:
+    10ec:	4b01      	ldr	r3, [pc, #4]	; (10f4 <am_hal_vcomp_disable+0x8>)
+    10ee:	2237      	movs	r2, #55	; 0x37
+    10f0:	601a      	str	r2, [r3, #0]
+    10f2:	4770      	bx	lr
+    10f4:	4000c008 	.word	0x4000c008
+
+000010f8 <am_hal_debug_error>:
+    10f8:	e7fe      	b.n	10f8 <am_hal_debug_error>
+    10fa:	bf00      	nop
+
+000010fc <g_sIOMConfig>:
+    10fc:	0001 0000 0900 0000 0000 3c00               ...........<
+
+00001108 <g_sADXL>:
+    1108:	0001 0000 0000 0000 0004 0000 0000 0000     ................
+
+00001118 <CSWTCH.2>:
+    1118:	3600 016e 1b00 00b7 1200 007a 8d80 005b     .6n.......z...[.
+    1128:	3e00 0049 0900 003d 50db 0034 c6c0 002d     .>I...=..P4...-.
+    1138:	2e2e 2e2f 612f 5f6d 6168 5f6c 6f69 2e6d     .././am_hal_iom.
+    1148:	0063 0000 5053 2049 7274 6e61 6673 7265     c...SPI transfer
+    1158:	7420 6f6f 6220 6769 002e 0000 6854 2065      too big....The 
+    1168:	6966 6f66 6320 756f 646c 276e 2074 6966     fifo couldn't fi
+    1178:	2074 6874 2065 6572 7571 7365 6574 2064     t the requested 
+    1188:	756e 626d 7265 6f20 2066 7962 6574 0073     number of bytes.
+    1198:	6854 2065 6966 6f66 6420 656f 6e73 7427     The fifo doesn't
+    11a8:	6320 6e6f 6174 6e69 7420 6568 7220 7165      contain the req
+    11b8:	6575 7473 6465 6e20 6d75 6562 2072 666f     uested number of
+    11c8:	6220 7479 7365 002e 3249 2043 7274 6e61      bytes..I2C tran
+    11d8:	6673 7265 7420 6f6f 6220 6769 002e 0000     sfer too big....

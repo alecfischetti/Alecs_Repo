@@ -1,0 +1,11 @@
+r 
+w2 50000012, A6 
+W2 50003308, e
+w2 50000010, 0f00
+loadbin "DA14580_HCI_p1.bin", 0 
+verifybin "DA14580_HCI_p1.bin", 0 
+loadbin "DA14580_HCI_p2.bin", 80000 
+verifybin "DA14580_HCI_p2.bin", 80000
+r
+g 
+exit 
