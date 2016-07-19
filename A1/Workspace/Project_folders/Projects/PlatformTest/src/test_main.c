@@ -314,15 +314,21 @@ void readCmd(uint8_t *cmd1, uint32_t *cmd2, uint32_t *cmd3)
    uint32_t command, i;
    uint32_t len, index=0;
    
+   // Empty the buffer
    for(i=0; i<16; i++)
    {
-       rxBuffer[i] = ' ';
+       rxBuffer[i] = '\0';
    }
    
+   // Receive the input into rxBuffer
+   // Max: 16 chars
    am_hal_uart_line_receive_polled((uint32_t)16, &rxBuffer[0]);
 
-   am_util_stdio_printf("Val: %c,%c,%c,%c,%c,%c,%c,%c,%c,%c\n", rxBuffer[0], rxBuffer[1], rxBuffer[2], rxBuffer[3], rxBuffer[4], rxBuffer[5],rxBuffer[6],rxBuffer[7],rxBuffer[8],rxBuffer[9]);
+   // am_util_stdio_printf will terminate at the first null char
+   am_util_stdio_printf("Val: %c,%c,%c,%c,%c,%c,%c,%c,%c,%c", rxBuffer[0], rxBuffer[1], rxBuffer[2], rxBuffer[3], rxBuffer[4], rxBuffer[5],rxBuffer[6],rxBuffer[7],rxBuffer[8],rxBuffer[9]);
+   am_util_stdio_printf("\n");
 
+   // Parse input
    uart_transmit_delay();
    command = convertStrToDec(&rxBuffer[0], &len);
    am_util_stdio_printf(" %d \n", command);
@@ -346,7 +352,9 @@ void readCmd(uint8_t *cmd1, uint32_t *cmd2, uint32_t *cmd3)
    uart_transmit_delay();
    *cmd2 = command;
 
-   if(*cmd1 == 1)
+   // Collect third command for commands 2. GPIO Set Value
+   // and 3. GPIO Set Direction
+   if(*cmd1 == 2 || *cmd1 == 3)
    {
 	   index = index + len;
 	   command = convertStrToDec(&rxBuffer[index], &len);
@@ -371,7 +379,7 @@ void processCmd(uint8_t TestCommand1, uint32_t TestCommand2, uint32_t TestComman
         break;
 
         case CMD_TEST_GPIO_SET:
-            am_util_stdio_printf("Set State Of GPIO to %d\n", TestCommand3);
+            am_util_stdio_printf("Set State Of GPIO %d to %d\n", TestCommand2, TestCommand3);
             if(TestCommand3 == 1)
             {
                 am_hal_gpio_out_bit_set(TestCommand2);
@@ -384,7 +392,15 @@ void processCmd(uint8_t TestCommand1, uint32_t TestCommand2, uint32_t TestComman
         break;
 
         case CMD_TEST_GPIO_SET_DIR:
-            am_util_stdio_printf("Set Direction Of GPIO %d to %d\n",TestCommand2, TestCommand3);
+            am_util_stdio_printf("Set Direction Of GPIO %d to %d\n", TestCommand2, TestCommand3);
+            if (TestCommand3 == 0)
+            {
+            	am_hal_gpio_pin_config(TestCommand2,  AM_HAL_GPIO_INPUT);
+            }
+            else
+            {
+            	am_hal_gpio_pin_config(TestCommand2,  AM_HAL_GPIO_OUTPUT);
+            }
             am_hal_gpio_pin_config(TestCommand2,  TestCommand3);
             uart_transmit_delay();
         break;
@@ -566,6 +582,6 @@ int main(void)
         processCmd(command1, command2, command3);
 
         // delay 10 milliseconds
-        am_util_delay_ms(10); 
+        am_util_delay_ms(10);
     }
 }
