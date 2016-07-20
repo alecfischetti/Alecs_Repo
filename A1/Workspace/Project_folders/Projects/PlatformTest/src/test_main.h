@@ -16,30 +16,6 @@ extern "C"
 {
 #endif
 
-//#define    CMD_TEST_GPIO_GET                        0x0001
-//#define    CMD_TEST_GPIO_SET                        0x0002
-//#define    CMD_TEST_GPIO_CLEAR                      0x0002
-//#define    CMD_TEST_GPIO_SET                        0x0002
-//#define    CMD_TEST_GPIO_SET                        0x0002
-//#define    CMD_TEST_GPIO_SET_DIR                    0x0003
-//#define    CMD_TEST_I2C                             0x0004
-//#define    CMD_TEST_SPI                             0x0005
-//#define    CMD_TEST_UART                            0x0006
-//#define    CMD_TEST_ISR                             0x0007
-//#define    CMD_TEST_TIMER                           0x0008
-//#define    CMD_TEST_FLOATING_POINT                  0x0009
-//#define    CMD_TEST_ADX1362                         0x000A
-//#define    CMD_TEST_BMI160                          0x000B
-//#define    CMD_TSET_LIS3MDL                         0x000C
-//#define    CMD_TSET_LIS2DH12                        0x000D
-//#define    CMD_TSET_L3GD20H                         0x000E
-//#define    CMD_TEST_LSM6DSL                         0x000F
-//#define    CMD_TEST_THROUGHPUT_CHAR                 0x0010
-//#define    CMD_TEST_THROUGHPUT_NOTFI                0x0011
-//#define    CMD_TEST_DEEP_DEEP_SLEEP                 0x0012
-//#define    CMD_TEST_NORMAL_SLEEP                    0x0013
-//#define    CMD_TEST_PSIKICK                         0x0014
-
 typedef enum cmd_test_enum
 {
 	CMD_TEST_GPIO_GET,

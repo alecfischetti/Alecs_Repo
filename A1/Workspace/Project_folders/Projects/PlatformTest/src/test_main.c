@@ -250,15 +250,15 @@ void print_test_menu(void)
    uart_transmit_delay();
    am_util_stdio_printf("          2.   Gpio Set <2 Gpio#> Changes this Gpio pin to high\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          3.   Gpio Clear <2 Gpio#> Changes this Gpio pin to ground\n");
+   am_util_stdio_printf("          3.   Gpio Clear <3 Gpio#> Changes this Gpio pin to ground\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          4.   Gpio Toggle <2 Gpio#> Change the state of specified gpio\n");
+   am_util_stdio_printf("          4.   Gpio Toggle <4 Gpio#> Change the state of specified gpio\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          5.   Gpio Replace <2 Gpio# (0=Low 1=High)> Set this Gpio pin high\n");
+   am_util_stdio_printf("          5.   Gpio Replace <5 Gpio# (0=Low 1=High)> Set this Gpio pin high\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          6.   Gpio Set Direction <3 Gpio# In (0) or Out(1)> Sets Direction of this Gpio \n");
+   am_util_stdio_printf("          6.   Gpio Set Direction <6 Gpio# In (0) or Out(1)> Sets Direction of this Gpio \n");
    uart_transmit_delay();
-   am_util_stdio_printf("          7.   I2c <2 deviceID 0 or 1 (Read or Write)> \n");
+   am_util_stdio_printf("          7.   I2c <7 deviceID 0 or 1 (Read or Write)> \n");
    uart_transmit_delay();
    am_util_stdio_printf("          8.   Spi \n");
    uart_transmit_delay();
@@ -270,17 +270,17 @@ void print_test_menu(void)
    uart_transmit_delay();
    am_util_stdio_printf("          12.   Floating point \n");
    uart_transmit_delay();
-   am_util_stdio_printf("          13.   Test ADX1362 (10 NumOfIterations, default 1000>\n");
+   am_util_stdio_printf("          13.   Test ADX1362 (13 NumOfIterations, default 1000>\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          14.   Test BMI160 (11 NumOfIterations, default 1000>\n");
+   am_util_stdio_printf("          14.   Test BMI160 (14 NumOfIterations, default 1000>\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          15.  Test LIS3MDL (12 NumOfIterations, default 1000>\n");
+   am_util_stdio_printf("          15.  Test LIS3MDL (15 NumOfIterations, default 1000>\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          16.  Test LIS2DH12 (13 NumOfIterations, default 1000>\n");
+   am_util_stdio_printf("          16.  Test LIS2DH12 (16 NumOfIterations, default 1000>\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          17.  Test L3GD20H (14 NumOfIterations, default 1000>\n");
+   am_util_stdio_printf("          17.  Test L3GD20H (17 NumOfIterations, default 1000>\n");
    uart_transmit_delay();
-   am_util_stdio_printf("          18.  Test LSM6DSL (15 NumOfIterations, default 1000>\n");
+   am_util_stdio_printf("          18.  Test LSM6DSL (18 NumOfIterations, default 1000>\n");
    uart_transmit_delay();
    am_util_stdio_printf("          19.  Throughput With Characteristic \n");
    uart_transmit_delay();               
@@ -319,6 +319,7 @@ void readCmd(cmd_test_enum *cmd1, uint32_t *cmd2, uint32_t *cmd3)
   // uint32_t numOfIter,numOfIter1 = 0;
    uint32_t command, i;
    uint32_t len, index=0;
+   bool validInput = true;
    
    // Empty the buffer
    for(i=0; i<16; i++)
@@ -339,20 +340,16 @@ void readCmd(cmd_test_enum *cmd1, uint32_t *cmd2, uint32_t *cmd3)
    command = convertStrToDec(&rxBuffer[0], &len);
    am_util_stdio_printf(" %d \n", command);
    uart_transmit_delay();
-   *cmd1 = (cmd_test_enum)command;
-   index = len;
-   command = convertStrToDec(&rxBuffer[index], &len);
-
-   /*
-   if(command > 9)
+   if (command > 0 || command <= 23)
    {
-	   command = convertStrToDec(&rxBuffer[3], &len);
+	   *cmd1 = (cmd_test_enum)(command - 1); // necessary to do so to make enum work
    }
    else
    {
-       command = convertStrToDec(&rxBuffer[2],&len);
+	   validInput = false;
    }
-   */
+   index = len;
+   command = convertStrToDec(&rxBuffer[index], &len);
 
    am_util_stdio_printf(" %d \n", command);
    uart_transmit_delay();
@@ -360,7 +357,9 @@ void readCmd(cmd_test_enum *cmd1, uint32_t *cmd2, uint32_t *cmd3)
 
    // Collect third command for commands 2. GPIO Set Value
    // and 3. GPIO Set Direction
-   if(*cmd1 == 2 || *cmd1 == 3)
+   if(*cmd1 == CMD_TEST_GPIO_REPLACE ||
+	  *cmd1 == CMD_TEST_GPIO_SET_DIR ||
+	  *cmd1 == CMD_TEST_I2C)
    {
 	   index = index + len;
 	   command = convertStrToDec(&rxBuffer[index], &len);
@@ -417,10 +416,12 @@ void processCmd(cmd_test_enum TestCommand1, uint32_t TestCommand2, uint32_t Test
             am_util_stdio_printf("Set Direction Of GPIO %d to %d\n", TestCommand2, TestCommand3);
             if (TestCommand3 == 0)
             {
+            	am_hal_gpio_out_enable_bit_clear(TestCommand2);
             	am_hal_gpio_pin_config(TestCommand2,  AM_HAL_GPIO_INPUT);
             }
             else
             {
+            	am_hal_gpio_out_enable_bit_set(TestCommand2);
             	am_hal_gpio_pin_config(TestCommand2,  AM_HAL_GPIO_OUTPUT);
             }
             uart_transmit_delay();
