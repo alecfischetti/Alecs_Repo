@@ -35,3 +35,8 @@
 
 # Directories
 .metadata/
+gpio_spi/
+bin/
+
+# Misc.
+*.prefs
