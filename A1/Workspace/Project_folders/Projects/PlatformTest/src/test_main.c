@@ -605,7 +605,6 @@ int main(void)
     print_test_menu();
 
     // myHello();
-
     //
     // Loop forever while sleeping.
     //
