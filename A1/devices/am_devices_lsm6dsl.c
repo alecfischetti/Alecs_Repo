@@ -2,11 +2,11 @@
 //
 //! @file am_devices_lsm6dsl.c
 //!
-//! @brief Generic lsm6dsl driver (iNEMO inertial module:
-//!        always-on 3D accelerometer and 3D gyroscope)
+//! @brief Driver for the ST Microelectronics LSM6DSL (iNEMO inertial module:
+//!        6 AXIS INERTIAL MODULE, always-on 3D accelerometer and 3D gyroscope)
 //!
 //! @addtogroup devices External Device Control Library
-//! @addtogroup lsm6dsl SPI Device Control for the LSM6DSL 
+//! @addtogroup lsm6dsl I2C Device Control for the LSM6DSL 
 //! @ingroup devices
 //! @{
 //
@@ -52,114 +52,50 @@
 
 //*****************************************************************************
 //
-//! @brief Reset the LSM3DSL mag
+//! @brief Configure the gpios to bit bang to lsm6dsl
 //!
-//! @param psDevice is a pointer to a device structure describing the LSM3DSL
+//! @param 
 //!
-//! This function resets the LSM3DSL gryo.
-//!
-//! @return None.
-//
-//*****************************************************************************
-void 
-am_devices_lsm6dsl_reset(am_devices_lsm6dsl_t *psDevice)
-{
-    //
-    // Reset the LSM6DSL Mag
-    //
-    am_devices_lsm6dsl_reg_write(psDevice, AM_DEVICES_LSM6DSL_CTRL_REG2, 0x0C);
-}
-
-//*****************************************************************************
-//
-//! @brief Get the device ID
-//!
-//! @param psDevice is a pointer to a device structure describing the LSM6DSL
-//!
-//! This function reads the device ID register and returns the result. The
-//! LSM6DSL should return 0x3D when functioning correctly.
-//!
-//! @return ID value.
-//
-//*****************************************************************************
-uint8_t 
-am_devices_lsm6dsl_device_id_get(am_devices_lsm6dsl_t *psDevice)
-{
-    //
-    // Read the WHO_AM_I register and return the result.
-    //
-    return am_devices_lsm6dsl_reg_read(psDevice, AM_DEVICES_LSM6DSL_WHO_AM_I);
-}
-
-//*****************************************************************************
-//
-//! @brief Configures the LSM6DSL for operation.
-//!
-//! @param psDevice is a pointer to a device structure describing the LSM6DSL.
-//!
-//! This function performs a basic, default configuration for the LSM6DSL.
+//! This function configures gpio 11 and 12 to communicate with lsm6dsl.
 //!
 //! @return None.
 //
 //*****************************************************************************
-void
-am_devices_lsm6dsl_config(am_devices_lsm6dsl_t *psDevice)
+void am_devices_lsm6dsl_config(void)
 {
-    am_hal_lsm6dsl_regs(6) sRegBuffer;
-
-    //
-    // Reset the device
-    //
-    am_devices_lsm6dsl_reset(psDevice);
-
-    sRegBuffer.bytes[0] = 0x10;     // CTRL_REG1
-    sRegBuffer.bytes[1] = 0x00;     // CTRL_REG2
-    sRegBuffer.bytes[2] = 0x00;     // CTRL_REG3
-    sRegBuffer.bytes[3] = 0x00;     // CTRL_REG4
-    sRegBuffer.bytes[4] = 0x00;     // CTRL_REG5
-
-    //
-    // Write the control registers to the device as one solid block write.
-    //
-    am_devices_lsm6dsl_reg_block_write(psDevice, AM_DEVICES_LSM6DSL_CTRL_REG1,
-                                       sRegBuffer.words, 5, 0);
-
-    //
-    // Clear out any old data that might be in the mag.
-    //
-    am_devices_lsm6dsl_sample_get(psDevice, sRegBuffer.words, 0);
+    am_hal_i2c_bit_bang_init(LSM6DSL_I2CSCL_GPIO,
+                             LSM6DSL_I2CSDA_GPIO);
 }
+
 
 //*****************************************************************************
 //
-//! @brief Retrieves the most recent sample from the LSM6DSL.
+//! @brief Enable/disable the LSM3DSL, 3D accelerometer and 3D gyroscope
 //!
-//! @param psDevice is a pointer to a device structure describing the LSM6DSL.
-//! @param psData is the location where this function will place the data.
-//! @param pfnCallback is an optional callback function.
+//! @param 
 //!
-//! This function reads the Magnetometer sample registers in the LSM6DSL, and
-//! places the resulting samples into the caller-supplied buffer. If a callback
-//! function is supplied, this function will use the am_hal_iom_spi_write_nb()
-//! call to perform the transfer, and the caller's callback function will be
-//! called upon completion.
-//!
-//! @note This function will write exactly 8 bytes of data to the location
-//! pointed to by psData. The caller must make sure that psData is large enough
-//! to hold this data.
+//! This function sets or clears the LSM3DSL sensor.
 //!
 //! @return None.
 //
 //*****************************************************************************
-void
-am_devices_lsm6dsl_sample_get(am_devices_lsm6dsl_t *psDevice, uint32_t *psData,
-                              am_hal_iom_callback_t pfnCallback)
+
+void am_devices_lsm6dsl_set_clear(uint8_t setClear)
 {
-    //
-    // Read the magnetometer registers as a single block.
-    //
-    am_devices_lsm6dsl_reg_block_read(psDevice, AM_DEVICES_LSM6DSL_OUT_X_L,
-                                      psData, 6, pfnCallback);
+    if(setClear)
+    {
+        //
+        // Sensor Enable -- set gpio 35 power high
+        //
+        am_hal_gpio_out_bit_set(LSM6DSL_SENSOR_ENABLE_GPIO);
+    }
+    else
+    {
+        //
+        // Sensor disable -- clear gpio 35 
+        //
+        am_hal_gpio_out_bit_clear(LSM6DSL_SENSOR_ENABLE_GPIO);
+    }
 }
 
 //*****************************************************************************
@@ -175,28 +111,9 @@ am_devices_lsm6dsl_sample_get(am_devices_lsm6dsl_t *psDevice, uint32_t *psData,
 //! @return
 //
 //*****************************************************************************
-uint8_t
-am_devices_lsm6dsl_reg_read(am_devices_lsm6dsl_t *psDevice,
-                            uint8_t ui8Register)
+void am_devices_lsm6dsl_reg_read(uint8_t ui8Register, uint32_t ui32NumBytes, uint8_t *value)
 {
-    uint8_t ui8Offset;
-    am_hal_iom_buffer(1) sData;
-
-    //
-    // Build the SPI offset and the data buffer.
-    //
-    ui8Offset = 0x80 | ui8Register;
-
-    //
-    // Send the read to the bus using the polled API.
-    //
-    am_hal_iom_spi_read(psDevice->ui32IOMModule, psDevice->ui32ChipSelect,
-                        sData.words, 1, AM_HAL_IOM_OFFSET(ui8Offset));
-
-    //
-    // Return the retrieved data.
-    //
-    return sData.bytes[0];
+     am_hal_i2c_bit_bang_receive(ui8Register, ui32NumBytes, value, 0, true);
 }
 
 //*****************************************************************************
@@ -218,45 +135,12 @@ am_devices_lsm6dsl_reg_read(am_devices_lsm6dsl_t *psDevice,
 //! @return
 //
 //*****************************************************************************
-void
-am_devices_lsm6dsl_reg_block_read(am_devices_lsm6dsl_t *psDevice,
-                                  uint8_t ui8StartRegister,
+void am_devices_lsm6dsl_reg_block_read(uint8_t ui8StartRegister,
                                   uint32_t *pui32Values,
                                   uint32_t ui32NumBytes,
                                   am_hal_iom_callback_t pfnCallback)
 {
-    uint8_t ui8Offset;
 
-    //
-    // Build the SPI offset for writing a block of registers from the
-    // user-supplied start point.
-    //
-    ui8Offset = 0xC0 | ui8StartRegister;
-
-    //
-    // Check to see if the callback pointer is valid.
-    //
-    if(pfnCallback)
-    {
-        //
-        // If so, use a non-blocking call with a callback.
-        //
-        am_hal_iom_spi_read_nb(psDevice->ui32IOMModule,
-                               psDevice->ui32ChipSelect,
-                               pui32Values, ui32NumBytes,
-                               AM_HAL_IOM_OFFSET(ui8Offset),
-                               pfnCallback);
-    }
-    else
-    {
-        //
-        // Otherwise, use a polled call.
-        //
-        am_hal_iom_spi_read(psDevice->ui32IOMModule,
-                            psDevice->ui32ChipSelect,
-                            pui32Values, ui32NumBytes,
-                            AM_HAL_IOM_OFFSET(ui8Offset));
-    }
 }
 
 //*****************************************************************************
@@ -272,24 +156,9 @@ am_devices_lsm6dsl_reg_block_read(am_devices_lsm6dsl_t *psDevice,
 //! @return
 //
 //*****************************************************************************
-void
-am_devices_lsm6dsl_reg_write(am_devices_lsm6dsl_t *psDevice,
-                             uint8_t ui8Register, uint8_t ui8Value)
+void am_devices_lsm6dsl_reg_write(uint8_t ui8Register, uint8_t ui8Value)
+
 {
-    uint8_t ui8Offset;
-    am_hal_iom_buffer(1) sData;
-
-    //
-    // Build the SPI offset and the data buffer.
-    //
-    ui8Offset = ui8Register;
-    sData.bytes[0] = ui8Value;
-
-    //
-    // Send the write to the bus using the polled API.
-    //
-    am_hal_iom_spi_write(psDevice->ui32IOMModule, psDevice->ui32ChipSelect,
-                         sData.words, 1, AM_HAL_IOM_OFFSET(ui8Offset));
 }
 
 //*****************************************************************************
@@ -312,44 +181,12 @@ am_devices_lsm6dsl_reg_write(am_devices_lsm6dsl_t *psDevice,
 //
 //*****************************************************************************
 void
-am_devices_lsm6dsl_reg_block_write(am_devices_lsm6dsl_t *psDevice,
-                                   uint8_t ui8StartRegister,
+am_devices_lsm6dsl_reg_block_write(uint8_t ui8StartRegister,
                                    uint32_t *pui32Values,
                                    uint32_t ui32NumBytes,
                                    am_hal_iom_callback_t pfnCallback)
 {
-    uint8_t ui8Offset;
 
-    //
-    // Build the SPI offset for writing a block of registers from the
-    // user-supplied start point.
-    //
-    ui8Offset = 0x40 | ui8StartRegister;
-
-    //
-    // Check to see if the callback pointer is valid.
-    //
-    if(pfnCallback)
-    {
-        //
-        // If so, use a non-blocking call with a callback.
-        //
-        am_hal_iom_spi_write_nb(psDevice->ui32IOMModule,
-                                psDevice->ui32ChipSelect,
-                                pui32Values, ui32NumBytes,
-                                AM_HAL_IOM_OFFSET(ui8Offset),
-                                pfnCallback);
-    }
-    else
-    {
-        //
-        // Otherwise, use a polled call.
-        //
-        am_hal_iom_spi_write(psDevice->ui32IOMModule,
-                             psDevice->ui32ChipSelect,
-                             pui32Values, ui32NumBytes,
-                             AM_HAL_IOM_OFFSET(ui8Offset));
-    }
 }
 
 //*****************************************************************************

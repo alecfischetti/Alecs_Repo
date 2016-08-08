@@ -3,10 +3,10 @@
 //! @file am_devices_lsm6dsl.h
 //!
 //! @brief Driver for the ST Microelectronics LSM6DSL (iNEMO inertial module:
-//!        always-on 3D accelerometer and 3D gyroscope)
+//!        6 AXIS INERTIAL MODULE, always-on 3D accelerometer and 3D gyroscope)
 //!
 //! @addtogroup devices External Device Control Library
-//! @addtogroup lsm6dsl SPI Device Control for the LSM6DSL 
+//! @addtogroup lsm6dsl I2C Device Control for the LSM6DSL 
 //! @ingroup devices
 //! @{
 //
@@ -55,12 +55,25 @@ extern "C"
 {
 #endif
 
+/***************** I2C Address *****************/
+#define AM_DEVICES_LSM6DSL_I2C_ADDRESS    0xD5
+
+/**************** Who am I  *******************/
+#define LSM6DSL_ACC_GYRO_WHO_AM_I         0x6A
+
+/*********** Sensor LSM6DSL Enable  ***********/
+#define LSM6DSL_SENSOR_ENABLE_GPIO        35
+
+/*********** LSM6DSL Bit Bang GPIOs  **********/
+#define LSM6DSL_I2CSCL_GPIO               11
+#define LSM6DSL_I2CSDA_GPIO               12
+
 //*****************************************************************************
 //
 // LSM6DSL Registers.
 //
 //*****************************************************************************
-#define AM_DEVICES_LSM6DSL_WHO_AM_I         0x0F
+#define AM_DEVICES_LSM6DSL_WHO_AM_I_REG     0x0F
 #define AM_DEVICES_LSM6DSL_CTRL_REG1        0x20
 #define AM_DEVICES_LSM6DSL_CTRL_REG2        0x21
 #define AM_DEVICES_LSM6DSL_CTRL_REG3        0x22
@@ -82,71 +95,24 @@ extern "C"
 
 //*****************************************************************************
 //
-// Structure for holding information about the LSM6DSL
-//
-//*****************************************************************************
-typedef struct
-{
-    uint32_t ui32IOMModule;
-    uint32_t ui32ChipSelect;
-}
-am_devices_lsm6dsl_t;
-
-//*****************************************************************************
-//
-// Buffer type to make reading lsm6dsl samples easier.
-//
-//*****************************************************************************
-#define am_devices_lsm6dsl_sample(n)                                          \
-    union                                                                     \
-    {                                                                         \
-        uint32_t words[((3 * n) + 1) >> 1];                                   \
-        int16_t samples[3 * n];                                               \
-    }
-
-//*****************************************************************************
-//
-// Useful types for handling data transfers to and from the LSM6DSL
-//
-//*****************************************************************************
-#define am_hal_lsm6dsl_regs(n)              am_hal_iom_buffer(n)
-
-//*****************************************************************************
-//
 // External function definitions.
 //
 //*****************************************************************************
-extern void am_devices_lsm6dsl_config(am_devices_lsm6dsl_t *psDevice);
+extern void am_devices_lsm6dsl_config(void);
+extern void am_devices_lsm6dsl_set_clear(uint8_t setClear);
+extern void am_devices_lsm6dsl_reg_read(uint8_t ui8Register,  uint32_t ui32NumBytes, uint8_t *value);
 
-extern void am_devices_lsm6dsl_sample_get(
-                                         am_devices_lsm6dsl_t *psDevice,
-                                         uint32_t *psData,
-                                         am_hal_iom_callback_t pfnCallback);
+extern void am_devices_lsm6dsl_reg_write(uint8_t ui8Register, uint8_t ui8Value);
 
-extern uint8_t am_devices_lsm6dsl_reg_read(am_devices_lsm6dsl_t *psDevice,
-                                         uint8_t ui8Register);
+extern void am_devices_lsm6dsl_reg_block_read(uint8_t ui8StartRegister, 
+                                              uint32_t *pui32Values, 
+                                              uint32_t ui32NumBytes, 
+                                              am_hal_iom_callback_t pfnCallback);
 
-extern void am_devices_lsm6dsl_reg_block_read(
-                                         am_devices_lsm6dsl_t *psDevice,
-                                         uint8_t ui8StartRegister,
-                                         uint32_t *pui32Values, uint32_t
-                                         ui32NumBytes,
-                                         am_hal_iom_callback_t
-                                         pfnCallback);
-
-extern void am_devices_lsm6dsl_reg_write(am_devices_lsm6dsl_t *psDevice,
-                                         uint8_t ui8Register, uint8_t ui8Value);
-
-extern void am_devices_lsm6dsl_reg_block_write(
-                                         am_devices_lsm6dsl_t *psDevice,
-                                         uint8_t ui8StartRegister,
-                                         uint32_t *pui32Values,
-                                         uint32_t ui32NumBytes,
-                                         am_hal_iom_callback_t pfnCallback);
-
-extern uint8_t am_devices_lsm6dsl_device_id_get(am_devices_lsm6dsl_t *psDevice);
-
-extern void am_devices_lsm6dsl_reset(am_devices_lsm6dsl_t *psDevice);
+extern void am_devices_lsm6dsl_reg_block_write(uint8_t ui8StartRegister, 
+                                               uint32_t *pui32Values, 
+                                               uint32_t ui32NumBytes, 
+                                               am_hal_iom_callback_t pfnCallback);
 
 #ifdef __cplusplus
 }

@@ -253,6 +253,19 @@ extern "C"
 #define AM_BSP_GPIO_VCOMP_RXO_CMP       18
 #define AM_BSP_GPIO_CFG_VCOMP_RXO_CMP   AM_HAL_PIN_INPUT
 
+
+//*****************************************************************************
+//
+// Psikick interrupt pins.
+//
+//*****************************************************************************
+
+#define AM_BSP_GPIO_PSIKICK_SELECT      15
+
+#define AM_BSP_GPIO_PSIKICK_INT         16
+#define AM_BSP_GPIO_CFG_PSIKICK_INT     AM_HAL_PIN_INPUT
+
+
 //*****************************************************************************
 //
 // Convenience macros for enabling and disabling pins by function.
