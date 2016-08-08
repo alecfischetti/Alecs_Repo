@@ -62,6 +62,7 @@ SRC+= l3gd20h.c
 SRC+= lis2dh12.c
 SRC+= lis3mdl.c
 SRC+= lsm6dsl.c
+SRC+= psikick1001.c
 SRC+= write_flash.c
 SRC+= am_devices_da14581.c
 SRC+= am_devices_adxl362.c

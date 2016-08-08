@@ -100,6 +100,16 @@
 			<locationURI>AMBIQ_ROOT/devices/am_devices_lis3mdl.h</locationURI>
 		</link>
 		<link>
+			<name>devices/am_devices_lsm6dsl.c</name>
+			<type>1</type>
+			<locationURI>PARENT-5-PROJECT_LOC/devices/am_devices_lsm6dsl.c</locationURI>
+		</link>
+		<link>
+			<name>devices/am_devices_lsm6dsl.h</name>
+			<type>1</type>
+			<locationURI>PARENT-5-PROJECT_LOC/devices/am_devices_lsm6dsl.h</locationURI>
+		</link>
+		<link>
 			<name>src/adxl362.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/src/adxl362.c</locationURI>

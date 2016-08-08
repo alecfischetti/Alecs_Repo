@@ -63,7 +63,6 @@ extern "C"
 //
 //*****************************************************************************
 #define AM_DEVICES_ADXL_IS_X_AXIS(sample)   ((sample & 0x00000001) != 0)
-#include <stdbool.h>
 
 typedef enum
 {
