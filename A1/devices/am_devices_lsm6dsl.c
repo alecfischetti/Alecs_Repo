@@ -102,96 +102,39 @@ void am_devices_lsm6dsl_set_clear(uint8_t setClear)
 //
 //! @brief Reads an internal register in the LSM6DSL.
 //!
-//! @param psDevice is a pointer to a device structure describing the LSM6DSL.
-//! @param ui32Register is the address of the register to read.
-//! @param ui32Value is the value to read to the register.
+//! @param ui8Register is the address of the register to read.
+//! @param ui8Value is the value to read to the register.
+//! @param ui32NumBytes is the value to read to the register.
 //!
-//! This function performs a read to an LSM6DSL register over the serial bus.
-//!
-//! @return
-//
-//*****************************************************************************
-void am_devices_lsm6dsl_reg_read(uint8_t ui8Register, uint32_t ui32NumBytes, uint8_t *value)
-{
-     am_hal_i2c_bit_bang_receive(ui8Register, ui32NumBytes, value, 0, true);
-}
-
-//*****************************************************************************
-//
-//! @brief Reads a block of internal registers in the LSM6DSL.
-//!
-//! @param psDevice is a pointer to a device structure describing the LSM6DSL.
-//! @param ui32StartRegister is the address of the first register to read.
-//! @param pui32Values is the byte-packed array where the read data will go.
-//! @param ui32NumBytes is the total number of 8-bit registers to read.
-//! @param pfnCallback is an optional callback function pointer.
-//!
-//! This function performs a read to a block of LSM6DSL registers over the
-//! serial bus. If the \e pfnCallback parameter is nonzero, this function will
-//! use the am_hal_iom_spi_read_nb() function as the underlying interface, and
-//! \e pfnCallback will be provided to the HAL as the IOM callback function.
-//! Otherwise, the SPI read will be polled.
+//! This function performs a read of an LSM6DSL register over the serial bus.
 //!
 //! @return
 //
 //*****************************************************************************
-void am_devices_lsm6dsl_reg_block_read(uint8_t ui8StartRegister,
-                                  uint32_t *pui32Values,
-                                  uint32_t ui32NumBytes,
-                                  am_hal_iom_callback_t pfnCallback)
+void am_devices_lsm6dsl_reg_read(uint8_t ui8Register, uint32_t ui32NumBytes, uint8_t *ui8Value)
 {
-
+     uint32_t lsm6dslAdd = (AM_DEVICES_LSM6DSL_I2C_ADDRESS << 1) | 1;
+     am_hal_i2c_bit_bang_receive((uint8_t)lsm6dslAdd, ui32NumBytes, ui8Value, ui8Register, true);
 }
 
 //*****************************************************************************
 //
-//! @brief Writes an internal register in the LSM6DSL.
+//! @brief Writes to an internal register in the LSM6DSL.
 //!
-//! @param psDevice is a pointer to a device structure describing the LSM6DSL.
-//! @param ui32Register is the address of the register to write.
-//! @param ui32Value is the value to write to the register.
+//! @param ui8Register is the address of the register to write.
+//! @param ui8Value is the value to write to the register.
+//! @param ui32NumBytes is the value to read to the register.
 //!
 //! This function performs a write to an LSM6DSL register over the serial bus.
 //!
 //! @return
 //
 //*****************************************************************************
-void am_devices_lsm6dsl_reg_write(uint8_t ui8Register, uint8_t ui8Value)
-
+void am_devices_lsm6dsl_reg_write(uint8_t ui8Register, 
+                                  uint32_t ui32NumBytes, 
+                                  uint8_t *ui8Value)
 {
+    uint32_t lsm6dslAdd = AM_DEVICES_LSM6DSL_I2C_ADDRESS << 1;
+    am_hal_i2c_bit_bang_send((uint8_t)lsm6dslAdd, ui32NumBytes, ui8Value, ui8Register, true);
 }
 
-//*****************************************************************************
-//
-//! @brief Writes a block of internal registers in the LSM6DSL.
-//!
-//! @param psDevice is a pointer to a device structure describing the LSM6DSL.
-//! @param ui32StartRegister is the address of the first register to write.
-//! @param pui32Values is the byte-packed array of data to write.
-//! @param ui32NumBytes is the total number of registers to write.
-//! @param pfnCallback is an optional callback function pointer.
-//!
-//! This function performs a write to a block of LSM6DSL registers over the
-//! serial bus. If the \e pfnCallback parameter is nonzero, this function will
-//! use the am_hal_iom_spi_write_nb() function as the underlying interface, and
-//! \e pfnCallback will be provided to the HAL as the IOM callback function.
-//! Otherwise, the spi write will be polled.
-//!
-//! @return
-//
-//*****************************************************************************
-void
-am_devices_lsm6dsl_reg_block_write(uint8_t ui8StartRegister,
-                                   uint32_t *pui32Values,
-                                   uint32_t ui32NumBytes,
-                                   am_hal_iom_callback_t pfnCallback)
-{
-
-}
-
-//*****************************************************************************
-//
-// End Doxygen group.
-//! @}
-//
-//*****************************************************************************

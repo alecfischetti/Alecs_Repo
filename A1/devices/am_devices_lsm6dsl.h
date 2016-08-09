@@ -92,6 +92,9 @@ extern "C"
 #define AM_DEVICES_LSM6DSL_INT_SRC          0x31
 #define AM_DEVICES_LSM6DSL_INT_THS_L        0x32
 #define AM_DEVICES_LSM6DSL_INT_THS_H        0x33
+#define AM_DEVICES_LSM6DSL_WAKEUP_DUR       0x5C
+#define AM_DEVICES_LSM6DSL_MASTER_CMD_CODE  0x60
+
 
 //*****************************************************************************
 //
@@ -100,19 +103,10 @@ extern "C"
 //*****************************************************************************
 extern void am_devices_lsm6dsl_config(void);
 extern void am_devices_lsm6dsl_set_clear(uint8_t setClear);
-extern void am_devices_lsm6dsl_reg_read(uint8_t ui8Register,  uint32_t ui32NumBytes, uint8_t *value);
+void am_devices_lsm6dsl_reg_read(uint8_t ui8Register, uint32_t ui32NumBytes, uint8_t *ui8Value);
 
-extern void am_devices_lsm6dsl_reg_write(uint8_t ui8Register, uint8_t ui8Value);
+extern void am_devices_lsm6dsl_reg_write(uint8_t ui8Register, uint32_t ui32NumBytes, uint8_t *ui8Value);
 
-extern void am_devices_lsm6dsl_reg_block_read(uint8_t ui8StartRegister, 
-                                              uint32_t *pui32Values, 
-                                              uint32_t ui32NumBytes, 
-                                              am_hal_iom_callback_t pfnCallback);
-
-extern void am_devices_lsm6dsl_reg_block_write(uint8_t ui8StartRegister, 
-                                               uint32_t *pui32Values, 
-                                               uint32_t ui32NumBytes, 
-                                               am_hal_iom_callback_t pfnCallback);
 
 #ifdef __cplusplus
 }
